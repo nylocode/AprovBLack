@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle de Estilos e Tokens — Aprov</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f121d;
+      color: #e2e8f0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 380px;
+      min-width: 380px;
+      background: #171b29;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #111422;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(229, 161, 99, 0.2);
+      color: #e5a163;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    .sidebar-content {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .section-group {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .control-label {
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .control-sub {
+      font-size: 11px;
+      color: #64748b;
+      font-family: monospace;
+    }
+
+    .color-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: transparent;
+      padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    input[type="color"]::-webkit-color-swatch {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    .hex-text {
+      font-family: monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      width: 65px;
+    }
+
+    .text-input {
+      width: 100%;
+      background: #0f121d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: #e5a163;
+    }
+
+    /* Contrast warning */
+    .contrast-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .contrast-pass {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+
+    .contrast-fail {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+
+    /* Footer Action */
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #111422;
+    }
+
+    .btn-copy {
+      width: 100%;
+      padding: 12px;
+      background: #e5a163;
+      color: #211c17;
+      font-weight: 700;
+      font-size: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-copy:hover {
+      background: #d48f50;
+    }
+
+    .btn-copy:active {
+      transform: scale(0.98);
+    }
+
+    /* Preview Frame */
+    .preview-container {
+      flex: 1;
+      height: 100%;
+      background: #0b0d14;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-header {
+      height: 48px;
+      background: #111422;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .viewport-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-vp {
+      background: #1e2436;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .btn-vp.active {
+      background: #e5a163;
+      color: #211c17;
+      border-color: #e5a163;
+      font-weight: 600;
+    }
+
+    .frame-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: #ffffff;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SIDEBAR CONTROLS -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="badge">PAINEL LOCAL</span>
+      <h2>Editor de Tokens</h2>
+      <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Edite as variáveis e veja o site mudar ao vivo ao
+        lado.</p>
+      <div class="warning-box">
+        ⚠️ <strong>Aviso:</strong> Este arquivo é apenas para uso interno e testes locais. <u>Não publicar</u> em
+        produção.
+      </div>
+    </div>
+
+    <div class="sidebar-content">
+      <!-- MARCA -->
+      <div class="section-group">
+        <div class="section-title">🎨 Cor da Marca</div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Principal (--brand-primary)</span>
+            <span class="control-sub">Botões, ícones, destaques</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-brand-primary" value="#e5a163">
+            <span class="hex-text" id="txt-brand-primary">#e5a163</span>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Realce Alto (--brand-highlight)</span>
+            <span class="control-sub">Topo do gradiente</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-brand-highlight" value="#ffab57">
+            <span class="hex-text" id="txt-brand-highlight">#ffab57</span>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Intermediário (--brand-warm)</span>
+            <span class="control-sub">Meio do gradiente</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-brand-warm" value="#ff8f43">
+            <span class="hex-text" id="txt-brand-warm">#ff8f43</span>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Texto sobre o Botão (--brand-on-primary)</span>
+            <span class="control-sub">Contraste sobre o botão</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-brand-on-primary" value="#211c17">
+            <span class="hex-text" id="txt-brand-on-primary">#211c17</span>
+          </div>
+        </div>
+        <div id="contrast-button" class="contrast-badge contrast-pass">
+          ✓ Contraste Botão: 6.8:1 (Aprovado AA/AAA)
+        </div>
+      </div>
+
+      <!-- FUNDOS E SUPERFÍCIES -->
+      <div class="section-group">
+        <div class="section-title">🌑 Fundos e Superfícies</div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Fundo Hero (--bg-hero)</span>
+            <span class="control-sub">Azul escuro superior</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-bg-hero" value="#211c17">
+            <span class="hex-text" id="txt-bg-hero">#211c17</span>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Fundo da Página (--bg-page)</span>
+            <span class="control-sub">Corpo geral</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-bg-page" value="#ffffff">
+            <span class="hex-text" id="txt-bg-page">#ffffff</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEXTOS -->
+      <div class="section-group">
+        <div class="section-title">✍️ Tipografia e Textos</div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Títulos (--text-heading)</span>
+            <span class="control-sub">Preto / grafite</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-text-heading" value="#211c17">
+            <span class="hex-text" id="txt-text-heading">#211c17</span>
+          </div>
+        </div>
+        <div class="control-row">
+          <div class="control-label">
+            <span>Corpo (--text-body)</span>
+            <span class="control-sub">Texto padrão</span>
+          </div>
+          <div class="color-input-wrap">
+            <input type="color" id="clr-text-body" value="#383540">
+            <span class="hex-text" id="txt-text-body">#383540</span>
+          </div>
+        </div>
+        <div id="contrast-body" class="contrast-badge contrast-pass">
+          ✓ Contraste Corpo: 11.8:1 (Aprovado AAA)
+        </div>
+
+        <div style="margin-top: 14px;">
+          <label style="font-size: 12px; color: #cbd5e1; font-weight: 600;">Fonte dos Títulos (--font-heading)</label>
+          <input type="text" id="fnt-heading" class="text-input" value="'Helvetica Now', 'Inter V', sans-serif">
+        </div>
+        <div style="margin-top: 10px;">
+          <label style="font-size: 12px; color: #cbd5e1; font-weight: 600;">Fonte do Corpo (--font-body)</label>
+          <input type="text" id="fnt-body" class="text-input" value="'Inter V', 'Helvetica Now', sans-serif">
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="btn-copy" id="btn-copy">📋 Copiar tokens.css Atualizado</button>
+    </div>
+  </aside>
+
+  <!-- LIVE PREVIEW IFRAME -->
+  <main class="preview-container">
+    <div class="preview-header">
+      <span>Pré-visualização em tempo real (index.html)</span>
+      <div class="viewport-controls">
+        <button class="btn-vp active" data-width="100%">Desktop (100%)</button>
+        <button class="btn-vp" data-width="768px">Tablet (768px)</button>
+        <button class="btn-vp" data-width="375px">Mobile (375px)</button>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <iframe id="site-frame" src="../../index.html"></iframe>
+    </div>
+  </main>
+
+  <script>
+    const iframe = document.getElementById('site-frame');
+
+    // Controles de Cores
+    const colorBindings = [
+      { id: 'clr-brand-primary', txt: 'txt-brand-primary', prop: '--brand-primary' },
+      { id: 'clr-brand-highlight', txt: 'txt-brand-highlight', prop: '--brand-highlight' },
+      { id: 'clr-brand-warm', txt: 'txt-brand-warm', prop: '--brand-warm' },
+      { id: 'clr-brand-on-primary', txt: 'txt-brand-on-primary', prop: '--brand-on-primary' },
+      { id: 'clr-bg-hero', txt: 'txt-bg-hero', prop: '--bg-hero' },
+      { id: 'clr-bg-page', txt: 'txt-bg-page', prop: '--bg-page' },
+      { id: 'clr-text-heading', txt: 'txt-text-heading', prop: '--text-heading' },
+      { id: 'clr-text-body', txt: 'txt-text-body', prop: '--text-body' }
+    ];
+
+    function applyVariable(prop, val) {
+      try {
+        if (iframe.contentDocument && iframe.contentDocument.documentElement) {
+          iframe.contentDocument.documentElement.style.setProperty(prop, val);
+          // Atualiza gradiente composto se for cor de marca
+          if (prop.startsWith('--brand-')) {
+            const h = document.getElementById('clr-brand-highlight').value;
+            const w = document.getElementById('clr-brand-warm').value;
+            const p = document.getElementById('clr-brand-primary').value;
+            iframe.contentDocument.documentElement.style.setProperty(
+              '--brand-gradient',
+              `linear-gradient(180deg, ${h} 0%, ${w} 45%, ${p} 100%)`
+            );
+          }
+          if (iframe.contentWindow) {
+            iframe.contentWindow.dispatchEvent(new Event('tokens-updated'));
+          }
+        }
+      } catch (e) {
+        console.warn('Não foi possível injetar estilo no iframe:', e);
+      }
+    }
+
+    // Luminance and Contrast
+    function getLuminance(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const r = parseInt(hex.substr(0, 2), 16) / 255;
+      const g = parseInt(hex.substr(2, 2), 16) / 255;
+      const b = parseInt(hex.substr(4, 2), 16) / 255;
+      const a = [r, g, b].map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+      return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+    }
+
+    function getContrastRatio(hex1, hex2) {
+      const l1 = getLuminance(hex1);
+      const l2 = getLuminance(hex2);
+      const lighter = Math.max(l1, l2);
+      const darker = Math.min(l1, l2);
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    function updateContrastBadges() {
+      // 1. Botão
+      const bgBtn = document.getElementById('clr-brand-primary').value;
+      const txtBtn = document.getElementById('clr-brand-on-primary').value;
+      const ratioBtn = getContrastRatio(bgBtn, txtBtn);
+      const badgeBtn = document.getElementById('contrast-button');
+      if (ratioBtn >= 4.5) {
+        badgeBtn.className = 'contrast-badge contrast-pass';
+        badgeBtn.textContent = `✓ Contraste Botão: ${ratioBtn.toFixed(1)}:1 (Aprovado)`;
+      } else {
+        badgeBtn.className = 'contrast-badge contrast-fail';
+        badgeBtn.textContent = `⚠️ Contraste Botão: ${ratioBtn.toFixed(1)}:1 (Baixo! Mínimo 4.5:1)`;
+      }
+
+      // 2. Corpo
+      const bgPage = document.getElementById('clr-bg-page').value;
+      const txtBody = document.getElementById('clr-text-body').value;
+      const ratioBody = getContrastRatio(bgPage, txtBody);
+      const badgeBody = document.getElementById('contrast-body');
+      if (ratioBody >= 4.5) {
+        badgeBody.className = 'contrast-badge contrast-pass';
+        badgeBody.textContent = `✓ Contraste Corpo: ${ratioBody.toFixed(1)}:1 (Aprovado)`;
+      } else {
+        badgeBody.className = 'contrast-badge contrast-fail';
+        badgeBody.textContent = `⚠️ Contraste Corpo: ${ratioBody.toFixed(1)}:1 (Baixo! Mínimo 4.5:1)`;
+      }
+    }
+
+    colorBindings.forEach(item => {
+      const inp = document.getElementById(item.id);
+      const lbl = document.getElementById(item.txt);
+      inp.addEventListener('input', e => {
+        lbl.textContent = e.target.value;
+        applyVariable(item.prop, e.target.value);
+        updateContrastBadges();
+      });
+    });
+
+    document.getElementById('fnt-heading').addEventListener('input', e => {
+      applyVariable('--font-heading', e.target.value);
+    });
+    document.getElementById('fnt-body').addEventListener('input', e => {
+      applyVariable('--font-body', e.target.value);
+    });
+
+    // Viewport switcher
+    document.querySelectorAll('.btn-vp').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-vp').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        iframe.style.width = btn.dataset.width;
+      });
+    });
+
+    // Copiar código CSS
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      const p = document.getElementById('clr-brand-primary').value;
+      const h = document.getElementById('clr-brand-highlight').value;
+      const w = document.getElementById('clr-brand-warm').value;
+      const onP = document.getElementById('clr-brand-on-primary').value;
+      const bgHero = document.getElementById('clr-bg-hero').value;
+      const bgPage = document.getElementById('clr-bg-page').value;
+      const heading = document.getElementById('clr-text-heading').value;
+      const body = document.getElementById('clr-text-body').value;
+      const fH = document.getElementById('fnt-heading').value;
+      const fB = document.getElementById('fnt-body').value;
+
+      const code = `:root {
+  --brand-highlight: ${h};
+  --brand-warm: ${w};
+  --brand-primary: ${p};
+  --brand-border: #f2be8f;
+  --brand-hover: #d48f50;
+  --brand-active: #c47d3e;
+  --brand-on-primary: ${onP};
+  --brand-text-on-light: #8a5a2b;
+  --brand-gradient: linear-gradient(180deg, var(--brand-highlight) 0%, var(--brand-warm) 45%, var(--brand-primary) 100%);
+  --brand-glow: rgba(229, 161, 99, 0.35);
+  --brand-glow-strong: rgba(229, 161, 99, 0.48);
+  --brand-tint: rgba(229, 161, 99, 0.16);
+  --brand-tint-strong: rgba(229, 161, 99, 0.22);
+  --bg-hero: ${bgHero};
+  --bg-obsidian: #030305;
+  --bg-page: ${bgPage};
+  --bg-soft: #f8fafb;
+  --text-on-dark-soft: #f7eee7;
+  --text-on-hero: #ffffff;
+  --text-heading: ${heading};
+  --text-body: ${body};
+  --text-body-alt: #4b5563;
+  --text-muted: #656b7b;
+  --text-nav: #2A2F3C;
+  --icon-stroke: #141C53;
+  --logo-muted: #D4D8E8;
+  --font-heading: ${fH};
+  --font-body: ${fB};
+}`;
+
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btn-copy');
+        const oldText = btn.textContent;
+        btn.textContent = '✓ Código Copiado para a Área de Transferência!';
+        btn.style.background = '#10b981';
+        btn.style.color = '#ffffff';
+        setTimeout(() => {
+          btn.textContent = oldText;
+          btn.style.background = '#e5a163';
+          btn.style.color = '#211c17';
+        }, 2000);
+      });
+    });
+
+    iframe.addEventListener('load', () => {
+      // Re-injeta variáveis iniciais ao carregar o iframe
+      colorBindings.forEach(item => {
+        const inp = document.getElementById(item.id);
+        applyVariable(item.prop, inp.value);
+      });
+      updateContrastBadges();
+    });
+  </script>
+</body>
+
+</html>

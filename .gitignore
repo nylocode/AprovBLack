@@ -1,0 +1,19 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel
+
+# Node
+node_modules/
+
+# Scratch & Logs
+scratch/
+*.log
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.gemini
