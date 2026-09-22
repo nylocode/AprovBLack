@@ -2605,13 +2605,16 @@ select {
 <stop offset="0.398534" stop-color="#F1F6FF"></stop>
 </linearGradient>
 </defs>
-</svg></div></div><div class="feat-text"><h3 class="feat-title">Especialista Dedicado</h3><p class="text-balance">Um profissional do time<br>acompanha o seu caso.</p></div></div></div></div></section><section id="pricing" class="sec sec-cta"><div class="cta-box" id="oferta" style="scroll-margin-top: 96px;"><div class="cta-bg-effect">
-    <canvas id="cta-fluid-canvas" class="cta-fluid-canvas"></canvas>
+</svg></div></div><div class="feat-text"><h3 class="feat-title">Especialista Dedicado</h3><p class="text-balance">Um profissional do time<br>acompanha o seu caso.</p></div></div></div></div></section><section id="pricing" class="sec sec-cta">
+<div class="cta-box" id="oferta" style="scroll-margin-top: 96px;">
+  <div class="cta-bg-effect">
+    <canvas id="cta-fluid-canvas" class="cta-fluid-canvas" width="1206" height="886" style="width: 1206px; height: 886px;"></canvas>
     <div class="cta-fluid-grain"></div>
     <div class="cta-fluid-grid"></div>
     <div class="cta-fluid-vignette"></div>
     <img src="./assets/images/6672023685b2ca9f53dbe8de_hero bg.png" loading="lazy" alt="" class="cta-bg-overlay">
   </div>
+  
   <style>
     /* CTA Fluid Field CSS & Overlays */
     .cta-box {
@@ -2621,7 +2624,7 @@ select {
       border: 1px solid rgba(229, 161, 99, 0.2) !important;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(229, 161, 99, 0.12) !important;
     }
-
+    
     .cta-bg-effect {
       position: absolute !important;
       inset: 0 !important;
@@ -2630,7 +2633,7 @@ select {
       z-index: 0 !important;
       border-radius: 24px !important;
     }
-
+    
     .cta-fluid-canvas {
       position: absolute !important;
       inset: 0 !important;
@@ -2641,7 +2644,7 @@ select {
       z-index: 1 !important;
       border-radius: 24px !important;
     }
-
+    
     .cta-fluid-grain {
       position: absolute !important;
       inset: 0 !important;
@@ -2652,7 +2655,7 @@ select {
       background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E') !important;
       border-radius: 24px !important;
     }
-
+    
     .cta-fluid-grid {
       position: absolute !important;
       inset: 0 !important;
@@ -2667,7 +2670,7 @@ select {
       -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%) !important;
       border-radius: 24px !important;
     }
-
+    
     .cta-fluid-vignette {
       position: absolute !important;
       inset: 0 !important;
@@ -2677,7 +2680,7 @@ select {
                   linear-gradient(to bottom, transparent 40%, rgba(6, 10, 35, 0.85) 100%) !important;
       border-radius: 24px !important;
     }
-
+    
     .cta-bg-overlay {
       position: absolute !important;
       inset: 0 !important;
@@ -2691,30 +2694,256 @@ select {
       border-radius: 24px !important;
     }
 
-    .con.con-cta {
-      position: relative !important;
-      z-index: 10 !important;
+    /* PREMIUM OFFER CARD CUSTOM CSS */
+    .premium-offer-wrap {
+      position: relative;
+      z-index: 10;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      border-top: 1px solid rgba(229, 161, 99, 0.3); /* subtle champagne highlight */
+      color: #fff;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    .pricing-old {
+    .po-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .po-eyebrow {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+    }
+
+    .po-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: #E5A163; /* champagne */
+      border: 1px solid rgba(229, 161, 99, 0.3);
+      background: rgba(229, 161, 99, 0.1);
+      padding: 6px 12px;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+
+    .po-title {
+      font-size: 38px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: #fdfdfd; /* off-white */
+      font-family: var(--font-heading);
+    }
+
+    .po-title span {
+      color: #E5A163; /* highlight specific words if needed */
+    }
+
+    .po-desc {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+      max-width: 90%;
+      margin-bottom: 36px;
+    }
+
+    .po-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .po-price-old {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.4);
       text-decoration: line-through;
-      opacity: 0.5;
-      font-size: 0.65em;
-  <g>
-    <path class="navb-logo-text" d="M1178.55,357.31l-27.97-.09-77.28-.16c-13.41-.03-25.98-1.85-38.52-6-30.33-10.02-54.12-32.84-63.82-63.4-7.38-23.26-6.55-47.82.44-71.12,2.01-6.7,5.28-12.33,8.81-18.19,7.46-12.4,16.73-22.66,28.93-30.91,17.4-11.77,37.65-19.32,59.17-19.41l118.93-.49c13.76-.06,26.4,1.46,39.34,5.16,32.99,9.43,59.27,33.65,69.41,66.55,11.52,37.36,3.3,80.25-24.98,107.71-15.32,14.88-33.93,24.2-54.92,27.9-12.61,2.23-24.72,2.48-37.54,2.44ZM1163.14,306.35l30.61-.38c21.53-.27,42.31-16.25,46.55-38.6,2.49-13.14,2.33-26.24-2.92-38.84-7.23-17.37-24.31-29.7-43.79-29.72l-121.04-.1c-12.47-.01-23.44,5.38-32.34,13.46-18.57,16.86-20.82,52.26-6.54,73.26,9.72,14.3,27.03,21.13,44.4,21.1l85.07-.18Z" fill="currentColor"></path>
-    <path class="navb-logo-text" d="M1267.07,147.03l17.63.13,27.09-.04,26.61-.23,14.35,20.61,19.92,27.9,11.09,15.33,34.14,47.18c47.12-60.1,94.78-117.94,145.46-174.23l40.96-44.47L1643.04.65c.55-.55,1.36-.58,1.74-.65.4-.08,1.17,1.1.93,1.63l-8.94,19.3c-30.14,56.41-63.06,111.15-97.33,165.42-32.31,51.17-64.65,102.08-99.88,151.04l-11.18,15.54c-2.98,4.14-11,7.37-14.66,2.24l-43.05-60.48-76.59-109-11.42-16.62-15.59-22.06Z" fill="currentColor"></path>
-  </g>
-</g>
-<g>
-  <path class="navb-logo-accent" d="M1483.39,455.56l-35.95-.04-43.19.04-33.46-.07-84.3.08-20.15.07c-7.4.03-13.98-3.62-14.99-10.41-1.13-7.59,3.59-14.85,12.06-14.85l333.86-.1c8.07,0,13.45,4.78,13.8,12.08s-5.05,12.96-12.85,12.99l-30.5.14-28.53.06h-55.81Z" style="fill:var(--brand-primary)"></path>
-  <path class="navb-logo-accent" d="M232.66,430.16l116.81-.14c7.4,0,12.77,5.49,12.98,12.39.2,6.28-4.78,12.8-12.28,12.8l-323.63.11c-7.85,0-13.26-5.95-13.06-12.89.21-7.54,5.91-12.37,13.79-12.37h99.65s105.74.1,105.74.1Z" style="fill:var(--brand-primary)"></path>
-  <path class="navb-logo-text" d="M511.52,452.48c4.98,12.1-.5,25.04-11.59,31.15-6.8,3.74-14.08,5.06-21.95,5.11l-30.31.18-17.54-.04-17.79-.44.19-88.29c8.23-1.27,16.29-.58,24.73-.52l41.52.3c14.26.1,29.35,6.64,30.05,21.13.4,8.13-2.31,14.86-10,19.46,5.45,3.05,10.21,5.96,12.69,11.96ZM473.55,431.89c4.06-.03,6.19-3.15,5.63-6.3-.44-2.43-2.81-4.84-5.99-4.85l-31.48-.04.2,11.39,31.64-.2ZM480.48,465.6c3.06-2.06,3.28-5.63,2.1-8.49-.98-2.39-3.72-4.4-7.03-4.45l-33.68-.49-.15,15.6,30.7-.09c2.61,0,5.79-.56,8.06-2.09Z" fill="currentColor"></path>
-  <path class="navb-logo-text" d="M1170.05,465.88l18.62,19.29c1.21,1.19,2.33,2.21,2.15,3.99l-35.97.02-31.93-34.48-10.32,8.74-.13,25.84-29.06-.2-.03-89.21,29.16.12.43,32.24,34.65-32.44,35.48.61-40.3,37.53,27.25,27.94Z" fill="currentColor"></path>
-  <path class="navb-logo-text" d="M948.2,462.55c13.3,8.44,35.54,6.86,47.8-4.52,1.08-1,2.62-1.02,3.72-.06l15.29,13.38c.93.82,1.36,1.7,1.27,2.69-.1,1.05-1,1.5-1.86,2.31-7.06,6.58-15.2,10.97-24.77,13.41-23.15,5.91-52.83,2.94-69.24-14.53-16.66-17.74-16.08-44.3,1.56-60.94,5.38-5.08,11.15-9.11,18.5-11.73,18.16-6.47,38.26-6.36,56.45.1,7.75,2.75,14.29,6.68,19.79,13.02l-10.94,10.63-7.77,6.27c-15.9-15.12-49.21-15.04-57.97,3.84-4.6,9.92-.97,20.32,8.19,26.13Z" fill="currentColor"></path>
-  <path class="navb-logo-text" d="M787.44,431.71l-34.34,57.4-28.37.04c-.9,0-2.4-.83-2.07-1.39l10.37-17.58,17.72-29.24,8.76-14.37,16.44-26.47h24.02s13.56,22.16,13.56,22.16l28.57,47.11,11.22,19.44-32.15.41-20.26-34.99-13.48-22.51Z" fill="currentColor"></path>
-  <path class="navb-logo-text" d="M618.89,488.98l-12.03.04-11.57-.18c-4.44-.07-8.59.85-12.91-.64v-74.91s.74-13.31.74-13.31l28.49-.04.12,65.27,55.71.2.23,23.65-48.77-.1Z" fill="currentColor"></path>
-</g>
-</svg></div></figure><div class="paragraph small" data-cfg="legal.footerCopyright">© <span class="current-year">2026</span> {RAZAO_SOCIAL} · CNPJ {CNPJ}</div></div><div id="w-node-_601dad8a-6841-6fbe-c434-07a755277719-6570e649" class="footer-grid-links-wrap company-wrap"><a href="#sobre" class="footer-link w-inline-block"><p class="paragraph small">Sobre nós</p></a><a href="#como-funciona" class="footer-link w-inline-block"><p class="paragraph small">Como funciona</p></a><a href="/termos" data-cfg-href="links.terms" class="footer-link w-inline-block"><p class="paragraph small">Termos de Uso</p></a><a href="/privacidade" data-cfg-href="links.privacy" class="footer-link w-inline-block"><p class="paragraph small">Política de Privacidade</p></a></div><div id="w-node-_601dad8a-6841-6fbe-c434-07a755277743-6570e649" class="footer-grid-links-wrap support-wrap"><a href="https://wa.me/{NUMERO_WHATSAPP}" data-cfg-whatsapp="contact.whatsappDigits" class="footer-link w-inline-block"><p class="paragraph small">Fale com a equipe</p></a><a href="#faq" data-cfg-href="links.faq" class="w-inline-block"><p class="paragraph small">Perguntas Frequentes</p></a><a href="mailto:{EMAIL_CONTATO}" data-cfg-mailto="contact.email" class="footer-link w-inline-block"><p class="paragraph small" data-cfg="contact.email">{EMAIL_CONTATO}</p></a></div></div><div class="footer-middle"></div><div class="footer-bottom"><div class="footer-disclaimer-text"><ul role="list" class="footer-list w-list-unstyled"><li><p class="paragraph xsmall"><span data-cfg="brand.name">Aprov</span> é uma consultoria de crédito empresarial. Não somos instituição financeira, não concedemos crédito, não intermediamos operações nem cobramos qualquer valor sobre o crédito obtido pelo cliente. A concessão de crédito é decisão exclusiva de cada instituição financeira.</p></li><li><p class="paragraph xsmall">1. A análise apresenta um diagnóstico com base nos dados do CNPJ e dos sócios, mediante autorização expressa do cliente para a consulta ao SCR e a outras bases. Não há garantia de aprovação de crédito, de taxa, de prazo ou de limite. Exemplos e valores exibidos neste site são ilustrativos.</p></li><li><p class="paragraph xsmall">2. Tratamos os dados conforme a Lei Geral de Proteção de Dados (LGPD). Para mais detalhes, consulte a Política de Privacidade e os Termos de Uso. Marcas e logotipos de terceiros pertencem a seus respectivos titulares e são exibidos sem vínculo ou endosso.</p></li></ul></div></div></div></section></main><script src="./assets/js/jquery.min.js" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="./assets/js/webflow.chunk2.js" type="text/javascript"></script><script src="./assets/js/webflow.chunk1.js" type="text/javascript"></script><script src="./assets/js/webflow.js" type="text/javascript"></script><script>
+      font-weight: 500;
+    }
+
+    .po-price-arrow {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 20px;
+    }
+
+    .po-price-new {
+      font-size: 56px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .po-price-new span {
+      font-size: 28px;
+      vertical-align: super;
+      opacity: 0.8;
+      margin-right: 2px;
+    }
+
+    .po-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #E5A163;
+      color: #060a23;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 20px 32px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .po-cta:hover {
+      background: #f0b075;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(229, 161, 99, 0.3);
+    }
+
+    .po-cta svg {
+      transition: transform 0.3s ease;
+    }
+    
+    .po-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    .po-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 40px 0;
+      width: 100%;
+    }
+
+    .po-benefits-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 16px;
+    }
+
+    .po-benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .po-benefits-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.4;
+    }
+
+    .po-benefits-list li svg {
+      flex-shrink: 0;
+      color: #E5A163;
+      margin-top: 2px;
+    }
+
+    .po-disclaimer {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .premium-offer-wrap {
+        padding: 32px 24px;
+      }
+      .po-title {
+        font-size: 32px;
+      }
+      .po-price-new {
+        font-size: 48px;
+      }
+      .po-price-wrap {
+        gap: 12px;
+      }
+    }
+  </style>
+
+  <div class="con con-cta" style="padding-top:40px; padding-bottom:40px;">
+    <div class="premium-offer-wrap">
+      
+      <div class="po-header">
+        <div class="po-eyebrow">Consultoria de Crédito PJ</div>
+        <div class="po-badge">80% OFF</div>
+      </div>
+
+      <h2 class="po-title">Descubra por que o banco <span>diz não</span> ao <span>seu CNPJ</span>.</h2>
+      
+      <p class="po-desc">Uma análise individual do seu CNPJ para entender o que o banco realmente enxerga — e quais linhas podem fazer sentido para sua empresa.</p>
+
+      <div class="po-price-wrap">
+        <div class="po-price-old">R$497</div>
+        <div class="po-price-arrow">→</div>
+        <div class="po-price-new"><span>R$</span>97</div>
+      </div>
+
+      <a href="#checkout" data-open-checkout="" data-cfg="cta.offerLabel" class="po-cta w-inline-block">
+        Garantir Consultoria
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+
+      <div class="po-divider"></div>
+
+      <div class="po-benefits-title">Você recebe:</div>
+      <ul class="po-benefits-list">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Análise individual do CNPJ
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Leitura estratégica do SCR
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Análise do rating de crédito
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Identificação de linhas elegíveis
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Direcionamento dos próximos passos
+        </li>
+      </ul>
+
+      <div class="po-disclaimer">
+        Obs.: Você não escolhe a assessoria. Após a consultoria, avaliamos se sua empresa está pronta para o próximo passo.
+      </div>
+      
+    </div>
+  </div>
+</div>
+</section></main><script src="./assets/js/jquery.min.js" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="./assets/js/webflow.chunk2.js" type="text/javascript"></script><script src="./assets/js/webflow.chunk1.js" type="text/javascript"></script><script src="./assets/js/webflow.js" type="text/javascript"></script><script>
   window.intercomSettings = {
     api_base: "https://api-iam.intercom.io",
     app_id: "utf3enb8",
