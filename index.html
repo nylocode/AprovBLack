@@ -2187,32 +2187,38 @@ select {
 .dep-card {
   margin: 0;
   background: #f8f9fb;
-  border-radius: var(--radius-card);
-  padding: 32px;
-  color: var(--text-body);
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: none;
 }
-.dep-card blockquote {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-body);
+.dep-ig-head { display: flex; align-items: center; gap: 10px; }
+
+.dep-ig-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dep-ig-line1 { display: flex; align-items: baseline; gap: 8px; }
+.dep-handle { font-size: 13px; font-weight: 700; color: #131520; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.dep-time { font-size: 12px; color: #656b7b; white-space: nowrap; }
+.dep-role { font-size: 12px; color: #656b7b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dep-ig-text {
+  margin: 12px 0 10px; font-size: 14px; line-height: 1.55;
+  color: #383540; font-style: normal;
 }
-.dep-card figcaption {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
+.dep-ig-actions { display: flex; align-items: center; gap: 16px; }
+.dep-like {
+  background: none; border: none; padding: 0; cursor: pointer; color: #9199ab;
+  display: flex; align-items: center; transition: color 200ms;
 }
-.dep-card cite {
-  display: block;
-  font-weight: 500;
-  font-style: normal;
-  color: var(--text-heading);
+.dep-like[aria-pressed="true"] { color: #b42318; }
+.dep-like:hover { color: #656b7b; }
+.dep-reply {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-size: 12px; font-weight: 600; color: #656b7b; transition: color 200ms;
 }
-.dep-card figcaption span:not(.dep-avatar) {
-  font-size: 14px;
-  color: var(--text-muted);
-}
+.dep-reply:hover { color: #131520; }
+
+
+
+
 .dep-avatar {
   width: 32px;
   height: 32px;
@@ -2234,15 +2240,339 @@ select {
   }
 }
 </style><div class="w-layout-blockcontainer con w-container"><div class="sec-head"><div class="badge">CLIENTES</div><h2 class="sec-title">Quem já fez o diagnóstico</h2><p class="large-paragraph">Empresários que descobriram o que travava o crédito do CNPJ antes de ir ao banco.</p></div><div class="dep-cols"><div class="dep-col"><div class="dep-track"><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Eu achava que o problema era o meu faturamento. Na reunião, vi no SCR o que o banco enxergava e o que eu precisava resolver primeiro."</blockquote><figcaption><span class="dep-avatar">C</span><div><cite>Carlos Eduardo</cite><span>Sócio · Distribuidora de Alimentos (SP)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Saí da consultoria com uma lista clara de pendências e a ordem certa para resolver cada uma."</blockquote><figcaption><span class="dep-avatar">M</span><div><cite>Mariana Silva</cite><span>Sócio · Clínica Médica (MG)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Ninguém tinha me explicado o que era rating bancário. Em uma hora entendi a minha situação."</blockquote><figcaption><span class="dep-avatar">R</span><div><cite>Roberto Mendes</cite><span>Sócio · Transportes & Logística (PR)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Eu achava que o problema era o meu faturamento. Na reunião, vi no SCR o que o banco enxergava e o que eu precisava resolver primeiro."</blockquote><figcaption><span class="dep-avatar">J</span><div><cite>Juliana Costa</cite><span>Sócio · Agência de Marketing (RJ)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Saí da consultoria com uma lista clara de pendências e a ordem certa para resolver cada uma."</blockquote><figcaption><span class="dep-avatar">F</span><div><cite>Fernando Alves</cite><span>Sócio · Construtora (SC)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Ninguém tinha me explicado o que era rating bancário. Em uma hora entendi a minha situação."</blockquote><figcaption><span class="dep-avatar">A</span><div><cite>Ana Paula</cite><span>Sócio · Comércio Varejista (RS)</span></div></figcaption></figure></div></div><div class="dep-col"><div class="dep-track"><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Foi a primeira vez que alguém olhou os dados reais do meu CNPJ e me mostrou onde estava o bloqueio."</blockquote><figcaption><span class="dep-avatar">R</span><div><cite>Ricardo Gomes</cite><span>Sócio · Fábrica de Móveis (SP)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"O atendimento foi direto. Sem enrolação, sem promessa milagrosa. Só o diagnóstico e o caminho."</blockquote><figcaption><span class="dep-avatar">C</span><div><cite>Camila Rocha</cite><span>Sócio · Escola Particular (BA)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Descobri restrições que eu nem sabia que existiam nos dados dos sócios."</blockquote><figcaption><span class="dep-avatar">T</span><div><cite>Thiago Martins</cite><span>Sócio · Supermercado (GO)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Foi a primeira vez que alguém olhou os dados reais do meu CNPJ e me mostrou onde estava o bloqueio."</blockquote><figcaption><span class="dep-avatar">C</span><div><cite>Carlos Eduardo</cite><span>Sócio · Distribuidora de Alimentos (SP)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"O atendimento foi direto. Sem enrolação, sem promessa milagrosa. Só o diagnóstico e o caminho."</blockquote><figcaption><span class="dep-avatar">M</span><div><cite>Mariana Silva</cite><span>Sócio · Clínica Médica (MG)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Descobri restrições que eu nem sabia que existiam nos dados dos sócios."</blockquote><figcaption><span class="dep-avatar">R</span><div><cite>Roberto Mendes</cite><span>Sócio · Transportes & Logística (PR)</span></div></figcaption></figure></div></div><div class="dep-col"><div class="dep-track"><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Cheguei ao banco sabendo o que perguntar e o que levar. A conversa foi outra."</blockquote><figcaption><span class="dep-avatar">J</span><div><cite>Juliana Costa</cite><span>Sócio · Agência de Marketing (RJ)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"A reunião individual fez diferença. A análise era da minha empresa, não um material genérico."</blockquote><figcaption><span class="dep-avatar">F</span><div><cite>Fernando Alves</cite><span>Sócio · Construtora (SC)</span></div></figcaption></figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
-<figure class="dep-card" data-placeholder="true"><blockquote>"Valeu pela clareza. Agora sei em que ponto estou e o que falta para chegar lá."</blockquote><figcaption><span class="dep-avatar">A</span><div><cite>Ana Paula</cite><span>Sócio · Comércio Varejista (RS)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Cheguei ao banco sabendo o que perguntar e o que levar. A conversa foi outra."</blockquote><figcaption><span class="dep-avatar">R</span><div><cite>Ricardo Gomes</cite><span>Sócio · Fábrica de Móveis (SP)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"A reunião individual fez diferença. A análise era da minha empresa, não um material genérico."</blockquote><figcaption><span class="dep-avatar">C</span><div><cite>Camila Rocha</cite><span>Sócio · Escola Particular (BA)</span></div></figcaption></figure><figure class="dep-card" data-placeholder="true" aria-hidden="true"><blockquote>"Valeu pela clareza. Agora sei em que ponto estou e o que falta para chegar lá."</blockquote><figcaption><span class="dep-avatar">T</span><div><cite>Thiago Martins</cite><span>Sócio · Supermercado (GO)</span></div></figcaption></figure></div></div></div><p class="text-sm" style="text-align:center;color:var(--text-muted);margin-top:24px">Depoimentos de clientes publicados com autorização. Os resultados variam conforme o perfil de cada empresa e não representam garantia de crédito.</p></div></section><section class="sec"><div class="w-layout-blockcontainer con w-container"><div class="sec-head"><div class="badge">ACOMPANHAMENTO</div><h2 class="sec-title">Você não decide sozinho<br>o próximo passo do seu crédito</h2></div><div class="sec-feat"><div class="feat-card"><div class="feat-icon"><div class="flex-center w-embed"><svg width="100%" height="100%" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">C</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@carlos.eduardo</span>
+        <span class="dep-time">2 d</span>
+      </div>
+      <span class="dep-role">Sócio · Distribuidora de Alimentos (SP)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Eu achava que o problema era o meu faturamento. Na reunião, vi no SCR o que o banco enxergava e o que eu precisava resolver primeiro."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">M</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@mariana.silva</span>
+        <span class="dep-time">1 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Clínica Médica (MG)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Saí da consultoria com uma lista clara de pendências e a ordem certa para resolver cada uma."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">R</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@roberto.mendes</span>
+        <span class="dep-time">3 d</span>
+      </div>
+      <span class="dep-role">Sócio · Transportes & Logística (PR)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Ninguém tinha me explicado o que era rating bancário. Em uma hora entendi a minha situação."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">J</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@juliana.costa</span>
+        <span class="dep-time">5 d</span>
+      </div>
+      <span class="dep-role">Sócio · Agência de Marketing (RJ)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Eu achava que o problema era o meu faturamento. Na reunião, vi no SCR o que o banco enxergava e o que eu precisava resolver primeiro."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">F</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@fernando.alves</span>
+        <span class="dep-time">2 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Construtora (SC)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Saí da consultoria com uma lista clara de pendências e a ordem certa para resolver cada uma."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">A</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@ana.paula</span>
+        <span class="dep-time">1 mês</span>
+      </div>
+      <span class="dep-role">Sócio · Comércio Varejista (RS)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Ninguém tinha me explicado o que era rating bancário. Em uma hora entendi a minha situação."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure></div></div><div class="dep-col"><div class="dep-track"><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">R</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@ricardo.gomes</span>
+        <span class="dep-time">6 d</span>
+      </div>
+      <span class="dep-role">Sócio · Fábrica de Móveis (SP)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Foi a primeira vez que alguém olhou os dados reais do meu CNPJ e me mostrou onde estava o bloqueio."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">C</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@camila.rocha</span>
+        <span class="dep-time">3 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Escola Particular (BA)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"O atendimento foi direto. Sem enrolação, sem promessa milagrosa. Só o diagnóstico e o caminho."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">T</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@thiago.martins</span>
+        <span class="dep-time">4 d</span>
+      </div>
+      <span class="dep-role">Sócio · Supermercado (GO)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Descobri restrições que eu nem sabia que existiam nos dados dos sócios."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">C</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@carlos.eduardo</span>
+        <span class="dep-time">2 d</span>
+      </div>
+      <span class="dep-role">Sócio · Distribuidora de Alimentos (SP)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Foi a primeira vez que alguém olhou os dados reais do meu CNPJ e me mostrou onde estava o bloqueio."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">M</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@mariana.silva</span>
+        <span class="dep-time">1 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Clínica Médica (MG)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"O atendimento foi direto. Sem enrolação, sem promessa milagrosa. Só o diagnóstico e o caminho."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">R</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@roberto.mendes</span>
+        <span class="dep-time">3 d</span>
+      </div>
+      <span class="dep-role">Sócio · Transportes & Logística (PR)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Descobri restrições que eu nem sabia que existiam nos dados dos sócios."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure></div></div><div class="dep-col"><div class="dep-track"><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">J</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@juliana.costa</span>
+        <span class="dep-time">5 d</span>
+      </div>
+      <span class="dep-role">Sócio · Agência de Marketing (RJ)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Cheguei ao banco sabendo o que perguntar e o que levar. A conversa foi outra."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">F</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@fernando.alves</span>
+        <span class="dep-time">2 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Construtora (SC)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"A reunião individual fez diferença. A análise era da minha empresa, não um material genérico."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><!-- DEPOIMENTO DE EXEMPLO: SUBSTITUIR POR REAL AUTORIZADO -->
+<figure class="dep-card" data-placeholder="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">A</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@ana.paula</span>
+        <span class="dep-time">1 mês</span>
+      </div>
+      <span class="dep-role">Sócio · Comércio Varejista (RS)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Valeu pela clareza. Agora sei em que ponto estou e o que falta para chegar lá."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">R</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@ricardo.gomes</span>
+        <span class="dep-time">6 d</span>
+      </div>
+      <span class="dep-role">Sócio · Fábrica de Móveis (SP)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Cheguei ao banco sabendo o que perguntar e o que levar. A conversa foi outra."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">C</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@camila.rocha</span>
+        <span class="dep-time">3 sem</span>
+      </div>
+      <span class="dep-role">Sócio · Escola Particular (BA)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"A reunião individual fez diferença. A análise era da minha empresa, não um material genérico."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure><figure class="dep-card" data-placeholder="true" aria-hidden="true">
+  <figcaption class="dep-ig-head">
+    <span class="dep-avatar">T</span>
+    <div class="dep-ig-meta">
+      <div class="dep-ig-line1">
+        <span class="dep-handle">@thiago.martins</span>
+        <span class="dep-time">4 d</span>
+      </div>
+      <span class="dep-role">Sócio · Supermercado (GO)</span>
+    </div>
+  </figcaption>
+  <blockquote class="dep-ig-text">"Valeu pela clareza. Agora sei em que ponto estou e o que falta para chegar lá."</blockquote>
+  <div class="dep-ig-actions">
+    <button class="dep-like" aria-label="Curtir" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+    <button class="dep-reply">Responder</button>
+  </div>
+</figure></div></div></div><p class="text-sm" style="text-align:center;color:var(--text-muted);margin-top:24px">Depoimentos de clientes publicados com autorização. Os resultados variam conforme o perfil de cada empresa e não representam garantia de crédito.</p></div></section><section class="sec"><div class="w-layout-blockcontainer con w-container"><div class="sec-head"><div class="badge">ACOMPANHAMENTO</div><h2 class="sec-title">Você não decide sozinho<br>o próximo passo do seu crédito</h2></div><div class="sec-feat"><div class="feat-card"><div class="feat-icon"><div class="flex-center w-embed"><svg width="100%" height="100%" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M4 27.0532V6.66715C4 5.19439 5.19391 4.00049 6.66667 4.00049H25.3333C26.8061 4.00049 28 5.19439 28 6.66715V20.0005C28 21.4733 26.8061 22.6672 25.3333 22.6672H10.615C9.80491 22.6672 9.03875 23.0354 8.53268 23.668L5.42469 27.5529C4.95228 28.1434 4 27.8094 4 27.0532Z" fill="url(#paint0_linear_2721_13323)" fill-opacity="0.5" style="stroke:var(--icon-stroke)" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"></path>
 <path d="M14 13.334H11.3333C10.597 13.334 10 12.737 10 12.0007V10.6673C10 9.93094 10.597 9.33398 11.3333 9.33398H12.6667C13.4031 9.33398 14 9.93094 14 10.6673V13.334ZM14 13.334C14 14.6673 12.6667 16.0007 11.3333 17.334" style="stroke:var(--icon-stroke)" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"></path>
 <path d="M22 13.334H19.3333C18.5969 13.334 18 12.737 18 12.0007V10.6673C18 9.93094 18.5969 9.33398 19.3333 9.33398H20.6667C21.4031 9.33398 22 9.93094 22 10.6673V13.334ZM22 13.334C22 14.6673 20.6667 16.0007 19.3333 17.334" style="stroke:var(--icon-stroke)" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"></path>
