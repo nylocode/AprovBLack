@@ -1,0 +1,27 @@
+{
+  "name": "winden---lading-page",
+  "version": "1.0.0",
+  "description": "Landing page da Aprov Black organizada para desenvolvimento local.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nylocode/AprovBLack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nylocode/AprovBLack/issues"
+  },
+  "homepage": "https://github.com/nylocode/AprovBLack#readme",
+  "dependencies": {
+    "gsap": "^3.15.0"
+  }
+}

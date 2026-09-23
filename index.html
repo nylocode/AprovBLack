@@ -2943,7 +2943,627 @@ select {
     </div>
   </div>
 </div>
-</section></main><script src="./assets/js/jquery.min.js" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="./assets/js/webflow.chunk2.js" type="text/javascript"></script><script src="./assets/js/webflow.chunk1.js" type="text/javascript"></script><script src="./assets/js/webflow.js" type="text/javascript"></script><script>
+</section></main>
+
+<!-- ==========================================================================
+     CINEMATIC MOTION FOOTER (AprovBLack)
+     Curtain reveal, Aurora Glow, Marquee, Giant Parallax Mask & Magnetic Pills
+     ========================================================================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+main.page {
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-page, #ffffff);
+}
+
+.cinematic-footer-wrapper {
+  position: relative;
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #030305;
+  color: #f3f4f6;
+  z-index: 1;
+}
+
+@media (min-width: 992px) {
+  .cinematic-footer-reveal-wrap {
+    position: relative;
+    height: 100vh;
+    min-height: 720px;
+    width: 100%;
+    clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
+    -webkit-clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
+  }
+  
+  .cinematic-footer-inner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: #030305;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 991px) {
+  .cinematic-footer-reveal-wrap {
+    position: relative;
+    width: 100%;
+  }
+  
+  .cinematic-footer-inner {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: #030305;
+    padding-top: 60px;
+  }
+}
+
+/* Animations */
+@keyframes footer-breathe {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.85; }
+}
+
+@keyframes footer-scroll-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes footer-heartbeat {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(229, 161, 99, 0.4)); }
+  15%, 45% { transform: scale(1.25); filter: drop-shadow(0 0 10px rgba(255, 143, 67, 0.8)); }
+  30% { transform: scale(1); }
+}
+
+.animate-footer-breathe {
+  animation: footer-breathe 8s ease-in-out infinite alternate;
+}
+
+.animate-footer-scroll-marquee {
+  animation: footer-scroll-marquee 35s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-footer-heartbeat {
+  animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  display: inline-block;
+}
+
+/* Aurora & Grid Background */
+.footer-aurora {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80vw;
+  height: 60vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(229, 161, 99, 0.16) 0%,
+    rgba(255, 143, 67, 0.08) 40%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Giant Background Text Masking */
+.footer-giant-bg-text {
+  position: absolute;
+  bottom: -4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(140px, 22vw, 320px);
+  line-height: 0.75;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(229, 161, 99, 0.10);
+  background: linear-gradient(180deg, rgba(229, 161, 99, 0.15) 0%, transparent 65%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Top Marquee Ribbon */
+.footer-marquee-ribbon {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(229, 161, 99, 0.2);
+  border-bottom: 1px solid rgba(229, 161, 99, 0.2);
+  background: rgba(3, 3, 5, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 14px 0;
+  transform: rotate(-1.5deg) scale(1.04);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.footer-marquee-track {
+  display: flex;
+  white-space: nowrap;
+}
+
+.footer-marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 0 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-marquee-content span.highlight {
+  color: #ffab57;
+}
+
+.footer-marquee-content span.separator {
+  color: #e5a163;
+  opacity: 0.7;
+}
+
+/* Center Content */
+.footer-center-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-heading {
+  font-size: clamp(36px, 6vw, 76px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 16px;
+  background: linear-gradient(180deg, #ffffff 15%, #e5a163 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 0px 24px rgba(229, 161, 99, 0.25));
+}
+
+.footer-subheading {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  max-width: 580px;
+  margin: 0 auto 40px;
+}
+
+/* Glass Pills */
+.footer-glass-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 9999px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.6), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.15), 
+    inset 0 -1px 2px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  will-change: transform;
+}
+
+.footer-glass-pill:hover {
+  background: linear-gradient(145deg, rgba(229, 161, 99, 0.14) 0%, rgba(229, 161, 99, 0.04) 100%);
+  border-color: rgba(229, 161, 99, 0.4);
+  box-shadow: 
+    0 20px 40px -10px rgba(229, 161, 99, 0.25), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.footer-pill-primary {
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(145deg, rgba(229, 161, 99, 0.25) 0%, rgba(255, 143, 67, 0.12) 100%);
+  border-color: rgba(229, 161, 99, 0.4);
+  box-shadow: 0 12px 32px -8px rgba(229, 161, 99, 0.35);
+}
+
+.footer-pill-primary:hover {
+  background: linear-gradient(145deg, rgba(229, 161, 99, 0.4) 0%, rgba(255, 143, 67, 0.22) 100%);
+  border-color: rgba(255, 171, 87, 0.6);
+  color: #ffffff;
+  box-shadow: 0 16px 44px -6px rgba(229, 161, 99, 0.5);
+}
+
+.footer-pill-secondary {
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-pill-link {
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-pill-link:hover {
+  color: #ffffff;
+}
+
+/* Links Group */
+.footer-links-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.footer-primary-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-secondary-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  padding: 24px 32px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(3, 3, 5, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-sizing: border-box;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-badge-brand {
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-badge-brand strong {
+  color: #ffab57;
+  font-weight: 800;
+  margin-left: 4px;
+}
+
+.footer-btn-top {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer-btn-top:hover {
+  color: #ffab57;
+  border-color: rgba(229, 161, 99, 0.4);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px 32px;
+    gap: 16px;
+  }
+  .footer-copyright {
+    order: 2;
+  }
+  .footer-badge-brand {
+    order: 1;
+  }
+  .footer-btn-top {
+    order: 3;
+  }
+  .footer-center-content {
+    padding: 100px 16px 40px;
+  }
+}
+</style>
+
+<!-- CINEMATIC MOTION FOOTER (CURTAIN REVEAL) -->
+<div class="cinematic-footer-reveal-wrap" id="site-footer-wrapper">
+  <footer class="cinematic-footer-inner cinematic-footer-wrapper" id="site-footer">
+    
+    <!-- Ambient Aurora Glow & Grid -->
+    <div class="footer-aurora animate-footer-breathe"></div>
+    <div class="footer-bg-grid"></div>
+
+    <!-- Giant background text -->
+    <div class="footer-giant-bg-text" id="footerGiantText">APROV</div>
+
+    <!-- 1. Diagonal Sleek Marquee (Top of footer) -->
+    <div class="footer-marquee-ribbon">
+      <div class="footer-marquee-track animate-footer-scroll-marquee">
+        <div class="footer-marquee-content">
+          <span>Diagnóstico de Crédito PJ</span> <span class="separator">✦</span>
+          <span class="highlight">Leitura Estratégica SCR</span> <span class="separator">✦</span>
+          <span>Rating 360 Bancos</span> <span class="separator">✦</span>
+          <span class="highlight">Capitais de Giro FGI Peac</span> <span class="separator">✦</span>
+          <span>Sigilo Absoluto</span> <span class="separator">✦</span>
+          <span class="highlight">Comitê Especializado</span> <span class="separator">✦</span>
+        </div>
+        <div class="footer-marquee-content">
+          <span>Diagnóstico de Crédito PJ</span> <span class="separator">✦</span>
+          <span class="highlight">Leitura Estratégica SCR</span> <span class="separator">✦</span>
+          <span>Rating 360 Bancos</span> <span class="separator">✦</span>
+          <span class="highlight">Capitais de Giro FGI Peac</span> <span class="separator">✦</span>
+          <span>Sigilo Absoluto</span> <span class="separator">✦</span>
+          <span class="highlight">Comitê Especializado</span> <span class="separator">✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Main Center Content -->
+    <div class="footer-center-content">
+      <h2 class="footer-heading" id="footerHeading">
+        Pronto para destravar seu crédito?
+      </h2>
+      <p class="footer-subheading" id="footerSubheading">
+        Uma consultoria estratégica individual para entender o que o banco realmente enxerga no seu CNPJ — e quais linhas estão prontas para sua empresa.
+      </p>
+
+      <!-- Interactive Magnetic Pills Layout -->
+      <div class="footer-links-group" id="footerLinks">
+        
+        <!-- Primary Action Buttons -->
+        <div class="footer-primary-buttons">
+          <a href="#checkout" data-open-checkout="" class="footer-glass-pill footer-pill-primary footer-magnetic-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span>Garantir Consultoria R$97</span>
+          </a>
+
+          <a href="./Dashboard" class="footer-glass-pill footer-pill-secondary footer-magnetic-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Acessar Dashboard</span>
+          </a>
+        </div>
+
+        <!-- Secondary Text Links -->
+        <div class="footer-secondary-links">
+          <a href="/privacidade" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Política de Privacidade</a>
+          <a href="/termos" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Termos de Uso</a>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Suporte Oficial</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3. Bottom Bar / Credits -->
+    <div class="footer-bottom-bar">
+      <div class="footer-copyright">
+        © 2026 AprovBLack. Todos os direitos reservados.
+      </div>
+
+      <div class="footer-glass-pill footer-badge-brand">
+        <span>Feito com</span>
+        <span class="animate-footer-heartbeat" style="margin: 0 4px; color: #ff8f43;">❤</span>
+        <span>por</span>
+        <strong>Aprov</strong>
+      </div>
+
+      <button type="button" class="footer-btn-top footer-magnetic-btn" id="footerBtnScrollTop" aria-label="Voltar ao topo">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+      </button>
+    </div>
+
+  </footer>
+</div>
+
+<!-- GSAP + ScrollTrigger Scripts for Footer Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function() {
+  if (typeof window === 'undefined') return;
+
+  // Scroll to Top
+  const topBtn = document.getElementById('footerBtnScrollTop');
+  if (topBtn) {
+    topBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Magnetic Button Effect
+  function initMagneticButtons() {
+    const buttons = document.querySelectorAll('.footer-magnetic-btn');
+    if (!buttons.length) return;
+
+    buttons.forEach(function(el) {
+      el.addEventListener('mousemove', function(e) {
+        if (!window.gsap) return;
+        const rect = el.getBoundingClientRect();
+        const h = rect.width / 2;
+        const w = rect.height / 2;
+        const x = e.clientX - rect.left - h;
+        const y = e.clientY - rect.top - w;
+
+        gsap.to(el, {
+          x: x * 0.38,
+          y: y * 0.38,
+          rotationX: -y * 0.12,
+          rotationY: x * 0.12,
+          scale: 1.05,
+          ease: 'power2.out',
+          duration: 0.35
+        });
+      });
+
+      el.addEventListener('mouseleave', function() {
+        if (!window.gsap) return;
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          rotationX: 0,
+          rotationY: 0,
+          scale: 1,
+          ease: 'elastic.out(1, 0.35)',
+          duration: 1.1
+        });
+      });
+    });
+  }
+
+  // Parallax & Scroll Reveal with GSAP ScrollTrigger
+  function initFooterGSAP() {
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const wrapper = document.getElementById('site-footer-wrapper');
+      const giantText = document.getElementById('footerGiantText');
+      const heading = document.getElementById('footerHeading');
+      const links = document.getElementById('footerLinks');
+
+      if (wrapper && giantText) {
+        gsap.fromTo(giantText,
+          { y: '8vh', scale: 0.88, opacity: 0.3 },
+          {
+            y: '0vh',
+            scale: 1,
+            opacity: 1,
+            ease: 'power1.out',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top 85%',
+              end: 'bottom bottom',
+              scrub: 1
+            }
+          }
+        );
+      }
+
+      if (wrapper && heading && links) {
+        gsap.fromTo([heading, links],
+          { y: 35, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: wrapper,
+              start: 'top 60%',
+              end: 'bottom 90%',
+              scrub: 1
+            }
+          }
+        );
+      }
+    }
+    initMagneticButtons();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterGSAP);
+  } else {
+    initFooterGSAP();
+  }
+})();
+</script>
+
+<script src="./assets/js/jquery.min.js" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="./assets/js/webflow.chunk2.js" type="text/javascript"></script><script src="./assets/js/webflow.chunk1.js" type="text/javascript"></script><script src="./assets/js/webflow.js" type="text/javascript"></script><script>
   window.intercomSettings = {
     api_base: "https://api-iam.intercom.io",
     app_id: "utf3enb8",
