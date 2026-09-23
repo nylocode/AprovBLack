@@ -2605,93 +2605,34 @@ select {
 <stop offset="0.398534" stop-color="#F1F6FF"></stop>
 </linearGradient>
 </defs>
-</svg></div></div><div class="feat-text"><h3 class="feat-title">Especialista Dedicado</h3><p class="text-balance">Um profissional do time<br>acompanha o seu caso.</p></div></div></div></div></section><section id="pricing" class="sec sec-cta">
-<div class="cta-box" id="oferta" style="scroll-margin-top: 96px;">
-  <div class="cta-bg-effect">
-    <canvas id="cta-fluid-canvas" class="cta-fluid-canvas" width="1206" height="886" style="width: 1206px; height: 886px;"></canvas>
-    <div class="cta-fluid-grain"></div>
-    <div class="cta-fluid-grid"></div>
-    <div class="cta-fluid-vignette"></div>
-    <img src="./assets/images/6672023685b2ca9f53dbe8de_hero bg.png" loading="lazy" alt="" class="cta-bg-overlay">
+</svg></div></div><div class="feat-text"><h3 class="feat-title">Especialista Dedicado</h3><p class="text-balance">Um profissional do time<br>acompanha o seu caso.</p></div></div></div></div></section><section id="pricing" class="sec sec-cta sec-cta-unified">
+  <!-- Hero-identical Background (WebGL Fluid Shader + Grain + Grid + Vignette + Hero Image) -->
+  <div class="hero-bg sec-cta-bg">
+    <canvas id="cta-fluid-canvas" class="hero-fluid-canvas"></canvas>
+    <div class="hero-fluid-grain"></div>
+    <div class="hero-fluid-grid"></div>
+    <div class="hero-fluid-vignette"></div>
+    <img src="./assets/images/6672023685b2ca9f53dbe8de_hero bg.png" loading="lazy" alt="" class="hero-bg-image hero-bg-overlay">
   </div>
-  
+
   <style>
-    /* CTA Fluid Field CSS & Overlays */
-    .cta-box {
+    /* UNIFIED OFFER & FOOTER STYLES (Design System: Amber & Obsidian) */
+    .sec-cta-unified {
       position: relative !important;
       overflow: hidden !important;
-      background-color: #060a23 !important;
-      border: 1px solid rgba(229, 161, 99, 0.2) !important;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(229, 161, 99, 0.12) !important;
+      background-color: var(--bg-obsidian, #030305) !important;
+      padding-top: 80px !important;
+      padding-bottom: 0 !important;
+      color: #fff !important;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif) !important;
     }
-    
-    .cta-bg-effect {
+
+    .sec-cta-bg {
       position: absolute !important;
       inset: 0 !important;
       overflow: hidden !important;
       pointer-events: none !important;
       z-index: 0 !important;
-      border-radius: 24px !important;
-    }
-    
-    .cta-fluid-canvas {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      display: block !important;
-      pointer-events: none !important;
-      z-index: 1 !important;
-      border-radius: 24px !important;
-    }
-    
-    .cta-fluid-grain {
-      position: absolute !important;
-      inset: 0 !important;
-      pointer-events: none !important;
-      z-index: 2 !important;
-      opacity: 0.08 !important;
-      mix-blend-mode: overlay !important;
-      background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E') !important;
-      border-radius: 24px !important;
-    }
-    
-    .cta-fluid-grid {
-      position: absolute !important;
-      inset: 0 !important;
-      pointer-events: none !important;
-      z-index: 3 !important;
-      opacity: 0.12 !important;
-      background-size: 40px 40px !important;
-      background-image: 
-        linear-gradient(to right, rgba(229, 161, 99, 0.1) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(229, 161, 99, 0.1) 1px, transparent 1px) !important;
-      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%) !important;
-      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%) !important;
-      border-radius: 24px !important;
-    }
-    
-    .cta-fluid-vignette {
-      position: absolute !important;
-      inset: 0 !important;
-      pointer-events: none !important;
-      z-index: 4 !important;
-      background: radial-gradient(circle at 50% 40%, transparent 25%, rgba(6, 10, 35, 0.5) 65%, rgba(6, 10, 35, 0.95) 100%),
-                  linear-gradient(to bottom, transparent 40%, rgba(6, 10, 35, 0.85) 100%) !important;
-      border-radius: 24px !important;
-    }
-    
-    .cta-bg-overlay {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      pointer-events: none !important;
-      z-index: 5 !important;
-      opacity: 0.28 !important;
-      mix-blend-mode: screen !important;
-      border-radius: 24px !important;
     }
 
     /* PREMIUM OFFER CARD CUSTOM CSS */
@@ -2706,8 +2647,8 @@ select {
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      border-top: 1px solid rgba(229, 161, 99, 0.3); /* subtle champagne highlight */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(229, 161, 99, 0.08);
+      border-top: 1px solid rgba(229, 161, 99, 0.35);
       color: #fff;
       max-width: 700px;
       margin: 0 auto;
@@ -2726,14 +2667,15 @@ select {
       letter-spacing: 1px;
       color: rgba(255,255,255,0.7);
       font-weight: 600;
+      font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
     }
 
     .po-badge {
       font-size: 12px;
-      font-weight: 600;
-      color: #E5A163; /* champagne */
+      font-weight: 700;
+      color: var(--brand-primary, #E5A163);
       border: 1px solid rgba(229, 161, 99, 0.3);
-      background: rgba(229, 161, 99, 0.1);
+      background: rgba(229, 161, 99, 0.12);
       padding: 6px 12px;
       border-radius: 6px;
       backdrop-filter: blur(4px);
@@ -2741,16 +2683,16 @@ select {
 
     .po-title {
       font-size: 38px;
-      line-height: 1.1;
-      font-weight: 700;
+      line-height: 1.15;
+      font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 16px;
-      color: #fdfdfd; /* off-white */
-      font-family: var(--font-heading);
+      color: #fdfdfd;
+      font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
     }
 
     .po-title span {
-      color: #E5A163; /* highlight specific words if needed */
+      color: var(--brand-highlight, #ffab57);
     }
 
     .po-desc {
@@ -2782,10 +2724,11 @@ select {
 
     .po-price-new {
       font-size: 56px;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
       line-height: 1;
       letter-spacing: -0.02em;
+      font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
     }
     .po-price-new span {
       font-size: 28px;
@@ -2799,21 +2742,25 @@ select {
       align-items: center;
       justify-content: center;
       gap: 12px;
-      background: #E5A163;
-      color: #060a23;
+      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #ff8f43 45%, #e5a163 100%));
+      color: var(--brand-on-primary, #211c17);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 18px;
       padding: 20px 32px;
       border-radius: 12px;
-      transition: all 0.3s ease;
+      border: 1px solid var(--brand-border, #f2be8f);
+      box-shadow: 0 10px 30px var(--brand-glow, rgba(229, 161, 99, 0.35));
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
     }
     
     .po-cta:hover {
-      background: #f0b075;
+      background: var(--brand-hover-gradient, linear-gradient(180deg, #ff9f43 0%, #e58739 50%, #d48f50 100%));
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(229, 161, 99, 0.3);
+      box-shadow: 0 16px 40px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
     }
 
     .po-cta svg {
@@ -2833,9 +2780,11 @@ select {
 
     .po-benefits-title {
       font-size: 14px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
       margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .po-benefits-list {
@@ -2852,21 +2801,254 @@ select {
       align-items: flex-start;
       gap: 12px;
       font-size: 15px;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.82);
       line-height: 1.4;
     }
 
     .po-benefits-list li svg {
       flex-shrink: 0;
-      color: #E5A163;
+      color: var(--brand-highlight, #ffab57);
       margin-top: 2px;
     }
 
     .po-disclaimer {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.45);
       line-height: 1.5;
       text-align: center;
+    }
+
+    /* INTEGRATED FOOTER STYLES (Design System: Amber & Obsidian) */
+    .unified-footer {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      margin-top: 72px;
+      padding-top: 60px;
+      border-top: 1px solid rgba(229, 161, 99, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Giant Background Text Masking */
+    .footer-giant-bg-text {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(120px, 20vw, 280px);
+      line-height: 0.75;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(229, 161, 99, 0.08);
+      background: linear-gradient(180deg, rgba(229, 161, 99, 0.12) 0%, transparent 65%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .footer-center-block {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 860px;
+      padding: 0 24px 60px;
+    }
+
+    .footer-heading {
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+      color: #ffffff;
+      font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+      background: linear-gradient(180deg, #ffffff 30%, var(--brand-primary, #e5a163) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0px 0px 20px rgba(229, 161, 99, 0.25));
+    }
+
+    .footer-subheading {
+      font-size: clamp(14px, 1.8vw, 17px);
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.55;
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+
+    /* Glass Pills & Action Buttons */
+    .footer-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .footer-primary-btns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .footer-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+      cursor: pointer;
+      border-radius: 9999px;
+      padding: 16px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    .footer-pill-btn-primary {
+      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #ff8f43 45%, #e5a163 100%));
+      color: var(--brand-on-primary, #211c17);
+      border: 1px solid var(--brand-border, #f2be8f);
+      box-shadow: 0 10px 28px var(--brand-glow, rgba(229, 161, 99, 0.35));
+    }
+
+    .footer-pill-btn-primary:hover {
+      background: var(--brand-hover-gradient, linear-gradient(180deg, #ff9f43 0%, #e58739 50%, #d48f50 100%));
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
+    }
+
+    .footer-pill-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(229, 161, 99, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .footer-pill-btn-secondary:hover {
+      background: rgba(229, 161, 99, 0.12);
+      border-color: var(--brand-primary, #e5a163);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(229, 161, 99, 0.2);
+    }
+
+    .footer-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .footer-nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+
+    .footer-nav-link:hover {
+      color: #ffffff;
+      background: rgba(229, 161, 99, 0.1);
+      border-color: rgba(229, 161, 99, 0.3);
+    }
+
+    /* Bottom Bar */
+    .footer-bottom-bar {
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      padding: 24px 32px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(3, 3, 5, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-sizing: border-box;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-badge-brand {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-badge-brand strong {
+      color: var(--brand-highlight, #ffab57);
+      margin-left: 4px;
+    }
+
+    .footer-btn-top {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .footer-btn-top:hover {
+      color: var(--brand-highlight, #ffab57);
+      border-color: var(--brand-primary, #e5a163);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(229, 161, 99, 0.25);
+    }
+
+    @keyframes footer-heartbeat {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(229, 161, 99, 0.4)); }
+      15%, 45% { transform: scale(1.25); filter: drop-shadow(0 0 10px rgba(255, 143, 67, 0.8)); }
+      30% { transform: scale(1); }
+    }
+
+    .animate-footer-heartbeat {
+      animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      display: inline-block;
     }
 
     @media (max-width: 768px) {
@@ -2874,19 +3056,35 @@ select {
         padding: 32px 24px;
       }
       .po-title {
-        font-size: 32px;
+        font-size: 30px;
       }
       .po-price-new {
-        font-size: 48px;
+        font-size: 46px;
       }
-      .po-price-wrap {
-        gap: 12px;
+      .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px 32px;
+        gap: 16px;
+      }
+      .footer-copyright {
+        order: 2;
+      }
+      .footer-badge-brand {
+        order: 1;
+      }
+      .footer-btn-top {
+        order: 3;
+      }
+      .unified-footer {
+        margin-top: 48px;
+        padding-top: 40px;
       }
     }
   </style>
 
-  <div class="con con-cta" style="padding-top:40px; padding-bottom:40px;">
-    <div class="premium-offer-wrap">
+  <div class="con con-cta" style="padding-top:20px; padding-bottom:0; position:relative; z-index:10; max-width:1200px; margin:0 auto;">
+    <div class="premium-offer-wrap" id="oferta" style="scroll-margin-top: 96px;">
       
       <div class="po-header">
         <div class="po-eyebrow">Consultoria de Crédito PJ</div>
@@ -2941,518 +3139,72 @@ select {
       </div>
       
     </div>
+
+    <!-- INTEGRATED FOOTER (Junto com a oferta no mesmo background da hero) -->
+    <div class="unified-footer" id="site-footer">
+      <div class="footer-giant-bg-text">APROV</div>
+
+      <div class="footer-center-block">
+        <h2 class="footer-heading">
+          Pronto para destravar seu crédito?
+        </h2>
+        <p class="footer-subheading">
+          Uma consultoria estratégica individual para entender o que o banco realmente enxerga no seu CNPJ — e quais linhas estão prontas para sua empresa.
+        </p>
+
+        <div class="footer-actions">
+          <div class="footer-primary-btns">
+            <a href="#checkout" data-open-checkout="" class="footer-pill-btn footer-pill-btn-primary footer-magnetic-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span>Garantir Consultoria R$97</span>
+            </a>
+
+            <a href="/dashboard" class="footer-pill-btn footer-pill-btn-secondary footer-magnetic-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>Acessar Dashboard</span>
+            </a>
+          </div>
+
+          <div class="footer-nav-links">
+            <a href="/privacidade" class="footer-nav-link">Política de Privacidade</a>
+            <a href="/termos" class="footer-nav-link">Termos de Uso</a>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="footer-nav-link">Suporte Oficial</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-copyright">
+          © 2026 AprovBLack. Todos os direitos reservados.
+        </div>
+
+        <div class="footer-badge-brand">
+          <span>Feito com</span>
+          <span class="animate-footer-heartbeat" style="margin: 0 4px; color: var(--brand-warm, #ff8f43);">❤</span>
+          <span>por</span>
+          <strong>Aprov</strong>
+        </div>
+
+        <button type="button" class="footer-btn-top footer-magnetic-btn" id="footerBtnScrollTop" aria-label="Voltar ao topo">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+          </svg>
+        </button>
+      </div>
+
+    </div>
   </div>
-</div>
 </section></main>
 
-<!-- ==========================================================================
-     CINEMATIC MOTION FOOTER (AprovBLack)
-     Curtain reveal, Aurora Glow, Marquee, Giant Parallax Mask & Magnetic Pills
-     ========================================================================== -->
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
-
-main.page {
-  position: relative;
-  z-index: 10;
-  background-color: var(--bg-page, #ffffff);
-}
-
-.cinematic-footer-wrapper {
-  position: relative;
-  width: 100%;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background-color: #030305;
-  color: #f3f4f6;
-  z-index: 1;
-}
-
-@media (min-width: 992px) {
-  .cinematic-footer-reveal-wrap {
-    position: relative;
-    height: 100vh;
-    min-height: 720px;
-    width: 100%;
-    clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
-    -webkit-clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
-  }
-  
-  .cinematic-footer-inner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    min-height: 720px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    background-color: #030305;
-    z-index: 1;
-  }
-}
-
-@media (max-width: 991px) {
-  .cinematic-footer-reveal-wrap {
-    position: relative;
-    width: 100%;
-  }
-  
-  .cinematic-footer-inner {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    background-color: #030305;
-    padding-top: 60px;
-  }
-}
-
-/* Animations */
-@keyframes footer-breathe {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.85; }
-}
-
-@keyframes footer-scroll-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@keyframes footer-heartbeat {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(229, 161, 99, 0.4)); }
-  15%, 45% { transform: scale(1.25); filter: drop-shadow(0 0 10px rgba(255, 143, 67, 0.8)); }
-  30% { transform: scale(1); }
-}
-
-.animate-footer-breathe {
-  animation: footer-breathe 8s ease-in-out infinite alternate;
-}
-
-.animate-footer-scroll-marquee {
-  animation: footer-scroll-marquee 35s linear infinite;
-  display: flex;
-  width: max-content;
-}
-
-.animate-footer-heartbeat {
-  animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-  display: inline-block;
-}
-
-/* Aurora & Grid Background */
-.footer-aurora {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 80vw;
-  height: 60vh;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(229, 161, 99, 0.16) 0%,
-    rgba(255, 143, 67, 0.08) 40%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.footer-bg-grid {
-  position: absolute;
-  inset: 0;
-  background-size: 60px 60px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Giant Background Text Masking */
-.footer-giant-bg-text {
-  position: absolute;
-  bottom: -4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: clamp(140px, 22vw, 320px);
-  line-height: 0.75;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(229, 161, 99, 0.10);
-  background: linear-gradient(180deg, rgba(229, 161, 99, 0.15) 0%, transparent 65%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-/* Top Marquee Ribbon */
-.footer-marquee-ribbon {
-  position: absolute;
-  top: 32px;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  border-top: 1px solid rgba(229, 161, 99, 0.2);
-  border-bottom: 1px solid rgba(229, 161, 99, 0.2);
-  background: rgba(3, 3, 5, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 14px 0;
-  transform: rotate(-1.5deg) scale(1.04);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-
-.footer-marquee-track {
-  display: flex;
-  white-space: nowrap;
-}
-
-.footer-marquee-content {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  padding: 0 24px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.footer-marquee-content span.highlight {
-  color: #ffab57;
-}
-
-.footer-marquee-content span.separator {
-  color: #e5a163;
-  opacity: 0.7;
-}
-
-/* Center Content */
-.footer-center-content {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 24px 40px;
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.footer-heading {
-  font-size: clamp(36px, 6vw, 76px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin: 0 0 16px;
-  background: linear-gradient(180deg, #ffffff 15%, #e5a163 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0px 0px 24px rgba(229, 161, 99, 0.25));
-}
-
-.footer-subheading {
-  font-size: clamp(15px, 2vw, 18px);
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.5;
-  max-width: 580px;
-  margin: 0 auto 40px;
-}
-
-/* Glass Pills */
-.footer-glass-pill {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-decoration: none;
-  font-family: inherit;
-  cursor: pointer;
-  border-radius: 9999px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 
-    0 10px 30px -10px rgba(0, 0, 0, 0.6), 
-    inset 0 1px 1px rgba(255, 255, 255, 0.15), 
-    inset 0 -1px 2px rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  will-change: transform;
-}
-
-.footer-glass-pill:hover {
-  background: linear-gradient(145deg, rgba(229, 161, 99, 0.14) 0%, rgba(229, 161, 99, 0.04) 100%);
-  border-color: rgba(229, 161, 99, 0.4);
-  box-shadow: 
-    0 20px 40px -10px rgba(229, 161, 99, 0.25), 
-    inset 0 1px 1px rgba(255, 255, 255, 0.3);
-}
-
-.footer-pill-primary {
-  padding: 16px 36px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-  background: linear-gradient(145deg, rgba(229, 161, 99, 0.25) 0%, rgba(255, 143, 67, 0.12) 100%);
-  border-color: rgba(229, 161, 99, 0.4);
-  box-shadow: 0 12px 32px -8px rgba(229, 161, 99, 0.35);
-}
-
-.footer-pill-primary:hover {
-  background: linear-gradient(145deg, rgba(229, 161, 99, 0.4) 0%, rgba(255, 143, 67, 0.22) 100%);
-  border-color: rgba(255, 171, 87, 0.6);
-  color: #ffffff;
-  box-shadow: 0 16px 44px -6px rgba(229, 161, 99, 0.5);
-}
-
-.footer-pill-secondary {
-  padding: 16px 32px;
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.footer-pill-link {
-  padding: 10px 22px;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-pill-link:hover {
-  color: #ffffff;
-}
-
-/* Links Group */
-.footer-links-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-}
-
-.footer-primary-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-}
-
-.footer-secondary-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-/* Bottom Bar */
-.footer-bottom-bar {
-  position: relative;
-  z-index: 20;
-  width: 100%;
-  padding: 24px 32px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(3, 3, 5, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-sizing: border-box;
-}
-
-.footer-copyright {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.footer-badge-brand {
-  padding: 8px 18px;
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-badge-brand strong {
-  color: #ffab57;
-  font-weight: 800;
-  margin-left: 4px;
-}
-
-.footer-btn-top {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.footer-btn-top:hover {
-  color: #ffab57;
-  border-color: rgba(229, 161, 99, 0.4);
-  transform: translateY(-3px);
-}
-
-@media (max-width: 768px) {
-  .footer-bottom-bar {
-    flex-direction: column;
-    text-align: center;
-    padding: 24px 20px 32px;
-    gap: 16px;
-  }
-  .footer-copyright {
-    order: 2;
-  }
-  .footer-badge-brand {
-    order: 1;
-  }
-  .footer-btn-top {
-    order: 3;
-  }
-  .footer-center-content {
-    padding: 100px 16px 40px;
-  }
-}
-</style>
-
-<!-- CINEMATIC MOTION FOOTER (CURTAIN REVEAL) -->
-<div class="cinematic-footer-reveal-wrap" id="site-footer-wrapper">
-  <footer class="cinematic-footer-inner cinematic-footer-wrapper" id="site-footer">
-    
-    <!-- Ambient Aurora Glow & Grid -->
-    <div class="footer-aurora animate-footer-breathe"></div>
-    <div class="footer-bg-grid"></div>
-
-    <!-- Giant background text -->
-    <div class="footer-giant-bg-text" id="footerGiantText">APROV</div>
-
-    <!-- 1. Diagonal Sleek Marquee (Top of footer) -->
-    <div class="footer-marquee-ribbon">
-      <div class="footer-marquee-track animate-footer-scroll-marquee">
-        <div class="footer-marquee-content">
-          <span>Diagnóstico de Crédito PJ</span> <span class="separator">✦</span>
-          <span class="highlight">Leitura Estratégica SCR</span> <span class="separator">✦</span>
-          <span>Rating 360 Bancos</span> <span class="separator">✦</span>
-          <span class="highlight">Capitais de Giro FGI Peac</span> <span class="separator">✦</span>
-          <span>Sigilo Absoluto</span> <span class="separator">✦</span>
-          <span class="highlight">Comitê Especializado</span> <span class="separator">✦</span>
-        </div>
-        <div class="footer-marquee-content">
-          <span>Diagnóstico de Crédito PJ</span> <span class="separator">✦</span>
-          <span class="highlight">Leitura Estratégica SCR</span> <span class="separator">✦</span>
-          <span>Rating 360 Bancos</span> <span class="separator">✦</span>
-          <span class="highlight">Capitais de Giro FGI Peac</span> <span class="separator">✦</span>
-          <span>Sigilo Absoluto</span> <span class="separator">✦</span>
-          <span class="highlight">Comitê Especializado</span> <span class="separator">✦</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. Main Center Content -->
-    <div class="footer-center-content">
-      <h2 class="footer-heading" id="footerHeading">
-        Pronto para destravar seu crédito?
-      </h2>
-      <p class="footer-subheading" id="footerSubheading">
-        Uma consultoria estratégica individual para entender o que o banco realmente enxerga no seu CNPJ — e quais linhas estão prontas para sua empresa.
-      </p>
-
-      <!-- Interactive Magnetic Pills Layout -->
-      <div class="footer-links-group" id="footerLinks">
-        
-        <!-- Primary Action Buttons -->
-        <div class="footer-primary-buttons">
-          <a href="#checkout" data-open-checkout="" class="footer-glass-pill footer-pill-primary footer-magnetic-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-            </svg>
-            <span>Garantir Consultoria R$97</span>
-          </a>
-
-          <a href="./Dashboard" class="footer-glass-pill footer-pill-secondary footer-magnetic-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-            <span>Acessar Dashboard</span>
-          </a>
-        </div>
-
-        <!-- Secondary Text Links -->
-        <div class="footer-secondary-links">
-          <a href="/privacidade" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Política de Privacidade</a>
-          <a href="/termos" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Termos de Uso</a>
-          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="footer-glass-pill footer-pill-link footer-magnetic-btn">Suporte Oficial</a>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 3. Bottom Bar / Credits -->
-    <div class="footer-bottom-bar">
-      <div class="footer-copyright">
-        © 2026 AprovBLack. Todos os direitos reservados.
-      </div>
-
-      <div class="footer-glass-pill footer-badge-brand">
-        <span>Feito com</span>
-        <span class="animate-footer-heartbeat" style="margin: 0 4px; color: #ff8f43;">❤</span>
-        <span>por</span>
-        <strong>Aprov</strong>
-      </div>
-
-      <button type="button" class="footer-btn-top footer-magnetic-btn" id="footerBtnScrollTop" aria-label="Voltar ao topo">
-        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-      </button>
-    </div>
-
-  </footer>
-</div>
-
-<!-- GSAP + ScrollTrigger Scripts for Footer Animations -->
+<!-- GSAP + Magnetic Buttons Script for Footer -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function() {
   if (typeof window === 'undefined') return;
@@ -3481,11 +3233,9 @@ main.page {
         const y = e.clientY - rect.top - w;
 
         gsap.to(el, {
-          x: x * 0.38,
-          y: y * 0.38,
-          rotationX: -y * 0.12,
-          rotationY: x * 0.12,
-          scale: 1.05,
+          x: x * 0.35,
+          y: y * 0.35,
+          scale: 1.04,
           ease: 'power2.out',
           duration: 0.35
         });
@@ -3496,8 +3246,6 @@ main.page {
         gsap.to(el, {
           x: 0,
           y: 0,
-          rotationX: 0,
-          rotationY: 0,
           scale: 1,
           ease: 'elastic.out(1, 0.35)',
           duration: 1.1
@@ -3506,59 +3254,10 @@ main.page {
     });
   }
 
-  // Parallax & Scroll Reveal with GSAP ScrollTrigger
-  function initFooterGSAP() {
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.registerPlugin(ScrollTrigger);
-
-      const wrapper = document.getElementById('site-footer-wrapper');
-      const giantText = document.getElementById('footerGiantText');
-      const heading = document.getElementById('footerHeading');
-      const links = document.getElementById('footerLinks');
-
-      if (wrapper && giantText) {
-        gsap.fromTo(giantText,
-          { y: '8vh', scale: 0.88, opacity: 0.3 },
-          {
-            y: '0vh',
-            scale: 1,
-            opacity: 1,
-            ease: 'power1.out',
-            scrollTrigger: {
-              trigger: wrapper,
-              start: 'top 85%',
-              end: 'bottom bottom',
-              scrub: 1
-            }
-          }
-        );
-      }
-
-      if (wrapper && heading && links) {
-        gsap.fromTo([heading, links],
-          { y: 35, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.15,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: wrapper,
-              start: 'top 60%',
-              end: 'bottom 90%',
-              scrub: 1
-            }
-          }
-        );
-      }
-    }
-    initMagneticButtons();
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initFooterGSAP);
+    document.addEventListener('DOMContentLoaded', initMagneticButtons);
   } else {
-    initFooterGSAP();
+    initMagneticButtons();
   }
 })();
 </script>
@@ -3845,7 +3544,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function initAllFluids() {
     initFluidShader('#hero-fluid-canvas', '.navbar-and-hero', 1.0);
-    initFluidShader('#cta-fluid-canvas', '.cta-box', 1.0);
+    initFluidShader('#cta-fluid-canvas', '.sec-cta', 1.0);
   }
 
   if (document.readyState === 'loading') {
