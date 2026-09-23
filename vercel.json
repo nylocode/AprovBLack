@@ -1,12 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
-    { "source": "/dashboard", "destination": "/Dashboard/index.html" },
-    { "source": "/dashboard/", "destination": "/Dashboard/index.html" },
-    { "source": "/Dashboard", "destination": "/Dashboard/index.html" },
-    { "source": "/Dashboard/", "destination": "/Dashboard/index.html" },
-    { "source": "/dashboard/pages/(.*)", "destination": "/Dashboard/pages/$1" },
-    { "source": "/dashboard/(.*)", "destination": "/Dashboard/$1" }
+    { "source": "/Dashboard", "destination": "/dashboard" },
+    { "source": "/Dashboard/(.*)", "destination": "/dashboard/$1" }
   ]
 }
