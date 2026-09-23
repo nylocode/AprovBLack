@@ -3101,7 +3101,7 @@ select {
         <div class="po-price-new"><span>R$</span>97</div>
       </div>
 
-      <a href="#checkout" data-open-checkout="" data-cfg="cta.offerLabel" class="po-cta w-inline-block">
+      <a href="javascript:void(0)" data-open-checkout="" data-cfg="cta.offerLabel" class="po-cta w-inline-block">
         Garantir Consultoria
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -3154,7 +3154,7 @@ select {
 
         <div class="footer-actions">
           <div class="footer-primary-btns">
-            <a href="#checkout" data-open-checkout="" class="footer-pill-btn footer-pill-btn-primary footer-magnetic-btn">
+            <a href="javascript:void(0)" data-open-checkout="" class="footer-pill-btn footer-pill-btn-primary footer-magnetic-btn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
               </svg>
@@ -4032,6 +4032,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastFocusedElement = null;
   let isMouseDownOnOverlay = false;
+  let hasSubmitted = false;
+
+  // Limpar todos os erros visuais de validação
+  function clearAllErrors() {
+    [nomeInput, emailInput, telInput, porteSelect, tempoSelect, consentBox].forEach(function(el) {
+      if (el) el.removeAttribute('aria-invalid');
+    });
+    ['chk-nome-err', 'chk-email-err', 'chk-telefone-err', 'chk-porte-err', 'chk-tempo-err', 'consent-err', 'chk-global-err'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+  }
 
   // Sincronizar preço dinamicamente a partir da config
   const descEl = document.getElementById('chk-desc');
@@ -4063,8 +4075,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navb) navb.style.paddingRight = '';
   }
 
-  // Abrir modal
+  // Abrir modal (somente acionado por clique explícito)
   function openCheckout(triggerEl) {
+    hasSubmitted = false;
+    clearAllErrors();
     lastFocusedElement = triggerEl || document.activeElement;
     overlay.removeAttribute('hidden');
     // Forçar reflow para ativar a transição CSS
@@ -4084,6 +4098,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fechar modal
   function closeCheckout() {
     if (!overlay.classList.contains('is-open')) return;
+    if (window.location.hash === '#checkout') {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch (e) {}
+    }
+    hasSubmitted = false;
+    clearAllErrors();
     overlay.classList.remove('is-open');
     unlockScroll();
 
@@ -4118,12 +4139,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Gatilho por URL hash #checkout
+  // NUNCA abrir automaticamente no carregamento inicial da página.
+  // Limpa o hash #checkout da barra de endereço caso exista.
   if (window.location.hash === '#checkout') {
-    openCheckout();
+    try {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch (e) {}
   }
   window.addEventListener('hashchange', function() {
     if (window.location.hash === '#checkout') {
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      } catch (e) {}
       openCheckout();
     }
   });
@@ -4292,38 +4319,63 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  // Validação ao sair do campo (blur) e limpeza em input
+  // Validação ao sair do campo (blur): só valida se o formulário já foi submetido OU se o campo foi preenchido
   if (nomeInput) {
-    nomeInput.addEventListener('blur', validateNome);
+    nomeInput.addEventListener('blur', function() {
+      if (hasSubmitted || (nomeInput.value && nomeInput.value.trim().length > 0)) {
+        validateNome();
+      }
+    });
     nomeInput.addEventListener('input', function() {
       if (nomeInput.getAttribute('aria-invalid') === 'true') validateNome();
     });
   }
   if (emailInput) {
-    emailInput.addEventListener('blur', validateEmail);
+    emailInput.addEventListener('blur', function() {
+      if (hasSubmitted || (emailInput.value && emailInput.value.trim().length > 0)) {
+        validateEmail();
+      }
+    });
     emailInput.addEventListener('input', function() {
       if (emailInput.getAttribute('aria-invalid') === 'true') validateEmail();
     });
   }
   if (telInput) {
-    telInput.addEventListener('blur', validateTelefone);
+    telInput.addEventListener('blur', function() {
+      if (hasSubmitted || (telInput.value && telInput.value.trim().length > 0)) {
+        validateTelefone();
+      }
+    });
     telInput.addEventListener('input', function() {
       if (telInput.getAttribute('aria-invalid') === 'true') validateTelefone();
     });
   }
   if (porteSelect) {
-    porteSelect.addEventListener('change', validatePorte);
+    porteSelect.addEventListener('change', function() {
+      if (hasSubmitted || porteSelect.value) {
+        validatePorte();
+      }
+    });
   }
   if (tempoSelect) {
-    tempoSelect.addEventListener('change', validateTempo);
+    tempoSelect.addEventListener('change', function() {
+      if (hasSubmitted || tempoSelect.value) {
+        validateTempo();
+      }
+    });
   }
   if (consentBox) {
-    consentBox.addEventListener('change', validateConsent);
+    consentBox.addEventListener('change', function() {
+      if (hasSubmitted) {
+        validateConsent();
+      }
+    });
   }
 
   // Submissão do formulário
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    hasSubmitted = true;
     if (globalErr) globalErr.textContent = '';
 
     // 1. Honeypot check
