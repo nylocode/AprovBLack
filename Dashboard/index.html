@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e5a163">
+  <title>Aprov · Plataforma Integrada de Diagnóstico & Crédito PJ</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
+</head>
+<body>
+<div class="dashboard-shell">
+  <div class="dashboard-grid-background"></div>
+  <div class="dashboard-mouse-glow"></div>
+  <div class="grain-texture"></div>
+
+  <!-- TOPBAR SHELL (HC CLUB STYLE COM ÂMBAR APROV) -->
+  <div class="topbar-wrapper">
+    <div class="topbar-shell">
+      <button title="Ocultar valores" aria-label="Ocultar valores financeiros" class="topbar-icon-button" onclick="AprovApp.toggleHideValues()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      </button>
+
+      <button type="button" aria-label="Notificações" class="topbar-icon-button" onclick="AprovApp.toggleNotifications()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+        <span class="notification-badge" style="position:absolute; top:-2px; right:-2px; min-width:18px; height:18px; border-radius:9px; background:linear-gradient(135deg, var(--brand-warm), var(--brand-primary)); color:#120e0a; font-size:10px; font-weight:900; display:flex; align-items:center; justify-content:center; box-shadow:0 0 8px var(--brand-glow);">7</span>
+      </button>
+
+      <div class="topbar-wallet-pill" onclick="AprovApp.openWithdrawModal()" title="Clique para solicitar Saque PIX">
+        <span style="font-size: 0.9rem;">⚡</span>
+        <span class="topbar-wallet-val">R$ 14.850,00</span>
+      </div>
+
+      <button class="topbar-user-button" onclick="window.location.href='pages/perfil.html'">
+        <div class="topbar-user-copy hidden sm:flex">
+          <span class="topbar-user-name">Danylo Santos</span>
+          <span class="topbar-user-role">Consultor Sênior</span>
+        </div>
+        <div class="topbar-user-avatar">DS</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR SHELL (HC CLUB STYLE COM ESTRUTURA COMPLETA BANCAR EASY) -->
+  <aside class="sidebar-shell">
+    <div class="sidebar-header">
+      <a href="index.html" class="brand-logo-container">
+        <div class="brand-logo-badge">A</div>
+        <div class="brand-logo-text">APROV <span>CRÉDITO</span></div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">VISÃO GERAL</div>
+      <a href="index.html" class="sidebar-item is-active">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        </div>
+        <span>Início / Painel</span>
+      </a>
+
+      <div class="sidebar-section-label">DIAGNÓSTICO & BIRÔS</div>
+      <a href="pages/diagnostico.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <span>Diagnóstico PJ</span>
+        <span class="sidebar-badge-pill">Birôs</span>
+      </a>
+      <a href="pages/rating-360.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <span>Rating 360 Bancos</span>
+        <span class="sidebar-badge-pill">Exclusivo</span>
+      </a>
+
+      <div class="sidebar-section-label">SOLUÇÕES DE CRÉDITO</div>
+      <a href="pages/creditos-pj.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <span>Crédito Pessoa Jurídica</span>
+      </a>
+      <a href="pages/creditos-pf.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span>Crédito Pessoa Física</span>
+      </a>
+      <a href="pages/simulador.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="8" x2="16" y1="12" y2="12"/><line x1="12" x2="12" y1="8" y2="16"/></svg>
+        </div>
+        <span>Simulador de Parcelas</span>
+      </a>
+
+      <div class="sidebar-section-label">OPERAÇÃO & ESTEIRA</div>
+      <a href="pages/propostas.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <span>Esteira de Propostas</span>
+      </a>
+      <a href="pages/acompanhar.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+        </div>
+        <span>Acompanhamento Real</span>
+      </a>
+      <a href="pages/crm.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        </div>
+        <span>CRM de Clientes</span>
+      </a>
+
+      <div class="sidebar-section-label">FINANCEIRO & REDE</div>
+      <a href="pages/carteira.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+        </div>
+        <span>Carteira & Saques PIX</span>
+      </a>
+      <a href="pages/minha-equipe.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span>Minha Equipe / Rede</span>
+      </a>
+
+      <div class="sidebar-section-label">CONFIGURAÇÕES</div>
+      <a href="pages/perfil.html" class="sidebar-item">
+        <div class="sidebar-item-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <span>Meu Perfil</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-content">
+    <div class="content-container">
+      
+      <!-- HEADER DA PÁGINA -->
+      <div class="page-header">
+        <h1 class="page-title">
+          Olá, <span class="text-brand">DANYLO SANTOS</span>
+        </h1>
+        <p class="page-subtitle">
+          Hoje, quarta-feira, 23 de setembro · Painel operacional de consultoria, diagnóstico e esteira bancária
+        </p>
+      </div>
+
+      <!-- HERO BANNER VIP (SOMA HC CLUB + BANCAR EASY) -->
+      <div class="hero-vip-banner">
+        <div>
+          <span class="hero-vip-badge">DIAGNÓSTICO PJ & CRÉDITO ESTRUTURADO</span>
+          <h2 class="hero-vip-title">Consultas aos Birôs, SCR Bacen & Rating 360</h2>
+          <p class="hero-vip-text">
+            Emita laudos periciais de crédito para empresas, analise restrições em tempo real e desbloqueie limites de capital de giro com aprovação bancária.
+          </p>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <button onclick="AprovApp.openDiagnosticModal()" class="btn-liquid">
+            ⚡ Novo Diagnóstico PJ
+          </button>
+          <a href="pages/simulador.html" class="btn-outline">
+            Simulador de Crédito →
+          </a>
+        </div>
+      </div>
+
+      <!-- CARDS DE ESTATÍSTICA (BANCAR EASY OPERATIONAL METRICS) -->
+      <div class="stats-grid">
+        <div class="stat-card highlight">
+          <div class="stat-label">Comissões Disponíveis (Saque PIX)</div>
+          <div class="stat-value financial-val" id="dash-saldo-disponivel">R$ 14.850,00</div>
+          <div class="stat-trend positive">✓ Liberado para resgate imediato</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Volume em Análise Bancária</div>
+          <div class="stat-value financial-val">R$ 1.840.000,00</div>
+          <div class="stat-trend positive">↑ +32% em relação ao mês anterior</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Diagnósticos Emitidos (Mês)</div>
+          <div class="stat-value">28 Empresas</div>
+          <div class="stat-trend">Média de 1.2 laudos por dia útil</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Taxa de Conversão & Rating</div>
+          <div class="stat-value" style="color:var(--brand-highlight);">84.6%</div>
+          <div class="stat-trend positive">Prevalência de Rating A/B</div>
+        </div>
+      </div>
+
+      <!-- SEÇÃO DUPLA: ESTEIRA DE OPERAÇÕES RECENTES + RADAR DE BIRÔS -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        
+        <!-- ESTEIRA DE PROPOSTAS -->
+        <div class="content-card" style="margin-bottom:0;">
+          <div class="content-card-header">
+            <div>
+              <div class="content-card-title">Esteira de Crédito em Andamento</div>
+              <div class="content-card-subtitle">Últimas operações em análise nos bancos parceiros</div>
+            </div>
+            <a href="pages/propostas.html" class="btn-outline" style="height:32px; font-size:0.75rem; padding:0 12px;">Ver Todas →</a>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Cliente / Operação</th>
+                  <th>Valor</th>
+                  <th>Banco</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Translog Cargas Ltda</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">Capital de Giro FGI</span></td>
+                  <td class="financial-val font-bold" style="color:#ffffff;">R$ 450.000</td>
+                  <td>Santander</td>
+                  <td><span class="status-pill warning">Em Análise de Comitê</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Fernando Bastos</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">Home Equity PJ</span></td>
+                  <td class="financial-val font-bold" style="color:#ffffff;">R$ 800.000</td>
+                  <td>Itaú BBA</td>
+                  <td><span class="status-pill success">Formalização</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Indústria Plastflex ME</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">PRONAMPE Giro</span></td>
+                  <td class="financial-val font-bold" style="color:#ffffff;">R$ 150.000</td>
+                  <td>Banco do Brasil</td>
+                  <td><span class="status-pill brand">Aguardando Laudo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- DIAGNÓSTICOS E BIRÔS RECENTES -->
+        <div class="content-card" style="margin-bottom:0;">
+          <div class="content-card-header">
+            <div>
+              <div class="content-card-title">Diagnósticos PJ & SCR Bacen</div>
+              <div class="content-card-subtitle">Consultas automatizadas de birôs e apontamentos</div>
+            </div>
+            <button onclick="AprovApp.openDiagnosticModal()" class="btn-liquid" style="height:32px; font-size:0.75rem; padding:0 12px;">+ Consultar CNPJ</button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Protocolo</th>
+                  <th>Empresa</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="diagnosticos-table-body">
+                <tr>
+                  <td><strong style="color:var(--brand-highlight);">DG-7821</strong></td>
+                  <td><strong>Logística Transval</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">34.892.128/0001-40</span></td>
+                  <td><span class="status-pill brand">Rating A (780)</span></td>
+                  <td><span class="status-pill success">Laudo Emitido</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--brand-highlight);">DG-7820</strong></td>
+                  <td><strong>Metalúrgica Aliança</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">18.442.901/0001-22</span></td>
+                  <td><span class="status-pill warning">Rating B (540)</span></td>
+                  <td><span class="status-pill warning">1 Cheque s/ Fundo</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--brand-highlight);">DG-7815</strong></td>
+                  <td><strong>Comércio Silva ME</strong><br><span style="font-size:0.72rem; color:rgba(255,255,255,0.4);">08.231.879/0001-09</span></td>
+                  <td><span class="status-pill info">Rating D (320)</span></td>
+                  <td><span class="status-pill info">3 Apontamentos SCR</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULADOR EXPRESSO DE CRÉDITO PJ (BANCAR EASY INTERACTIVE FEATURE) -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div>
+            <div class="content-card-title">Simulador Expresso de Crédito PJ</div>
+            <div class="content-card-subtitle">Calcule parcelas estimadas, taxa de juros e previsão de comissão de consultoria</div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem; align-items:center;">
+          <div>
+            <label class="form-label" style="display:flex; justify-content:space-between;">
+              <span>Valor do Crédito Solicitado:</span>
+              <strong id="sim-credit-display" style="color:var(--brand-highlight);">R$ 250.000</strong>
+            </label>
+            <input type="range" id="sim-credit-range" min="50000" max="1000000" step="10000" value="250000" class="form-input" style="padding:0; accent-color:var(--brand-highlight); cursor:pointer;" oninput="updateQuickSim()">
+
+            <label class="form-label" style="display:flex; justify-content:space-between; margin-top:1.2rem;">
+              <span>Prazo de Pagamento:</span>
+              <strong id="sim-term-display" style="color:var(--brand-highlight);">36 meses</strong>
+            </label>
+            <input type="range" id="sim-term-range" min="12" max="60" step="6" value="36" class="form-input" style="padding:0; accent-color:var(--brand-highlight); cursor:pointer;" oninput="updateQuickSim()">
+          </div>
+
+          <div style="background:rgba(229,161,99,0.08); border:1px solid rgba(229,161,99,0.25); border-radius:18px; padding:1.5rem; text-align:center;">
+            <div style="font-size:0.75rem; text-transform:uppercase; color:rgba(255,255,255,0.5);">Parcela Estimada (Tabela Price)</div>
+            <div id="sim-parcela-val" style="font-family:var(--font-heading); font-size:2rem; font-weight:900; color:#ffffff; margin:0.4rem 0;">R$ 8.940,00/mês</div>
+            <div style="font-size:0.78rem; color:rgba(255,255,255,0.5);">Taxa referencial média de 1.49% a.m.</div>
+            <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid rgba(229,161,99,0.2); font-size:0.85rem; font-weight:700; color:var(--success);">
+              Sua Comissão Estimada: <span id="sim-comissao-val">R$ 5.000,00</span> (2.0%)
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- MODAL SAQUE PIX (DO HC CLUB ADAPTADO AO SISTEMA ÂMBAR) -->
+<div class="modal-overlay" id="modal-saque-pix">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">Solicitar Saque de Comissões PIX</h3>
+      <button class="modal-close-btn" onclick="AprovApp.closeWithdrawModal()">✕</button>
+    </div>
+    <div style="background:rgba(229,161,99,0.1); border:1px solid rgba(229,161,99,0.3); border-radius:16px; padding:1rem; margin-bottom:1.25rem;">
+      <div style="font-size:0.72rem; text-transform:uppercase; color:rgba(255,255,255,0.5);">Saldo Disponível para Resgate</div>
+      <div id="modal-balance-display" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:900; color:var(--brand-highlight);">R$ 14.850,00</div>
+    </div>
+    <form onsubmit="AprovApp.confirmWithdraw(event)">
+      <div class="form-group">
+        <label class="form-label">Valor do Saque (R$)</label>
+        <input type="number" step="0.01" min="50" max="14850" id="saque-amount" value="1500.00" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Chave PIX de Destino</label>
+        <input type="text" id="saque-pix-key" value="danylosilva343@gmail.com" required class="form-input">
+      </div>
+      <button type="submit" class="btn-liquid" style="width:100%; height:46px; margin-top:0.5rem;">
+        Confirmar Transferência Instantânea
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL NOVO DIAGNÓSTICO PJ (DO BANCAR EASY COM DESIGN SYSTEM ÂMBAR) -->
+<div class="modal-overlay" id="modal-novo-diagnostico">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">Novo Diagnóstico de Crédito PJ</h3>
+      <button class="modal-close-btn" onclick="AprovApp.closeDiagnosticModal()">✕</button>
+    </div>
+    <form onsubmit="AprovApp.confirmDiagnostic(event)">
+      <div class="form-group">
+        <label class="form-label">Razão Social / Nome da Empresa</label>
+        <input type="text" id="diag-empresa" placeholder="Ex: Comercial Nova Esperança Ltda" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">CNPJ da Empresa</label>
+        <input type="text" id="diag-cnpj" placeholder="00.000.000/0001-00" required class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Birôs a Consultar</label>
+        <select class="form-select">
+          <option>Serasa Experian + SCR Bacen + Boa Vista (Completo)</option>
+          <option>Apenas SCR Banco Central (Registrato 360)</option>
+          <option>Rating Bancário Itaú/Bradesco/Santander</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-liquid" style="width:100%; height:46px; margin-top:0.5rem;">
+        Emitir Protocolo & Consultar
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- POPOVER NOTIFICAÇÕES (7 ALERTAS) -->
+<div id="notifications-popover" style="display:none; position:fixed; top:70px; right:20px; z-index:9990; width:340px; background:#0b0f17; border:1px solid rgba(229,161,99,0.3); border-radius:20px; padding:16px; box-shadow:0 20px 40px rgba(0,0,0,0.8);">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">
+    <strong style="color:#fff; font-size:0.9rem;">Notificações Operacionais (7)</strong>
+    <span style="font-size:0.7rem; color:var(--brand-highlight); cursor:pointer;" onclick="AprovApp.clearNotifications()">Marcar lidas</span>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#10B981; font-weight:700; margin-bottom:2px;">
+        <span>Comissão Creditada</span>
+        <span style="color:#888;">Há 20 min</span>
+      </div>
+      <div style="font-size:0.8rem; color:#fff;">+ R$ 880,00 de Diagnóstico + Rating PJ</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--brand-highlight); font-weight:700; margin-bottom:2px;">
+        <span>Operação FGI Aprovada</span>
+        <span style="color:#888;">Hoje, 09:10</span>
+      </div>
+      <div style="font-size:0.8rem; color:#fff;">Crédito de R$ 450.000 aprovado no Santander.</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#3b82f6; font-weight:700; margin-bottom:2px;">
+        <span>Laudo SCR Bacen Pronto</span>
+        <span style="color:#888;">Ontem</span>
+      </div>
+      <div style="font-size:0.8rem; color:#fff;">Protocolo DG-7821 finalizado e liberado.</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/dashboard.js"></script>
+<script>
+  function updateQuickSim() {
+    const cred = parseInt(document.getElementById('sim-credit-range').value);
+    const term = parseInt(document.getElementById('sim-term-range').value);
+
+    document.getElementById('sim-credit-display').innerText = AprovApp.formatCurrency(cred).split(',')[0];
+    document.getElementById('sim-term-display').innerText = term + ' meses';
+
+    // Estimativa de taxa 1.49% a.m.
+    const i = 0.0149;
+    const pmt = cred * (i * Math.pow(1 + i, term)) / (Math.pow(1 + i, term) - 1);
+    const comissao = cred * 0.02;
+
+    document.getElementById('sim-parcela-val').innerText = AprovApp.formatCurrency(pmt) + '/mês';
+    document.getElementById('sim-comissao-val').innerText = AprovApp.formatCurrency(comissao);
+  }
+</script>
+</body>
+</html>
