@@ -2585,39 +2585,98 @@ select {
     </button>
     <button class="dep-reply">Responder</button>
   </div>
-</figure></div></div></div><p class="text-sm" style="text-align:center;color:var(--text-muted);margin-top:24px">Depoimentos de clientes publicados com autorização. Os resultados variam conforme o perfil de cada empresa e não representam garantia de crédito.</p></div></section><section class="sec" style="background-color: var(--bg-soft, #f8fafb); border-top: 1px solid rgba(6, 10, 35, 0.06); border-bottom: 1px solid rgba(6, 10, 35, 0.06); padding: 72px 0;">
+</figure></div></div></div><p class="text-sm" style="text-align:center;color:var(--text-muted);margin-top:24px">Depoimentos de clientes publicados com autorização. Os resultados variam conforme o perfil de cada empresa e não representam garantia de crédito.</p></div></section><section class="sec sec-stats" style="background-color: var(--bg-soft, #f8fafb); border-top: 1px solid rgba(6, 10, 35, 0.06); border-bottom: 1px solid rgba(6, 10, 35, 0.06); padding: 72px 0;">
+  <style>
+    .stats-04-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 0 !important;
+      margin: 0 auto !important;
+      max-width: 1040px !important;
+      overflow: hidden !important;
+      border-radius: var(--radius-card, 24px) !important;
+      border: 1px solid rgba(6, 10, 35, 0.08) !important;
+      background: #ffffff !important;
+      box-shadow: 0 4px 24px rgba(6, 10, 35, 0.03) !important;
+    }
+    .stats-04-cell {
+      margin: -1px !important;
+      border-top: 1px solid rgba(6, 10, 35, 0.08) !important;
+      border-left: 1px solid rgba(6, 10, 35, 0.08) !important;
+      padding: 48px 32px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      background: #ffffff !important;
+      transition: background-color 0.25s ease !important;
+    }
+    .stats-04-cell:hover {
+      background-color: rgba(229, 161, 99, 0.025) !important;
+    }
+    .stats-04-cell .stat-number {
+      font-family: 'Helvetica Now', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-size: clamp(46px, 5.5vw, 62px) !important;
+      font-weight: 700 !important;
+      line-height: 1 !important;
+      letter-spacing: -0.03em !important;
+      color: var(--text-heading, #211c17) !important;
+    }
+    .stats-04-cell .stat-label {
+      font-family: 'Inter V', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      color: var(--text-muted, #656b7b) !important;
+      line-height: 1.45 !important;
+      margin: 14px 0 0 0 !important;
+    }
+    @media (max-width: 860px) {
+      .stats-04-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .stats-04-cell-last {
+        grid-column: span 2 !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .stats-04-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .stats-04-cell-last {
+        grid-column: span 1 !important;
+      }
+      .stats-04-cell {
+        padding: 36px 20px !important;
+      }
+    }
+  </style>
+
   <div class="w-layout-blockcontainer con w-container">
-    <div class="sec-feat" style="grid-template-columns: repeat(3, 1fr); align-items: stretch; gap: 24px;">
+    <div class="sec-feat stats-04-grid">
       
       <!-- Stat 1 -->
-      <div class="feat-card" style="padding: 48px 24px; background: #ffffff; border-radius: var(--radius-card, 24px); border: 1px solid rgba(6, 10, 35, 0.08); box-shadow: 0 4px 20px rgba(6, 10, 35, 0.03); display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--brand-primary, #e5a163); margin-bottom: 10px;">Taxa de</div>
-        <div style="font-family: 'Helvetica Now', sans-serif; font-size: clamp(48px, 5.5vw, 64px); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--text-heading, #211c17);">
-          <span class="count-up" data-target="97" data-suffix="%">0%</span>
+      <div class="stats-04-cell">
+        <div class="stat-number">
+          <span class="count-up" data-target="97" data-suffix="%">97%</span>
         </div>
-        <div class="feat-text" style="margin-top: 14px;">
-          <h3 class="feat-title" style="font-size: 16px; font-weight: 500; color: var(--text-muted, #656b7b); line-height: 1.4; margin: 0;">de aprovação</h3>
-        </div>
+        <p class="stat-label">Taxa de aprovação</p>
       </div>
 
       <!-- Stat 2 -->
-      <div class="feat-card" style="padding: 48px 24px; background: #ffffff; border-radius: var(--radius-card, 24px); border: 1px solid rgba(6, 10, 35, 0.08); box-shadow: 0 4px 20px rgba(6, 10, 35, 0.03); display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div style="font-family: 'Helvetica Now', sans-serif; font-size: clamp(48px, 5.5vw, 64px); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--text-heading, #211c17);">
-          <span class="count-up" data-prefix="+" data-target="40">+0</span>
+      <div class="stats-04-cell">
+        <div class="stat-number">
+          <span class="count-up" data-prefix="+" data-target="40">+40</span>
         </div>
-        <div class="feat-text" style="margin-top: 14px;">
-          <h3 class="feat-title" style="font-size: 16px; font-weight: 500; color: var(--text-muted, #656b7b); line-height: 1.4; margin: 0;">instituições em nossa rede<br>de relacionamento</h3>
-        </div>
+        <p class="stat-label">Instituições em nossa rede<br>de relacionamento</p>
       </div>
 
       <!-- Stat 3 -->
-      <div class="feat-card" style="padding: 48px 24px; background: #ffffff; border-radius: var(--radius-card, 24px); border: 1px solid rgba(6, 10, 35, 0.08); box-shadow: 0 4px 20px rgba(6, 10, 35, 0.03); display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div style="font-family: 'Helvetica Now', sans-serif; font-size: clamp(48px, 5.5vw, 64px); font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--text-heading, #211c17);">
-          <span class="count-up" data-prefix="+" data-target="7">+0</span>
+      <div class="stats-04-cell stats-04-cell-last">
+        <div class="stat-number">
+          <span class="count-up" data-prefix="+" data-target="7">+7</span>
         </div>
-        <div class="feat-text" style="margin-top: 14px;">
-          <h3 class="feat-title" style="font-size: 16px; font-weight: 500; color: var(--text-muted, #656b7b); line-height: 1.4; margin: 0;">anos de experiência do nosso<br>time administrativo</h3>
-        </div>
+        <p class="stat-label">Anos de experiência do nosso<br>time administrativo</p>
       </div>
 
     </div>

@@ -199,6 +199,7 @@ A seção contém:
 | 03 | Card "Diagnóstico CNPJ": novo subtítulo | Card CNPJ | Substituição de texto | ✅ Concluído |
 | 04 | Card "Radar de Crédito" → "Para quem é nossa consultoria?" | Card Qualificação | Substituição por checklist | ✅ Concluído |
 | 05 | Seção "ACOMPANHAMENTO" → Seção de números animados | Seção Estatísticas | Contadores animados (97%, +40, +7) | ✅ Concluído |
+| 06 | Efeito unificado de grid stats-04 (`components/ui/stats-04.tsx`) | Seção Estatísticas & Components | Layout unificado com bordas contíguas e criação dos arquivos TSX | ✅ Concluído |
 
 ---
 
@@ -209,5 +210,7 @@ A seção contém:
 - Os botões de oferta na seção `#pricing` e dados da Cakto **preservados e atualizados**.
 - O card "Mapa de Linhas de Crédito" **preservado**.
 - O card "Baseado no SCR do Banco Central" **preservado**.
+- Seção de métricas agora utiliza o layout unificado com bordas internas no padrão `stats-04`, garantindo acabamento premium e responsivo.
 - Todas as alterações executadas com sucesso. Pronto para commit, push e deploy.
+
 
