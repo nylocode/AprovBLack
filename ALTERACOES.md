@@ -201,6 +201,7 @@ A seção contém:
 | 05 | Seção "ACOMPANHAMENTO" → Seção de números animados | Seção Estatísticas | Contadores animados (97%, +40, +7) | ✅ Concluído |
 | 06 | Efeito unificado de grid stats-04 (`components/ui/stats-04.tsx`) | Seção Estatísticas & Components | Layout unificado com bordas contíguas e criação dos arquivos TSX | ✅ Concluído |
 | 07 | Efeito Cinematic Footer (`components/ui/motion-footer.tsx`) | Rodapé Unificado & Components | Texto gigante APROV com parallax ScrollTrigger, botões magnéticos GSAP com tilt 3D e pílulas de ação | ✅ Concluído |
+| 08 | Remoção da footer-bottom-bar e ajuste do espaço em branco | Rodapé & Main | Remoção da barra inferior (badge e botão de topo) e zeramento do padding-bottom de main.page (120px) e margin-bottom de sec (80px) | ✅ Concluído |
 
 ---
 
@@ -212,8 +213,9 @@ A seção contém:
 - O card "Mapa de Linhas de Crédito" **preservado**.
 - O card "Baseado no SCR do Banco Central" **preservado**.
 - Seção de métricas agora utiliza o layout unificado com bordas internas no padrão `stats-04`, garantindo acabamento premium e responsivo.
-- Rodapé unificado aplica os efeitos de `motion-footer.tsx` (parallax no texto APROV, botões magnéticos GSAP e pílulas com micro-animação).
+- Rodapé unificado limpo sem a barra inferior, com aviso legal discreto de copyright e sem espaços em branco residuais no final da página.
 - Todas as alterações executadas com sucesso. Pronto para commit, push e deploy.
+
 
 
 

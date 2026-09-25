@@ -2732,6 +2732,16 @@ select {
   </div>
 
   <style>
+    /* ELIMINAÇÃO DE ESPAÇOS EM BRANCO NO RODAPÉ E CONFIGURAÇÃO OBSIDIAN */
+    body {
+      background-color: var(--bg-obsidian, #030305) !important;
+    }
+
+    main.page, .page {
+      padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
     /* UNIFIED OFFER & FOOTER STYLES (Design System: Amber & Obsidian) */
     .sec-cta-unified {
       position: relative !important;
@@ -2739,6 +2749,7 @@ select {
       background-color: var(--bg-obsidian, #030305) !important;
       padding-top: 80px !important;
       padding-bottom: 0 !important;
+      margin-bottom: 0 !important;
       color: #fff !important;
       font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif) !important;
     }
@@ -2939,8 +2950,9 @@ select {
       position: relative;
       z-index: 10;
       width: 100%;
-      margin-top: 72px;
-      padding-top: 60px;
+      margin-top: 64px;
+      padding-top: 56px;
+      padding-bottom: 40px;
       border-top: 1px solid rgba(229, 161, 99, 0.15);
       display: flex;
       flex-direction: column;
@@ -2976,7 +2988,7 @@ select {
       align-items: center;
       text-align: center;
       max-width: 860px;
-      padding: 0 24px 60px;
+      padding: 0 24px 0;
     }
 
     .footer-heading {
@@ -3091,82 +3103,6 @@ select {
       border-color: rgba(229, 161, 99, 0.3);
     }
 
-    /* Bottom Bar */
-    .footer-bottom-bar {
-      position: relative;
-      z-index: 20;
-      width: 100%;
-      padding: 24px 32px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(3, 3, 5, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-sizing: border-box;
-    }
-
-    .footer-copyright {
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.45);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .footer-badge-brand {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 18px;
-      border-radius: 9999px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .footer-badge-brand strong {
-      color: var(--brand-highlight, #ffab57);
-      margin-left: 4px;
-    }
-
-    .footer-btn-top {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.7);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .footer-btn-top:hover {
-      color: var(--brand-highlight, #ffab57);
-      border-color: var(--brand-primary, #e5a163);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(229, 161, 99, 0.25);
-    }
-
-    @keyframes footer-heartbeat {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(229, 161, 99, 0.4)); }
-      15%, 45% { transform: scale(1.25); filter: drop-shadow(0 0 10px rgba(255, 143, 67, 0.8)); }
-      30% { transform: scale(1); }
-    }
-
-    .animate-footer-heartbeat {
-      animation: footer-heartbeat 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-      display: inline-block;
-    }
-
     @media (max-width: 768px) {
       .premium-offer-wrap {
         padding: 32px 24px;
@@ -3177,24 +3113,10 @@ select {
       .po-price-new {
         font-size: 46px;
       }
-      .footer-bottom-bar {
-        flex-direction: column;
-        text-align: center;
-        padding: 24px 20px 32px;
-        gap: 16px;
-      }
-      .footer-copyright {
-        order: 2;
-      }
-      .footer-badge-brand {
-        order: 1;
-      }
-      .footer-btn-top {
-        order: 3;
-      }
       .unified-footer {
         margin-top: 48px;
         padding-top: 40px;
+        padding-bottom: 32px;
       }
     }
   </style>
@@ -3325,27 +3247,11 @@ select {
             <a href="/termos" class="footer-nav-link footer-magnetic-btn">Termos de Uso</a>
             <a href="#oferta" class="footer-nav-link footer-magnetic-btn">Ver Oferta</a>
           </div>
-        </div>
-      </div>
 
-      <!-- Bottom Bar -->
-      <div class="footer-bottom-bar">
-        <div class="footer-copyright">
-          © 2026 Aprov. Todos os direitos reservados. CNPJ sob sigilo conforme LGPD.
+          <div style="margin-top: 32px; font-size: 13px; color: rgba(255, 255, 255, 0.4); text-align: center;">
+            © 2026 Aprov. Todos os direitos reservados. CNPJ sob sigilo conforme LGPD.
+          </div>
         </div>
-
-        <div class="footer-badge-brand">
-          <span>Desenvolvido com</span>
-          <span class="animate-footer-heartbeat" style="margin: 0 4px; color: var(--brand-primary, #e5a163);">❤</span>
-          <span>pela</span>
-          <strong>Aprov</strong>
-        </div>
-
-        <button type="button" class="footer-btn-top footer-magnetic-btn" id="footerBtnScrollTop" aria-label="Voltar ao topo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        </button>
       </div>
     </footer>
   </div>
