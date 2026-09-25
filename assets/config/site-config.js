@@ -19,7 +19,7 @@ window.SITE_CONFIG = {
 
   // Canais de Contato e Suporte
   contact: {
-    whatsappDigits: "55{DDD}{NUMERO}",                   // Apenas números: DDI + DDD + Telefone (ex: 5511999999999)
+    whatsappDigits: "5571982630575",                   // Apenas números: DDI + DDD + Telefone (ex: 5511999999999)
     email: "{EMAIL_CONTATO}",                            // E-mail oficial de atendimento ao cliente
     instagram: ""                                        // Perfil do Instagram (opcional, ex: "aprovcredito")
   },
@@ -35,13 +35,13 @@ window.SITE_CONFIG = {
   // Rótulos dos Botões Principais (Chamadas para Ação)
   cta: {
     primaryLabel: "Agendar consultoria",                 // Botão da barra de navegação e do topo (Hero)
-    offerLabel: "Garantir Consultoria",                  // Botão do bloco de oferta/preço
+    offerLabel: "Adquirir minha consultoria de crédito",                  // Botão do bloco de oferta/preço
     formSubmitLabel: "IR PARA O PAGAMENTO →"             // Botão de envio dentro do formulário de checkout
   },
 
   // Links de Navegação e Integração
   links: {
-    checkout: "{CHECKOUT_URL}",                          // URL da página de pagamento (ex: Kiwify, Hotmart, Eduzz)
+    checkout: "https://pay.cakto.com.br/c22hr93_983384",                          // URL da página de pagamento (ex: Kiwify, Hotmart, Eduzz)
     leadWebhook: "{WEBHOOK_URL}",                        // URL opcional de webhook (CRM, n8n, Make) para captura prévia
     terms: "/termos",                                    // Página de Termos de Uso
     privacy: "/privacidade",                             // Página de Política de Privacidade
