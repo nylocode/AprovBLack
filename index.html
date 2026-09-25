@@ -6130,7 +6130,7 @@
       // Máscara dinâmica de telefone brasileiro (10 ou 11 dígitos)
       if (telInput) {
         telInput.addEventListener('input', function (e) {
-          let digits = e.target.value.replace(/\\D/g, '').slice(0, 11);
+          let digits = e.target.value.replace(/\D/g, '').slice(0, 11);
           let formatted = '';
           if (digits.length === 0) {
             formatted = '';
@@ -6169,7 +6169,7 @@
       function validateNome() {
         const errEl = document.getElementById('chk-nome-err');
         const val = (nomeInput.value || '').trim();
-        const parts = val.split(/\\s+/).filter(Boolean);
+        const parts = val.split(/\s+/).filter(Boolean);
         if (parts.length < 2) {
           setError(nomeInput, errEl, 'Informe nome e sobrenome.');
           return false;
@@ -6181,7 +6181,7 @@
       function validateEmail() {
         const errEl = document.getElementById('chk-email-err');
         const val = (emailInput.value || '').trim();
-        const regex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regex.test(val)) {
           setError(emailInput, errEl, 'Informe um e-mail válido.');
           return false;
@@ -6192,7 +6192,7 @@
 
       function validateTelefone() {
         const errEl = document.getElementById('chk-telefone-err');
-        const digits = (telInput.value || '').replace(/\\D/g, '');
+        const digits = (telInput.value || '').replace(/\D/g, '');
         let valid = false;
         if (digits.length === 10 || digits.length === 11) {
           const ddd = parseInt(digits.substring(0, 2), 10);
@@ -6328,7 +6328,7 @@
         submitBtn.innerHTML = '<span class="chk-spinner" aria-hidden="true"></span><span>Redirecionando…</span>';
 
         // 3. Montar Payload
-        const cleanDigits = telInput.value.replace(/\\D/g, '');
+        const cleanDigits = telInput.value.replace(/\D/g, '');
         const phoneWithCountry = '55' + cleanDigits;
 
         const utmParams = {};
