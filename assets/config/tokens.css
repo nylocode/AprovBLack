@@ -14,88 +14,88 @@
    ========================================================================== */
 
 :root {
-   /* ==========================================================================
+  /* ==========================================================================
      1. MARCA (SISTEMA ÂMBAR)
      ========================================================================== */
-   --brand-highlight: #ffab57;
-   --brand-warm: #ff8f43;
-   --brand-primary: #e5a163;
-   --brand-border: #f2be8f;
-   --brand-hover: #d48f50;
-   --brand-active: #c47d3e;
-   --brand-on-primary: #211c17;
-   --brand-text-on-light: #8a5a2b;
-   --brand-gradient: linear-gradient(180deg, var(--brand-highlight) 0%, var(--brand-warm) 45%, var(--brand-primary) 100%);
-   --brand-gradient-135: linear-gradient(135deg, var(--brand-highlight) 0%, var(--brand-warm) 50%, var(--brand-primary) 100%);
-   --brand-hover-gradient: linear-gradient(180deg, #ff9f43 0%, #e58739 50%, var(--brand-hover) 100%);
-   --brand-glow: rgba(229, 161, 99, 0.35);
-   --brand-glow-strong: rgba(229, 161, 99, 0.48);
-   --brand-tint: rgba(229, 161, 99, 0.16);
-   --brand-tint-strong: rgba(229, 161, 99, 0.22);
-   --brand-tint-subtle: rgba(229, 161, 99, 0.05);
+  --brand-highlight: #ffab57;
+  --brand-warm: #ff8f43;
+  --brand-primary: #e5a163;
+  --brand-border: #f2be8f;
+  --brand-hover: #d48f50;
+  --brand-active: #c47d3e;
+  --brand-on-primary: #211c17;
+  --brand-text-on-light: #8a5a2b;
+  --brand-gradient: linear-gradient(180deg, var(--brand-highlight) 0%, var(--brand-warm) 45%, var(--brand-primary) 100%);
+  --brand-gradient-135: linear-gradient(135deg, var(--brand-highlight) 0%, var(--brand-warm) 50%, var(--brand-primary) 100%);
+  --brand-hover-gradient: linear-gradient(180deg, #ff9f43 0%, #e58739 50%, var(--brand-hover) 100%);
+  --brand-glow: rgba(229, 161, 99, 0.35);
+  --brand-glow-strong: rgba(229, 161, 99, 0.48);
+  --brand-tint: rgba(229, 161, 99, 0.16);
+  --brand-tint-strong: rgba(229, 161, 99, 0.22);
+  --brand-tint-subtle: rgba(229, 161, 99, 0.05);
 
-   /* Aliases de compatibilidade para classes legadas Webflow */
-   --purple-100: var(--brand-primary);
-   --100: #240b6a;
-   --80: #645ea1;
+  /* Aliases de compatibilidade para classes legadas Webflow */
+  --purple-100: var(--brand-primary);
+  --100: #240b6a;
+  --80: #645ea1;
 
-   /* ==========================================================================
+  /* ==========================================================================
      2. FUNDOS DE SEÇÃO E SUPERFÍCIES
      ========================================================================== */
-   --bg-hero: #211c17;
-   --bg-obsidian: #030305;
-   --bg-page: #ffffff;
-   --bg-soft: #f8fafb;
-   --text-on-dark-soft: #f7eee7;
+  --bg-hero: #211c17;
+  --bg-obsidian: #ffffff;
+  --bg-page: #ffffff;
+  --bg-soft: #f8fafb;
+  --text-on-dark-soft: #f7eee7;
 
-   /* ==========================================================================
+  /* ==========================================================================
      3. TIPOGRAFIA E CORES DE TEXTO
      ========================================================================== */
-   --text-on-hero: #ffffff;
-   --text-heading: #211c17;
-   --text-body: #383540;
-   --text-body-alt: #4b5563;
-   --text-muted: #656b7b;
-   --text-nav: #2A2F3C;
-   --icon-stroke: #1e140b;
-   --logo-muted: #D4D8E8;
+  --text-on-hero: #ffffff;
+  --text-heading: #211c17;
+  --text-body: #383540;
+  --text-body-alt: #4b5563;
+  --text-muted: #656b7b;
+  --text-nav: #2A2F3C;
+  --icon-stroke: #1e140b;
+  --logo-muted: #D4D8E8;
 
-   /* ==========================================================================
+  /* ==========================================================================
      4. CORES FUNCIONAIS E FEEDBACK
      ========================================================================== */
-   --success: #059669;
-   --live: #00e676;
-   --error: #b42318;
-   --error-bg: rgba(180, 35, 24, 0.12);
+  --success: #059669;
+  --live: #00e676;
+  --error: #b42318;
+  --error-bg: rgba(180, 35, 24, 0.12);
 
-   /* ==========================================================================
+  /* ==========================================================================
      5. BORDAS, DIVISORES E EFEITO VIDRO
      ========================================================================== */
-   --border-on-dark: rgba(255, 255, 255, 0.12);
-   --border-on-light: rgba(6, 10, 35, 0.08);
-   --border-input: rgba(6, 10, 35, 0.16);
-   --border-input-hover: rgba(6, 10, 35, 0.30);
-   --overlay: rgba(6, 10, 35, 0.62);
+  --border-on-dark: rgba(255, 255, 255, 0.12);
+  --border-on-light: rgba(6, 10, 35, 0.08);
+  --border-input: rgba(6, 10, 35, 0.16);
+  --border-input-hover: rgba(6, 10, 35, 0.30);
+  --overlay: rgba(6, 10, 35, 0.62);
 
-   /* ==========================================================================
+  /* ==========================================================================
      6. FORMAS E ARREDONDAMENTO (BORDER-RADIUS)
      ========================================================================== */
-   --radius-button: 14px;
-   --radius-card: 24px;
-   --radius-modal: 20px;
-   --radius-pill: 999px;
+  --radius-button: 14px;
+  --radius-card: 24px;
+  --radius-modal: 20px;
+  --radius-pill: 999px;
 
-   /* ==========================================================================
+  /* ==========================================================================
      7. MOVIMENTO E TRANSIÇÕES
      ========================================================================== */
-   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-   --duration-fast: 200ms;
-   --duration-base: 300ms;
-   --duration-slow: 500ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
 
-   /* ==========================================================================
+  /* ==========================================================================
      8. FAMÍLIAS TIPOGRÁFICAS
      ========================================================================== */
-   --font-heading: 'Helvetica Now', 'Inter V', sans-serif;
-   --font-body: 'Inter V', 'Helvetica Now', sans-serif;
+  --font-heading: 'Helvetica Now', 'Inter V', sans-serif;
+  --font-body: 'Inter V', 'Helvetica Now', sans-serif;
 }
