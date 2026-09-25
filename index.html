@@ -3217,7 +3217,7 @@ select {
         <div class="po-price-new"><span>R$</span>97</div>
       </div>
 
-      <a href="javascript:void(0)" data-open-checkout="" data-cfg="cta.offerLabel" class="po-cta w-inline-block">
+      <a href="javascript:void(0)" data-open-checkout="" data-cfg="cta.offerLabel" class="po-cta footer-magnetic-btn w-inline-block">
         Adquirir minha consultoria de crédito
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -3293,30 +3293,68 @@ select {
     .faq-item p{padding:0 0 20px;margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.6)}
     </style>
 
-    <!-- INTEGRATED FOOTER (Junto com a oferta no mesmo background da hero) -->
-    <footer class="site-footer" id="site-footer" style="position: relative; z-index: 10; padding: 48px 24px 32px; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1100px; margin: 64px auto 0;">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <svg width="28" height="28" viewBox="0 0 500 500" fill="none"><path d="M232.66,430.16l116.81-.14c7.4,0,12.77,5.49,12.98,12.39.2,6.28-4.78,12.8-12.28,12.8l-323.63.11c-7.85,0-13.26-5.95-13.06-12.89.21-7.54,5.91-12.37,13.79-12.37h99.65s105.74.1,105.74.1Z" style="fill:var(--brand-primary, #e5a163)"></path></svg>
-          <span style="font-family: 'Helvetica Now', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: #fff;">APROV</span>
-          <span style="font-size: 13px; color: rgba(255,255,255,0.45); margin-left: 8px;">| Diagnóstico de Crédito PJ</span>
-        </div>
-        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
-          <a href="/privacidade" style="color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Política de Privacidade</a>
-          <a href="/termos" style="color: rgba(255,255,255,0.6); font-size: 14px; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Termos de Uso</a>
-          <a href="https://wa.me/5571982630575" target="_blank" rel="noopener" style="color: var(--brand-primary, #e5a163); font-size: 14px; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
-            Suporte Oficial
-          </a>
-        </div>
-      </div>
-      <div style="margin-top: 24px; text-align: center; color: rgba(255,255,255,0.4); font-size: 13px;">
-        © 2026 Aprov. Todos os direitos reservados. CNPJ sob sigilo conforme LGPD.
-      </div>
-    </footer></section></main>
+    <!-- INTEGRATED CINEMATIC FOOTER (Design System: Amber & Obsidian) -->
+    <footer class="unified-footer" id="site-footer">
+      <!-- Giant Background Parallax Text -->
+      <div class="footer-giant-bg-text" id="footerGiantText">APROV</div>
 
-<!-- GSAP + Magnetic Buttons Script for Footer -->
+      <!-- Main Center Content -->
+      <div class="footer-center-block">
+        <h2 class="footer-heading">Pronto para começar?</h2>
+        <p class="footer-subheading">Entenda o que os bancos enxergam no seu histórico e tenha um direcionamento claro para acessar as melhores taxas de crédito PJ.</p>
+        
+        <div class="footer-actions">
+          <div class="footer-primary-btns">
+            <a href="javascript:void(0)" data-open-checkout="" class="footer-pill-btn footer-pill-btn-primary footer-magnetic-btn">
+              <span>Garantir minha consultoria por R$97</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="https://wa.me/5571982630575" target="_blank" rel="noopener" class="footer-pill-btn footer-pill-btn-secondary footer-magnetic-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+              </svg>
+              <span>Suporte Oficial WhatsApp</span>
+            </a>
+          </div>
+
+          <div class="footer-nav-links">
+            <a href="/privacidade" class="footer-nav-link footer-magnetic-btn">Política de Privacidade</a>
+            <a href="/termos" class="footer-nav-link footer-magnetic-btn">Termos de Uso</a>
+            <a href="#oferta" class="footer-nav-link footer-magnetic-btn">Ver Oferta</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div class="footer-copyright">
+          © 2026 Aprov. Todos os direitos reservados. CNPJ sob sigilo conforme LGPD.
+        </div>
+
+        <div class="footer-badge-brand">
+          <span>Desenvolvido com</span>
+          <span class="animate-footer-heartbeat" style="margin: 0 4px; color: var(--brand-primary, #e5a163);">❤</span>
+          <span>pela</span>
+          <strong>Aprov</strong>
+        </div>
+
+        <button type="button" class="footer-btn-top footer-magnetic-btn" id="footerBtnScrollTop" aria-label="Voltar ao topo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+</section>
+</main>
+
+<!-- GSAP + ScrollTrigger + Magnetic Buttons Script for Footer -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function() {
   if (typeof window === 'undefined') return;
@@ -3330,14 +3368,37 @@ select {
     });
   }
 
-  // Magnetic Button Effect
+  // Giant Background Parallax with ScrollTrigger
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    const giantText = document.getElementById('footerGiantText');
+    const footer = document.getElementById('site-footer');
+    if (giantText && footer) {
+      gsap.fromTo(
+        giantText,
+        { y: 60, opacity: 0.25 },
+        {
+          y: -20,
+          opacity: 1,
+          ease: 'power1.out',
+          scrollTrigger: {
+            trigger: footer,
+            start: 'top 90%',
+            end: 'bottom bottom',
+            scrub: 1.2
+          }
+        }
+      );
+    }
+  }
+
+  // Magnetic Button Effect (Zero Dependency GSAP with 3D Tilt)
   function initMagneticButtons() {
     const buttons = document.querySelectorAll('.footer-magnetic-btn');
-    if (!buttons.length) return;
+    if (!buttons.length || !window.gsap) return;
 
     buttons.forEach(function(el) {
       el.addEventListener('mousemove', function(e) {
-        if (!window.gsap) return;
         const rect = el.getBoundingClientRect();
         const h = rect.width / 2;
         const w = rect.height / 2;
@@ -3347,6 +3408,8 @@ select {
         gsap.to(el, {
           x: x * 0.35,
           y: y * 0.35,
+          rotationX: -y * 0.12,
+          rotationY: x * 0.12,
           scale: 1.04,
           ease: 'power2.out',
           duration: 0.35
@@ -3354,10 +3417,11 @@ select {
       });
 
       el.addEventListener('mouseleave', function() {
-        if (!window.gsap) return;
         gsap.to(el, {
           x: 0,
           y: 0,
+          rotationX: 0,
+          rotationY: 0,
           scale: 1,
           ease: 'elastic.out(1, 0.35)',
           duration: 1.1
