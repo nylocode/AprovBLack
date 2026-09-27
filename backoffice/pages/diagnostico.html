@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico SCR Bacen · Aprov Black</title>
+  <meta name="description" content="Consulte o SCR Bacen, score de crédito e birôs para qualquer CNPJ. Parecer inteligente em PDF.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="/backoffice" class="sidebar-logo">
+        <img src="../../assets/images/logoaprov.svg" alt="Aprov Black">
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <span class="nav-section-title">Principal</span>
+      <a href="/backoffice" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Painel Geral
+      </a>
+      <a href="/backoffice/diagnostico" class="nav-item active">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Diagnóstico SCR
+        <span class="nav-badge">R$ 55</span>
+      </a>
+      <a href="/backoffice/rating-360" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+        Rating 360°
+        <span class="nav-badge">R$ 297</span>
+      </a>
+      <a href="/backoffice/propostas" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        Propostas de Crédito
+      </a>
+      <a href="/backoffice/clientes" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Clientes / CRM
+      </a>
+      <span class="nav-section-title">Gestão</span>
+      <a href="/backoffice/simulador" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        Simulador de Crédito
+      </a>
+      <a href="/backoffice/relatorios" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Relatórios
+      </a>
+      <span class="nav-section-title">Conta</span>
+      <a href="/backoffice/carteira" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        Carteira & Recargas
+      </a>
+      <a href="/backoffice/perfil" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Configurações
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="wallet-card">
+        <div>
+          <div class="wallet-label">Saldo em Carteira</div>
+          <div class="wallet-balance" data-balance>R$ 0,00</div>
+        </div>
+        <button class="wallet-btn" onclick="Aprov.openModal('rechargeModal')">+ Recarregar</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <header class="top-header">
+      <div class="header-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="header-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#9ca3af"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" placeholder="Buscar CNPJ, empresa ou proposta…">
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-balance" onclick="Aprov.openModal('rechargeModal')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Saldo:</span> <strong data-balance>R$ 0,00</strong>
+        </div>
+        <div class="user-profile" id="userProfileBtn">
+          <div class="avatar" id="userAvatar">AB</div>
+          <div>
+            <span class="user-name" id="userName">Gestor Aprov</span>
+            <span class="user-role">Plano Black</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Diagnóstico SCR Bacen</h1>
+          <p class="page-subtitle">Consulte o histórico de crédito de qualquer CNPJ no Banco Central e birôs de informação.</p>
+        </div>
+        <button class="btn btn-primary" onclick="Aprov.openModal('newDiagModal')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+          Nova Consulta — R$ 55
+        </button>
+      </div>
+
+      <!-- Banner informativo -->
+      <div class="banner-card" style="margin-bottom:24px;">
+        <div>
+          <span class="section-badge">SCR Bacen + Birôs</span>
+          <h2 class="banner-title">Diagnóstico completo em menos de 2 minutos</h2>
+          <p class="banner-sub">Analisamos o SCR do Bacen, Serasa, Boa Vista e SPC. Entregamos um relatório PDF com score, restrições, endividamento e um parecer estratégico de crédito.</p>
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="Aprov.openModal('newDiagModal')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          Consultar CNPJ — R$ 55
+        </button>
+      </div>
+
+      <!-- Histórico de diagnósticos -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Histórico de Consultas
+          </h3>
+          <span style="font-size:12px; color:var(--ink-light);">4 diagnósticos realizados</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>CNPJ / Empresa</th>
+                <th>Data</th>
+                <th>Score</th>
+                <th>Rating</th>
+                <th>Restrições</th>
+                <th>Status</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="td-main">TechVision Ltda</span><span class="td-sub">12.345.678/0001-90</span></td>
+                <td>25/09/2026</td>
+                <td><strong style="color:var(--amber);">720</strong>/1000</td>
+                <td><span class="badge badge-success">A-</span></td>
+                <td><span class="badge badge-success">Nenhuma</span></td>
+                <td><span class="badge badge-success">Concluído</span></td>
+                <td><button class="btn btn-sm btn-secondary">📄 Ver PDF</button></td>
+              </tr>
+              <tr>
+                <td><span class="td-main">Construtora Alfa S/A</span><span class="td-sub">98.765.432/0001-10</span></td>
+                <td>22/09/2026</td>
+                <td><strong style="color:var(--amber-tx);">640</strong>/1000</td>
+                <td><span class="badge badge-warning">B+</span></td>
+                <td><span class="badge badge-warning">1 pendência</span></td>
+                <td><span class="badge badge-success">Concluído</span></td>
+                <td><button class="btn btn-sm btn-secondary">📄 Ver PDF</button></td>
+              </tr>
+              <tr>
+                <td><span class="td-main">HealthCare Soluções</span><span class="td-sub">45.678.901/0001-23</span></td>
+                <td>18/09/2026</td>
+                <td><strong style="color:#10b981;">810</strong>/1000</td>
+                <td><span class="badge badge-success">A+</span></td>
+                <td><span class="badge badge-success">Nenhuma</span></td>
+                <td><span class="badge badge-success">Concluído</span></td>
+                <td><button class="btn btn-sm btn-secondary">📄 Ver PDF</button></td>
+              </tr>
+              <tr>
+                <td><span class="td-main">Logística Rápida Eireli</span><span class="td-sub">56.789.012/0001-34</span></td>
+                <td>14/09/2026</td>
+                <td><strong style="color:var(--red-tx);">490</strong>/1000</td>
+                <td><span class="badge badge-danger">C</span></td>
+                <td><span class="badge badge-danger">3 restrições</span></td>
+                <td><span class="badge badge-success">Concluído</span></td>
+                <td><button class="btn btn-sm btn-secondary">📄 Ver PDF</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL: Nova consulta -->
+<div class="modal-backdrop" id="newDiagModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">Novo Diagnóstico SCR Bacen</h3>
+      <button class="modal-close" onclick="Aprov.closeModal('newDiagModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px; color:var(--ink-mid); margin-bottom:16px; line-height:1.55;">Informe o CNPJ para gerar o diagnóstico completo. Custo: <strong style="color:var(--amber);">R$ 55,00</strong> debitados do saldo da carteira.</p>
+      <div class="form-group">
+        <label class="form-label">CNPJ da Empresa</label>
+        <input type="text" id="newDiagCnpj" class="form-input" placeholder="00.000.000/0001-00" maxlength="18">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Razão Social (opcional)</label>
+        <input type="text" id="newDiagRazao" class="form-input" placeholder="Nome da empresa">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="Aprov.closeModal('newDiagModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="submitNewDiag()">Gerar Diagnóstico — R$ 55</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Recarga -->
+<div class="modal-backdrop" id="rechargeModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 class="modal-title">Recarregar Carteira Aprov</h3>
+      <button class="modal-close" onclick="Aprov.closeModal('rechargeModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px; color:var(--ink-mid); margin-bottom:14px; line-height:1.55;">Pague via PIX e tenha liberação imediata do saldo.</p>
+      <div class="form-group">
+        <label class="form-label">Valor da Recarga</label>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;">
+          <button class="btn btn-secondary" onclick="document.getElementById('rechargeVal').value=110">R$ 110 (2x)</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('rechargeVal').value=297">R$ 297 (Rating)</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('rechargeVal').value=550">R$ 550 (10x)</button>
+        </div>
+        <input type="number" id="rechargeVal" class="form-input" value="110" min="55">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="Aprov.closeModal('rechargeModal')">Cancelar</button>
+      <button class="btn btn-primary" onclick="doRecharge()">Confirmar Pagamento</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="sidebarOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:39;"></div>
+
+<script src="../js/app.js"></script>
+<script>
+  Aprov.cnpjMask(document.getElementById('newDiagCnpj'));
+
+  function submitNewDiag() {
+    const cnpj = document.getElementById('newDiagCnpj').value.replace(/\D/g,'');
+    if (cnpj.length !== 14) { Aprov.toast('Informe um CNPJ válido.'); return; }
+    if (Aprov.getBalance() < 55) {
+      Aprov.closeModal('newDiagModal');
+      Aprov.toast('Saldo insuficiente. Recarregue a carteira.');
+      Aprov.openModal('rechargeModal');
+      return;
+    }
+    Aprov.deductBalance(55);
+    Aprov.closeModal('newDiagModal');
+    Aprov.toast('✓ Diagnóstico solicitado! PDF em até 2 minutos.');
+    document.getElementById('newDiagCnpj').value = '';
+    document.getElementById('newDiagRazao').value = '';
+  }
+
+  function doRecharge() {
+    const v = parseFloat(document.getElementById('rechargeVal').value) || 110;
+    if (v < 55) { Aprov.toast('Valor mínimo: R$ 55,00'); return; }
+    Aprov.addBalance(v);
+    Aprov.closeModal('rechargeModal');
+    Aprov.toast('✓ Recarga de ' + Aprov.formatBRL(v) + ' confirmada!');
+  }
+</script>
+</body>
+</html>

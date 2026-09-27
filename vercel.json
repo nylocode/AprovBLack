@@ -1,10 +1,16 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/login", "destination": "/login/index.html" },
-    { "source": "/backoffice", "destination": "/dashboard/index.html" },
-    { "source": "/backoffice/(.*)", "destination": "/dashboard/$1" },
-    { "source": "/Dashboard", "destination": "/dashboard" },
-    { "source": "/Dashboard/(.*)", "destination": "/dashboard/$1" }
+    { "source": "/login",                    "destination": "/login/index.html" },
+    { "source": "/backoffice",               "destination": "/backoffice/index.html" },
+    { "source": "/backoffice/diagnostico",   "destination": "/backoffice/pages/diagnostico.html" },
+    { "source": "/backoffice/rating-360",    "destination": "/backoffice/pages/rating-360.html" },
+    { "source": "/backoffice/propostas",     "destination": "/backoffice/pages/propostas.html" },
+    { "source": "/backoffice/clientes",      "destination": "/backoffice/pages/clientes.html" },
+    { "source": "/backoffice/simulador",     "destination": "/backoffice/pages/simulador.html" },
+    { "source": "/backoffice/relatorios",    "destination": "/backoffice/pages/relatorios.html" },
+    { "source": "/backoffice/carteira",      "destination": "/backoffice/pages/carteira.html" },
+    { "source": "/backoffice/perfil",        "destination": "/backoffice/pages/perfil.html" },
+    { "source": "/backoffice/(.*)",          "destination": "/backoffice/$1" }
   ]
 }
