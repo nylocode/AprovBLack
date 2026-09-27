@@ -49,9 +49,11 @@
   --sh-amber: 0 6px 20px rgba(229,161,99,0.35);
 
   /* Layout */
-  --sw: 260px;   /* sidebar width */
+  --sw: 260px;   /* sidebar expanded */
+  --sw-collapsed: 60px;  /* sidebar collapsed (icons only) */
   --hh: 68px;   /* header height */
   --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;  --r-xl: 24px;
+  --sidebar-transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 body {
@@ -78,9 +80,14 @@ h1, h2, h3, h4, h5, h6,
 
 .app-shell { display: flex; min-height: 100vh; }
 
-/* ---- SIDEBAR ---- */
+/* ============================================================
+   SIDEBAR — Collapsible (sidebar.tsx behavior)
+   Desktop: 60px collapsed → 260px on hover (smooth animate)
+   Mobile: slide-in overlay
+   ============================================================ */
+
 .sidebar {
-  width: var(--sw);
+  width: var(--sw-collapsed);
   background-color: var(--ink-sidebar);
   color: #fff;
   display: flex;
@@ -88,44 +95,121 @@ h1, h2, h3, h4, h5, h6,
   position: fixed;
   top: 0; bottom: 0; left: 0;
   z-index: 40;
-  overflow-y: auto;
+  overflow: hidden;
   border-right: 1px solid rgba(255,255,255,0.05);
-  transition: transform 0.3s ease;
+  transition: var(--sidebar-transition);
+  /* No scrollbar while collapsed */
 }
 
+.sidebar:hover,
+.sidebar.expanded {
+  width: var(--sw);
+  overflow-y: auto;
+}
+
+/* Scrollbar hidden when collapsed */
+.sidebar:not(:hover):not(.expanded)::-webkit-scrollbar { display: none; }
+
+/* Header */
 .sidebar-header {
-  padding: 22px 18px;
+  padding: 18px 14px;
   border-bottom: 1px solid rgba(255,255,255,0.07);
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.sidebar-logo img {
-  height: 28px;
+/* Logo: full SVG hidden when collapsed, icon shown */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-logo .logo-full {
+  height: 26px;
   width: auto;
+  flex-shrink: 0;
   filter: brightness(0) saturate(100%) invert(71%) sepia(44%) saturate(550%) hue-rotate(10deg) brightness(98%) contrast(96%);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.25s ease 0.05s, transform 0.25s ease 0.05s;
+  pointer-events: none;
 }
 
+.sidebar-logo .logo-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0b070 0%, var(--amber) 100%);
+  color: var(--ink-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  font-family: 'Helvetica Now', 'Arial', sans-serif;
+  box-shadow: 0 4px 12px rgba(229,161,99,0.35);
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar:hover .logo-full,
+.sidebar.expanded .logo-full {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar:hover .logo-icon,
+.sidebar.expanded .logo-icon {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  position: absolute;
+}
+
+/* Nav */
 .sidebar-nav {
   flex: 1;
-  padding: 14px 10px;
+  padding: 10px 8px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
+  overflow: hidden;
 }
 
+/* Section titles hidden when collapsed */
 .nav-section-title {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.3);
-  padding: 12px 12px 5px;
+  padding: 12px 10px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.2s ease, height 0.2s ease;
 }
 
+.sidebar:hover .nav-section-title,
+.sidebar.expanded .nav-section-title {
+  opacity: 1;
+  height: 28px;
+}
+
+/* Nav items */
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 9px 13px;
+  gap: 10px;
+  padding: 10px;
   border-radius: var(--r-md);
   font-size: 13.5px;
   font-weight: 500;
@@ -133,9 +217,11 @@ h1, h2, h3, h4, h5, h6,
   transition: all 0.18s ease;
   cursor: pointer;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.nav-item:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
 .nav-item.active {
   color: var(--ink-dark);
@@ -144,10 +230,35 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: var(--sh-amber);
 }
 
-.nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+.nav-item svg {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
 
+.nav-item:hover svg { transform: scale(1.05); }
+
+/* Label: hidden when collapsed, slides in on hover */
+.nav-label {
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  max-width: 0;
+  transition: opacity 0.2s ease 0.05s, max-width 0.3s cubic-bezier(0.4,0,0.2,1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar:hover .nav-label,
+.sidebar.expanded .nav-label {
+  opacity: 1;
+  max-width: 200px;
+}
+
+/* Badge (inside label) */
 .nav-badge {
-  margin-left: auto;
   font-size: 10px;
   font-weight: 700;
   padding: 2px 7px;
@@ -155,12 +266,40 @@ h1, h2, h3, h4, h5, h6,
   background: rgba(229,161,99,0.2);
   color: #f7d28b;
   border: 1px solid rgba(229,161,99,0.35);
+  flex-shrink: 0;
 }
 
+/* Tooltip: shown when collapsed */
+.nav-item::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(var(--sw-collapsed) + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--ink-dark);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  border-left: 3px solid var(--amber);
+}
+
+.sidebar:not(:hover):not(.expanded) .nav-item:hover::before { opacity: 1; }
+
+/* Sidebar Footer */
 .sidebar-footer {
-  padding: 14px;
+  padding: 12px 8px;
   border-top: 1px solid rgba(255,255,255,0.07);
   background: rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .wallet-card {
@@ -192,11 +331,18 @@ h1, h2, h3, h4, h5, h6,
 
 /* ---- MAIN WRAPPER ---- */
 .main-wrapper {
-  margin-left: var(--sw);
+  margin-left: var(--sw-collapsed);
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Expand margin when sidebar is hovered or expanded */
+.sidebar:hover ~ .main-wrapper,
+.sidebar.expanded ~ .main-wrapper {
+  margin-left: var(--sw);
 }
 
 /* ---- TOP HEADER ---- */
