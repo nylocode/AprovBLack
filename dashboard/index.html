@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="../assets/css/main.css">
 
   <style>
+    /* DEFINIÇÃO RIGOROSA DE FONTES */
+    /* Fonte Destaque: 'Helvetica Now', sans-serif */
+    /* Fonte Secundária: 'Inter V', sans-serif */
+
     * {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -25,7 +29,7 @@
     body {
       background-color: var(--bg-soft, #f8fafb);
       color: var(--text-body, #383540);
-      font-family: 'Inter', 'Helvetica Now', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif !important;
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -33,10 +37,13 @@
       flex-direction: column;
     }
 
-    h1, h2, h3, h4, h5, h6, .sec-title, .card-title, .banner-title {
-      font-family: 'Helvetica Now', 'Inter', system-ui, -apple-system, sans-serif !important;
+    h1, h2, h3, h4, h5, h6, .sec-title, .card-title, .banner-title, .badge, .stat-card-val, .btn-action-primary, .btn-action-secondary, .sidebar-logo-text, .status-pill {
+      font-family: 'Helvetica Now', system-ui, -apple-system, sans-serif !important;
       font-feature-settings: 'cv11' on, 'cv10' on, 'cv09' on, 'ss02' on;
-      color: var(--text-heading, #211c17);
+    }
+
+    p, span, label, input, button, a, td, th, div {
+      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     /* Layout Shell */
@@ -97,6 +104,7 @@
       font-weight: 800;
       color: #211c17;
       letter-spacing: -0.02em;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .sidebar-logo-text span {
@@ -119,6 +127,7 @@
       text-transform: uppercase;
       margin-bottom: 12px;
       padding-left: 8px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .sidebar-link {
@@ -133,6 +142,7 @@
       text-decoration: none;
       transition: all 0.2s ease;
       margin-bottom: 4px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .sidebar-link:hover {
@@ -194,7 +204,7 @@
       font-size: 13px;
       width: 100%;
       color: #211c17;
-      font-family: inherit;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .topbar-user-area {
@@ -215,6 +225,7 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .user-profile-badge {
@@ -235,6 +246,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     /* Content Layout */
@@ -253,6 +265,7 @@
       font-weight: 600;
       line-height: 20px;
       text-transform: uppercase;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     /* Banner Card */
@@ -274,12 +287,14 @@
       letter-spacing: -0.02em;
       color: #211c17;
       margin-bottom: 6px;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .banner-sub {
       color: #656b7b;
       font-size: 15px;
       line-height: 22px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .action-btn-group {
@@ -302,6 +317,7 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .btn-action-primary:hover {
@@ -322,6 +338,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .btn-action-secondary:hover {
@@ -366,10 +383,11 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #8898b4;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .stat-card-val {
-      font-family: 'Helvetica Now', sans-serif;
+      font-family: 'Helvetica Now', sans-serif !important;
       font-size: 32px;
       font-weight: 700;
       line-height: 1;
@@ -384,6 +402,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     /* Section Cards & Tables */
@@ -408,6 +427,7 @@
       font-weight: 700;
       color: #211c17;
       margin: 0;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     /* Table Component */
@@ -431,12 +451,14 @@
       letter-spacing: 1px;
       color: #8898b4;
       border-bottom: 1px solid rgba(6, 10, 35, 0.08);
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .custom-table td {
       padding: 16px;
       border-bottom: 1px solid rgba(6, 10, 35, 0.04);
       color: #211c17;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .status-pill {
@@ -447,6 +469,7 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .status-pill.success {
@@ -542,8 +565,8 @@
           <div class="user-profile-badge">
             <div class="user-avatar" id="userNameAvatar">DS</div>
             <div>
-              <div style="font-size: 13px; font-weight: 700;" id="userNameDisplay">Danylo Santos</div>
-              <div style="font-size: 11px; color: #8898b4;">Consultor Sênior</div>
+              <div style="font-size: 13px; font-weight: 700; font-family: 'Helvetica Now', sans-serif;" id="userNameDisplay">Danylo Santos</div>
+              <div style="font-size: 11px; color: #8898b4; font-family: 'Inter V', sans-serif;">Consultor Sênior</div>
             </div>
           </div>
         </div>
@@ -647,37 +670,37 @@
               <tbody>
                 <tr>
                   <td>
-                    <div style="font-weight: 700;">Tech Logistics Brasil Ltda</div>
-                    <div style="font-size: 12px; color: #8898b4;">CNPJ 34.891.204/0001-92</div>
+                    <div style="font-weight: 700; font-family: 'Helvetica Now', sans-serif;">Tech Logistics Brasil Ltda</div>
+                    <div style="font-size: 12px; color: #8898b4; font-family: 'Inter V', sans-serif;">CNPJ 34.891.204/0001-92</div>
                   </td>
                   <td><span class="status-pill success">✓ Leitura Concluída</span></td>
                   <td><span class="status-pill brand">Rating A+</span></td>
                   <td>PRONAMPE + FGI PEAC</td>
-                  <td style="font-weight: 700; color: #059669;">R$ 1.200.000,00</td>
+                  <td style="font-weight: 700; color: #059669; font-family: 'Helvetica Now', sans-serif;">R$ 1.200.000,00</td>
                   <td><button class="btn-action-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="alert('Visualizando laudo SCR da Tech Logistics...')">Ver Laudo</button></td>
                 </tr>
 
                 <tr>
                   <td>
-                    <div style="font-weight: 700;">Distribuidora de Alimentos Solar</div>
-                    <div style="font-size: 12px; color: #8898b4;">CNPJ 18.234.901/0001-44</div>
+                    <div style="font-weight: 700; font-family: 'Helvetica Now', sans-serif;">Distribuidora de Alimentos Solar</div>
+                    <div style="font-size: 12px; color: #8898b4; font-family: 'Inter V', sans-serif;">CNPJ 18.234.901/0001-44</div>
                   </td>
                   <td><span class="status-pill success">✓ Leitura Concluída</span></td>
                   <td><span class="status-pill brand">Rating AA</span></td>
                   <td>FGI Garantia do Governo</td>
-                  <td style="font-weight: 700; color: #059669;">R$ 850.000,00</td>
+                  <td style="font-weight: 700; color: #059669; font-family: 'Helvetica Now', sans-serif;">R$ 850.000,00</td>
                   <td><button class="btn-action-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="alert('Visualizando laudo SCR da Distribuidora Solar...')">Ver Laudo</button></td>
                 </tr>
 
                 <tr>
                   <td>
-                    <div style="font-weight: 700;">Mendes & Oliveira Indústria</div>
-                    <div style="font-size: 12px; color: #8898b4;">CNPJ 09.112.443/0001-18</div>
+                    <div style="font-weight: 700; font-family: 'Helvetica Now', sans-serif;">Mendes & Oliveira Indústria</div>
+                    <div style="font-size: 12px; color: #8898b4; font-family: 'Inter V', sans-serif;">CNPJ 09.112.443/0001-18</div>
                   </td>
                   <td><span class="status-pill warning">⚠️ 1 Apontamento Mapeado</span></td>
                   <td><span class="status-pill warning">Rating B+</span></td>
                   <td>Readequação BACEN</td>
-                  <td style="font-weight: 700; color: #211c17;">R$ 450.000,00</td>
+                  <td style="font-weight: 700; color: #211c17; font-family: 'Helvetica Now', sans-serif;">R$ 450.000,00</td>
                   <td><button class="btn-action-primary" style="padding: 6px 12px; font-size: 12px;" onclick="alert('Abrindo protocolo de ajuste SCR...')">Ajustar Restrição</button></td>
                 </tr>
               </tbody>
@@ -692,7 +715,6 @@
   </div>
 
   <script>
-    // Load auth user details if available
     window.addEventListener('DOMContentLoaded', () => {
       const auth = localStorage.getItem('aprov_user_auth');
       if (auth) {
