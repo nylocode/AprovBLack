@@ -1,617 +1,98 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-BR" class="dark" style='--font-sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Login · Aprov — Consultoria de Crédito PJ</title>
-  <meta name="description" content="Acesse sua conta e continue sua jornada conosco.">
-
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
-
-  <!-- Fonts & Main Site Tokens -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/config/tokens.css">
-  <link rel="stylesheet" href="../assets/css/main.css">
-
+  <meta name="theme-color" content="#FF5F24">
+  <title>Acesso à Plataforma · Aprov Black</title>
+  <meta name="description" content="Acesse o ecossistema exclusivo de crédito PJ, esteira e diagnósticos SCR Bacen da Aprov Black.">
+  
+  <link rel="stylesheet" href="../backoffice/css/dashboard-official.css">
+  <link rel="stylesheet" href="../backoffice/css/styles.css">
+  
   <style>
-    /* DEFINIÇÕES TIPOGRÁFICAS RIGOROSAS */
-    /* Destaque: 'Helvetica Now', sans-serif */
-    /* Secundária: 'Inter V', sans-serif */
-
-    * {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg-page: #ffffff;
-      --bg-soft: #f8fafb;
-      --text-heading: #18181b;
-      --text-muted: #71717a;
-      --brand-amber: #e5a163;
-      --brand-amber-hover: #d48f50;
-      --border-color: rgba(6, 10, 35, 0.1);
-    }
-
     body {
-      background-color: var(--bg-page);
-      color: var(--text-heading);
-      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif !important;
+      background-color: #050505;
+      color: #ffffff;
       min-height: 100vh;
-      width: 100vw;
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, h4, h5, h6, .font-destaque, .btn-primary-sign, .btn-google-sign {
-      font-family: 'Helvetica Now', system-ui, -apple-system, sans-serif !important;
-      font-feature-settings: 'cv11' on, 'cv10' on, 'cv09' on, 'ss02' on;
-    }
-
-    p, span, label, input, button, a {
-      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif;
-    }
-
-    /* Layout Split-Screen 1-to-1 sign-in.tsx */
-    .sign-in-viewport {
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      flex-direction: row;
-    }
-
-    @media (max-width: 900px) {
-      .sign-in-viewport {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-      }
-      .sign-in-right-hero {
-        display: none !important;
-      }
-    }
-
-    /* Left Form Column */
-    .sign-in-left-form {
-      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2.5rem;
-      background: #ffffff;
-      position: relative;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
-
-    .form-content-wrap {
-      width: 100%;
-      max-width: 440px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .brand-header-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-    }
-
-    .brand-logo-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #ffab57 0%, #e5a163 100%);
-      color: #120e0a;
-      font-weight: 800;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 14px rgba(229, 161, 99, 0.35);
-    }
-
-    .brand-logo-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #18181b;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-logo-title span {
-      color: var(--brand-amber);
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-left: 4px;
-    }
-
-    .main-heading {
-      font-size: clamp(32px, 3.5vw, 42px);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      color: #18181b;
-    }
-
-    .sub-heading {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    /* Glass Input Wrapper */
-    .glass-input-wrapper {
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      background: #f8fafb;
-      backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .glass-input-wrapper:focus-within {
-      border-color: rgba(229, 161, 99, 0.7);
-      background: rgba(229, 161, 99, 0.06);
-      box-shadow: 0 0 0 4px rgba(229, 161, 99, 0.15);
-    }
-
-    .glass-input-wrapper input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      padding: 16px;
-      color: #18181b;
-      border-radius: 16px;
-    }
-
-    .glass-input-wrapper input::placeholder {
-      color: #a1a1aa;
-    }
-
-    .btn-eye-toggle {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s;
-    }
-
-    .btn-eye-toggle:hover {
-      color: #18181b;
-    }
-
-    .form-options {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13.5px;
-    }
-
-    .checkbox-custom {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      color: #27272a;
-    }
-
-    .checkbox-custom input {
-      accent-color: var(--brand-amber);
-      width: 16px;
-      height: 16px;
-    }
-
-    .reset-link {
-      color: var(--brand-amber);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .reset-link:hover {
-      text-decoration: underline;
-      color: var(--brand-amber-hover);
-    }
-
-    .btn-primary-sign {
-      width: 100%;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffab57 0%, #e5a163 100%);
-      padding: 16px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #120e0a;
-      border: 1px solid #f2be8f;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(229, 161, 99, 0.35);
-      transition: all 0.25s ease;
-    }
-
-    .btn-primary-sign:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(229, 161, 99, 0.48);
-    }
-
-    .divider-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 4px 0;
-    }
-
-    .divider-wrap::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      background: var(--border-color);
-    }
-
-    .divider-text {
-      position: relative;
-      background: #ffffff;
-      padding: 0 12px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .btn-google-sign {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 14px;
-      background: #ffffff;
-      color: #18181b;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-google-sign:hover {
-      background: #f8fafb;
-      border-color: rgba(6, 10, 35, 0.2);
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .footer-note a {
-      color: var(--brand-amber);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer-note a:hover {
-      text-decoration: underline;
-    }
-
-    /* Right Column: Hero Image + Floating Testimonials */
-    .sign-in-right-hero {
-      flex: 1;
-      position: relative;
-      padding: 16px;
-      display: block;
-    }
-
-    .hero-bg-card {
-      position: absolute;
-      inset: 16px;
-      border-radius: 28px;
-      background-image: linear-gradient(180deg, rgba(11, 15, 23, 0.25) 0%, rgba(11, 15, 23, 0.75) 100%), url('https://cdn.21st.dev/assets/mirror/ec/ecff1664e7fc3185d0e947571f984ea5fa3de9580fb0e73a03cd9c9b3461cb09.jpg');
-      background-size: cover;
-      background-position: center;
-      border: 1px solid rgba(6, 10, 35, 0.08);
-      overflow: hidden;
-    }
-
-    .hero-animate {
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateX(24px);
-      animation: slideRightIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-    }
-
-    .testimonials-floating-bar {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 16px;
-      padding: 0 32px;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .testimonial-card-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      padding: 18px;
-      width: 260px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-      animation: testimonialIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .testimonial-avatar {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 14px;
-    }
-
-    .testimonial-body {
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .testimonial-name {
-      font-weight: 700;
-      color: #18181b;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Helvetica Now', sans-serif !important;
-    }
-
-    .testimonial-handle {
-      color: #71717a;
-      font-size: 12px;
-    }
-
-    .testimonial-text {
-      margin-top: 4px;
-      color: #3f3f46;
-    }
-
-    /* Keyframe Animations */
-    .animate-element {
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .animate-delay-100 { animation-delay: 0.1s; }
-    .animate-delay-200 { animation-delay: 0.2s; }
-    .animate-delay-300 { animation-delay: 0.3s; }
-    .animate-delay-400 { animation-delay: 0.4s; }
-    .animate-delay-500 { animation-delay: 0.5s; }
-    .animate-delay-600 { animation-delay: 0.6s; }
-    .animate-delay-700 { animation-delay: 0.7s; }
-    .animate-delay-800 { animation-delay: 0.8s; }
-    .animate-delay-900 { animation-delay: 0.9s; }
-    .animate-delay-1000 { animation-delay: 1.0s; }
-    .animate-delay-1200 { animation-delay: 1.2s; }
-    .animate-delay-1400 { animation-delay: 1.4s; }
-
-    @keyframes fadeSlideIn {
-      to {
-        opacity: 1;
-        filter: blur(0px);
-        transform: translateY(0px);
-      }
-    }
-
-    @keyframes slideRightIn {
-      to {
-        opacity: 1;
-        filter: blur(0px);
-        transform: translateX(0px);
-      }
-    }
-
-    @keyframes testimonialIn {
-      to {
-        opacity: 1;
-        filter: blur(0px);
-        transform: translateY(0px) scale(1);
-      }
-    }
+    .brand-orange { color: #FF5F24; }
+    .bg-brand-orange { background-color: #FF5F24; }
   </style>
 </head>
+<body class="relative isolate overflow-hidden">
 
-<body>
-
-  <div class="sign-in-viewport">
-    
-    <!-- LEFT COLUMN: SIGN IN FORM -->
-    <section class="sign-in-left-form">
-      <div class="form-content-wrap">
-        
-        <!-- Brand Logo Header -->
-        <a href="../index.html" class="brand-header-link animate-element animate-delay-100">
-          <img src="../assets/images/logoaprov.svg" alt="Aprov Black" style="height:36px; width:auto; filter: brightness(0) saturate(100%) invert(63%) sepia(51%) saturate(600%) hue-rotate(10deg) brightness(97%) contrast(97%);">
-        </a>
-
-        <!-- Main Title & Subtitle -->
-        <div class="flex flex-col gap-2">
-          <h1 class="main-heading animate-element animate-delay-100">Bem-vindo à Aprov</h1>
-          <p class="sub-heading animate-element animate-delay-200">Acesse sua conta para visualizar seus diagnósticos do SCR Bacen e pareceres de crédito PJ.</p>
-        </div>
-
-        <!-- Form -->
-        <form class="space-y-5" id="signInForm" onsubmit="handleSignInSubmit(event)">
-          
-          <div class="animate-element animate-delay-300">
-            <label class="text-sm font-medium text-muted-foreground" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">E-mail Corporativo</label>
-            <div class="glass-input-wrapper">
-              <input name="email" id="emailField" type="email" placeholder="seuemail@empresa.com.br" required autocomplete="email" />
-            </div>
-          </div>
-
-          <div class="animate-element animate-delay-400">
-            <label class="text-sm font-medium text-muted-foreground" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">Sua Senha</label>
-            <div class="glass-input-wrapper">
-              <input name="password" id="passwordField" type="password" placeholder="••••••••" required autocomplete="current-password" />
-              <button type="button" class="btn-eye-toggle" onclick="togglePasswordVisibility()" aria-label="Mostrar ou ocultar senha">
-                <svg id="eyeIconSvg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div class="animate-element animate-delay-500 form-options">
-            <label class="checkbox-custom">
-              <input type="checkbox" name="rememberMe" checked />
-              <span>Lembrar de mim</span>
-            </label>
-            <a href="javascript:void(0)" onclick="openResetModal()" class="reset-link">Esqueceu a senha?</a>
-          </div>
-
-          <button type="submit" id="btnSubmitSign" class="animate-element animate-delay-600 btn-primary-sign">
-            <span id="btnSubmitText">Entrar na Conta</span>
-          </button>
-        </form>
-
-        <!-- Divider -->
-        <div class="animate-element animate-delay-700 divider-wrap">
-          <span class="divider-text">Ou continue com</span>
-        </div>
-
-        <!-- Google SSO -->
-        <button type="button" onclick="handleGoogleSignIn()" class="animate-element animate-delay-800 btn-google-sign">
-          <svg width="20" height="20" viewBox="0 0 48 48">
-            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s12-5.373 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-2.641-.21-5.236-.611-7.743z"/>
-            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
-            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.022 35.026 44 30.038 44 24c0-2.641-.21-5.236-.611-7.743z"/>
-          </svg>
-          Continuar com Google
-        </button>
-
-        <!-- Footer -->
-        <p class="animate-element animate-delay-900 footer-note">
-          Novo por aqui? <a href="../index.html#pricing">Solicitar Consultoria por R$97</a>
-        </p>
-
-      </div>
-    </section>
-
-    <!-- RIGHT COLUMN: HERO IMAGE -->
-    <section class="sign-in-right-hero">
-      <div class="hero-bg-card hero-animate"></div>
-    </section>
-
+  <!-- BACKGROUND DECORATIONS (EXATO HC CLUB) -->
+  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <div class="dashboard-grid-background"></div>
+    <div class="dashboard-mouse-glow is-visible" style="transform:translateX(50vw) translateY(30vh)"></div>
+    <div class="grain-texture"></div>
   </div>
 
-  <!-- Modal Reset Password -->
-  <div id="resetModalBg" style="position:fixed; inset:0; background:rgba(6,10,35,0.6); backdrop-filter:blur(8px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
-    <div style="background:#ffffff; border-radius:24px; padding:32px; max-width:400px; width:100%; box-shadow:0 20px 40px rgba(6,10,35,0.2);">
-      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#18181b; font-family:'Helvetica Now', sans-serif !important;">Recuperar Acesso</h3>
-      <p style="font-size:14px; color:#71717a; margin-bottom:20px; line-height:1.5;">Digite o e-mail corporativo cadastrado da sua empresa para enviarmos as instruções de redefinição.</p>
-      
-      <div style="margin-bottom:20px;">
-        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">E-mail da Empresa</label>
-        <div class="glass-input-wrapper">
-          <input type="email" id="resetEmailField" placeholder="seuemail@empresa.com.br">
+  <div class="relative z-10 w-full max-w-md p-6 sm:p-8">
+    <!-- LOGO HEADER -->
+    <div class="flex flex-col items-center mb-8 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FF5F24] to-[#d94811] flex items-center justify-center font-black text-white text-2xl shadow-[0_0_25px_rgba(255,95,36,0.5)] mb-3">
+        A
+      </div>
+      <h2 class="font-black text-2xl tracking-tight text-white">APROV <span class="text-brand-orange">BLACK</span></h2>
+      <p class="text-xs text-gray-400 mt-1">Plataforma Exclusiva de Crédito PJ & Diagnósticos SCR</p>
+    </div>
+
+    <!-- LOGIN CARD (ESTILO HC CLUB) -->
+    <div class="rounded-[28px] border border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1.5">E-mail ou CNPJ</label>
+          <input type="text" id="loginEmail" required value="danylo@aprovblack.com.br" placeholder="seu.email@empresa.com.br" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-brand-orange transition" />
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-semibold text-gray-300">Senha de Acesso</label>
+            <a href="#" onclick="alert('Instruções de recuperação foram enviadas para seu e-mail cadastrado.'); return false;" class="text-[11px] text-brand-orange hover:underline">Esqueci a senha</a>
+          </div>
+          <input type="password" id="loginPass" required value="••••••••" placeholder="Sua senha secreta" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-brand-orange transition" />
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" id="btnSubmit" class="btn-liquid w-full text-white rounded-xl py-3.5 px-4 text-sm font-bold shadow-[0_0_20px_rgba(255,95,36,0.3)] flex items-center justify-center gap-2">
+            Entrar no Backoffice Black →
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-6 pt-5 border-t border-white/5 text-center">
+        <span class="text-xs text-gray-500">Credenciais criptografadas de ponta a ponta</span>
+        <div class="mt-3">
+          <a href="../index.html" class="text-xs text-gray-400 hover:text-white transition">
+            ← Voltar para a Página Principal
+          </a>
         </div>
       </div>
+    </div>
 
-      <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
-        <button type="button" class="btn-google-sign" style="width:auto; padding:10px 18px;" onclick="closeResetModal()">Cancelar</button>
-        <button type="button" class="btn-primary-sign" style="width:auto; padding:10px 18px;" onclick="sendResetLink()">Enviar Link</button>
-      </div>
+    <!-- FOOTER INFO -->
+    <div class="text-center mt-6 text-xs text-gray-600">
+      &copy; 2026 Aprov Black · Tecnologia e Inteligência em Crédito PJ
     </div>
   </div>
 
   <script>
-    function togglePasswordVisibility() {
-      const input = document.getElementById('passwordField');
-      const icon = document.getElementById('eyeIconSvg');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
-      } else {
-        input.type = 'password';
-        icon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle>';
-      }
-    }
-
-    function handleSignInSubmit(e) {
+    function handleLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('emailField').value.trim();
-      const btnText = document.getElementById('btnSubmitText');
-      const submitBtn = document.getElementById('btnSubmitSign');
-
-      if (!email) return;
-
-      submitBtn.disabled = true;
-      btnText.textContent = 'Autenticando...';
-
-      localStorage.setItem('aprov_user_auth', JSON.stringify({
-        email: email,
-        name: email.split('@')[0].toUpperCase(),
-        loggedAt: new Date().toISOString()
-      }));
+      const btn = document.getElementById('btnSubmit');
+      btn.innerText = 'Autenticando...';
+      btn.style.opacity = '0.7';
 
       setTimeout(() => {
-        window.location.href = '../backoffice';
-      }, 500);
-    }
-
-    function handleGoogleSignIn() {
-      localStorage.setItem('aprov_user_auth', JSON.stringify({
-        email: 'gestor@aprovblack.com.br',
-        name: 'GESTOR APROV',
-        loggedAt: new Date().toISOString()
-      }));
-      window.location.href = '../backoffice';
-    }
-
-    function openResetModal() {
-      document.getElementById('resetModalBg').style.display = 'flex';
-    }
-
-    function closeResetModal() {
-      document.getElementById('resetModalBg').style.display = 'none';
-    }
-
-    function sendResetLink() {
-      const email = document.getElementById('resetEmailField').value.trim();
-      if (!email) {
-        alert('Por favor, informe seu e-mail corporativo.');
-        return;
-      }
-      alert('Instruções de redefinição de senha enviadas para ' + email);
-      closeResetModal();
+        window.location.href = '../backoffice/index.html';
+      }, 600);
     }
   </script>
-
 </body>
-
 </html>

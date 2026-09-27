@@ -1,1352 +1,1027 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark" style='--font-sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--font-display:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FF5F24">
-  <title>Aprov Black · CRM Comercial & Esteira de Crédito PJ</title>
   <meta name="description" content="Aprov Black - Painel integrado de crédito PJ, esteira de clientes e diagnósticos SCR Bacen.">
-  <link rel="icon" href="../assets/images/logoaprov.svg">
-
-  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- HC CLUB Design System Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css">
-
+  <title>Esteira & Pipeline de Clientes · Aprov Black</title>
+  
+  <!-- Estilos Oficiais do HC Club -->
+  <link rel="stylesheet" href="css/dashboard-official.css">
+  
   <style>
-    /* Custom High-Tech Polish & Glowing Accents */
-    :root {
-      --brand-orange: #FF5F24;
-      --brand-orange-hover: #ff7542;
-      --brand-orange-light: rgba(255, 95, 36, 0.12);
-      --border-orange: rgba(255, 95, 36, 0.28);
-      --bg-page: #070A0F;
-      --bg-sidebar: #0B0F17;
-      --bg-card: #0F172A;
-      --bg-card-hover: #162036;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-subtle: rgba(255, 255, 255, 0.04);
-    }
+    /* Smooth Scrollbar & Layout overrides */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #FF5F24; }
 
-    body {
-      background-color: var(--bg-page);
-      color: #ffffff;
-      font-family: var(--font-main);
-      overflow-x: hidden;
-    }
-
-    /* Glow orb background */
-    .bg-glow-orb {
-      position: fixed;
-      top: -150px;
-      right: 15%;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 95, 36, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Status Badges & Inline Select */
-    .status-pill {
-      font-size: 11.5px;
+    .brand-orange { color: #FF5F24; }
+    .bg-brand-orange { background-color: #FF5F24; }
+    
+    .status-select-hc {
+      background: transparent;
+      border: none;
+      font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .status-select-btn {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 8px;
       cursor: pointer;
       outline: none;
-      transition: all 0.2s ease;
-      font-family: inherit;
+      padding: 0 4px;
     }
-    .status-select-btn:hover, .status-select-btn:focus {
-      border-color: var(--brand-orange);
-      box-shadow: 0 0 10px var(--brand-orange-light);
-    }
-    .status-select-btn.novo { color: #60a5fa; border-color: rgba(59, 130, 246, 0.3); background: rgba(59, 130, 246, 0.1); }
-    .status-select-btn.analise { color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.1); }
-    .status-select-btn.aprovado { color: #34d399; border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.1); }
-    .status-select-btn.pendente { color: #fb923c; border-color: rgba(251, 146, 60, 0.3); background: rgba(251, 146, 60, 0.1); }
-    .status-select-btn.negado { color: #f87171; border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.1); }
-
-    /* Client Row */
-    .client-avatar-hc {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(255,95,36,0.2) 0%, rgba(255,95,36,0.05) 100%);
-      border: 1px solid var(--border-orange);
-      color: var(--brand-orange);
-      font-weight: 800;
-      font-size: 13px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* Filter Tabs */
-    .filter-tabs-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .filter-tab-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: var(--text-mid);
-      font-size: 12.5px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .filter-tab-btn:hover {
-      color: #ffffff;
-      border-color: var(--text-mid);
-    }
-    .filter-tab-btn.active {
-      background: var(--brand-orange);
-      color: #ffffff;
-      border-color: var(--brand-orange);
-      box-shadow: 0 4px 14px rgba(255, 95, 36, 0.35);
-    }
-    .filter-tab-badge {
-      font-size: 10.5px;
-      padding: 1px 6px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.18);
-    }
-
-    /* View Switcher */
-    .view-switcher {
-      display: inline-flex;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 3px;
-      gap: 2px;
-    }
-    .view-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-mid);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s ease;
-    }
-    .view-btn.active {
-      background: var(--bg-surface);
-      color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    /* Dropzone */
-    .batch-dropzone {
-      border: 2px dashed var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.02);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .batch-dropzone:hover {
-      border-color: var(--brand-orange);
-      background: rgba(255, 95, 36, 0.04);
-    }
-
-    /* Popover Notifications */
-    .popover-notifs {
-      position: absolute;
-      top: calc(var(--header-height) + 8px);
-      right: 24px;
-      width: 340px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-      padding: 18px;
-      z-index: 50;
-      display: none;
-      animation: modalIn 0.2s ease;
-    }
-    .popover-notifs.active { display: block; }
-
-    /* Action icon buttons */
-    .act-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-mid);
-      padding: 6px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .act-btn:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
-    .act-btn.delete:hover { background: rgba(239, 68, 68, 0.2); color: #f87171; }
   </style>
 </head>
-<body>
-
-  <div class="bg-glow-orb"></div>
-
-  <div class="app-container">
+<body class="bg-[#050505] text-white">
+<div id="root">
+  <div class="dashboard-shell relative isolate flex h-[100dvh] w-full flex-col overflow-hidden bg-white font-sans text-slate-950 dark:bg-[#050505] dark:text-white">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <div class="dashboard-grid-background"></div>
+      <div class="dashboard-mouse-glow is-visible" style="transform:translateX(50vw) translateY(30vh)"></div>
+      <div class="grain-texture"></div>
+    </div>
 
     <!-- ============================================================
-         SIDEBAR (ESTILO HC CLUB)
+         TOPBAR SHELL (EXATO HC CLUB)
     ============================================================ -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <a href="/backoffice" class="logo-container">
-          <div class="logo-icon-box">A</div>
-          <div class="logo-text">
-            APROV <span>BLACK</span>
+    <div class="fixed right-3 z-[60] max-w-[calc(100vw-1.5rem)] sm:right-4 sm:max-w-[calc(100vw-2rem)]" style="top:calc(env(safe-area-inset-top,0px) + 0.75rem)">
+      <div class="topbar-shell relative flex max-w-full items-center gap-1.5 overflow-hidden rounded-full p-1.5">
+        <!-- Ocultar valores -->
+        <button title="Ocultar valores" aria-label="Ocultar valores financeiros" class="topbar-icon-button relative z-[1]" onclick="AprovMaster.toggleHideValues()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </button>
+
+        <!-- Notificações -->
+        <button type="button" aria-label="Notificações, 3 não lidas" class="topbar-icon-button relative z-[1]" onclick="AprovMaster.toggleNotifications()">
+          <span class="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+          </span>
+          <span class="absolute -right-1 -top-1 z-[2] flex min-h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[9px] font-black leading-none shadow-sm" style="background-color:rgb(255,95,36);color:rgb(255,248,244)">3</span>
+        </button>
+
+        <!-- Saldo Carteira Pill -->
+        <div class="topbar-wallet-pill hidden sm:flex items-center justify-center relative z-[1] px-3 py-1.5 rounded-full cursor-pointer" onclick="AprovMaster.openWithdrawModal()" style="background:rgba(255,95,36,0.1);border:1px solid rgba(255,95,36,0.28);box-shadow:rgba(255,95,36,0.16) 0px 0px 10px,rgba(255,120,60,0.2) 0px 1px 0px inset">
+          <div class="flex items-baseline leading-none">
+            <span class="text-[12.5px] font-black tabular-nums financial-val" id="topWalletBalance" style="color:rgb(255,95,36);text-shadow:rgba(255,95,36,0.16) 0px 0px 10px">R$ 3.480,00</span>
           </div>
+        </div>
+
+        <!-- Perfil do Usuário -->
+        <button aria-label="Abrir menu do perfil" class="topbar-user-button relative z-[1]" onclick="AprovMaster.logoutConfirm()">
+          <div class="topbar-user-copy hidden sm:flex">
+            <span class="topbar-user-name" id="userName">DANYLO SANTOS</span>
+            <span class="topbar-user-role">Member Black</span>
+          </div>
+          <div class="overflow-hidden shrink-0 w-[36px] h-[36px] rounded-full relative flex items-center justify-center font-bold text-xs bg-brand-orange/20 text-brand-orange border border-brand-orange/40" id="userAvatar">
+            DS
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SIDEBAR SHELL (EXATO HC CLUB)
+    ============================================================ -->
+    <aside class="hidden lg:flex flex-col fixed z-[55] sidebar-shell min-h-0 transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden rounded-[20px] w-56" style="top:calc(env(safe-area-inset-top,0px) + 16px);bottom:16px;left:16px">
+      <div class="relative flex items-center justify-center shrink-0 min-h-[72px] px-4 py-5">
+        <a href="index.html" class="flex items-center gap-2 rounded-xl px-2 py-1 transition-opacity">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF5F24] to-[#d94811] flex items-center justify-center font-black text-white text-base shadow-[0_0_15px_rgba(255,95,36,0.4)]">
+            A
+          </div>
+          <span class="font-black text-lg tracking-tight text-white">APROV <span class="text-brand-orange">BLACK</span></span>
         </a>
       </div>
 
-      <nav class="sidebar-nav custom-scrollbar">
-        <div class="nav-section-title">Principal</div>
-        <a href="/backoffice" class="nav-item active">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span>Painel & Esteira</span>
+      <nav class="sidebar-nav flex-1 min-h-0 px-2.5 py-3 overflow-y-auto custom-scrollbar overflow-x-hidden flex flex-col">
+        <a href="index.html" class="sidebar-item group is-active" style="transform:none; text-decoration:none;">
+          <span class="absolute inset-0 pointer-events-none rounded-[12px]" style="background:linear-gradient(90deg,rgba(255,95,36,0.16) 0%,rgba(255,95,36,0.06) 100%);opacity:1"></span>
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard shrink-0 opacity-100 relative z-[1]"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left font-bold">Esteira & CRM</span>
         </a>
 
-        <div class="nav-section-title">Negócios & Crédito</div>
-        <a href="/backoffice/diagnostico" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span>Diagnóstico SCR Bacen</span>
-          <span class="nav-badge">R$ 55</span>
+        <div class="sidebar-section-label">Negócios</div>
+
+        <a href="pages/diagnostico.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text shrink-0 opacity-60"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Diagnóstico SCR</span>
+          <span class="rounded-full px-2 py-0.2 text-[10px] font-bold bg-brand-orange/20 text-brand-orange border border-brand-orange/30">R$ 55</span>
         </a>
 
-        <a href="/backoffice/propostas" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-          <span>Propostas de Crédito</span>
+        <a href="pages/propostas.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase shrink-0 opacity-60"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Propostas de Crédito</span>
         </a>
 
-        <a href="/backoffice/rating-360" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-          <span>Rating 360° Bancos</span>
+        <a href="pages/rating-360.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up shrink-0 opacity-60"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Aumento de Rating</span>
         </a>
 
-        <a href="/backoffice/clientes" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-          <span>Base de Clientes</span>
+        <a href="pages/clientes.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users shrink-0 opacity-60"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Base de Clientes</span>
         </a>
 
-        <div class="nav-section-title">Financeiro</div>
-        <a href="/backoffice/carteira" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>Carteira & Saques PIX</span>
+        <div class="sidebar-section-label">Financeiro</div>
+
+        <a href="pages/carteira.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet shrink-0 opacity-60"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Carteira & Saques</span>
         </a>
 
-        <div class="nav-section-title">Conta</div>
-        <a href="/backoffice/perfil" class="nav-item">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          <span>Configurações</span>
+        <div class="sidebar-section-label">Configurações</div>
+
+        <a href="pages/perfil.html" class="sidebar-item group" style="transform:none; text-decoration:none;">
+
+          <div class="sidebar-item-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings shrink-0 opacity-60"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <span class="relative z-[1] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">Meu Perfil</span>
         </a>
       </nav>
-
-      <div class="sidebar-footer">
-        <div class="plan-status-card">
-          <div class="plan-info">
-            <div class="plan-label">Plano Ativo</div>
-            <div class="plan-name">Membro Black</div>
-          </div>
-          <button class="plan-upgrade-btn" onclick="openRechargeModal()">+ Saldo</button>
-        </div>
-      </div>
     </aside>
 
     <!-- ============================================================
-         MAIN WRAPPER
+         MAIN CONTENT SHELL (EXATO HC CLUB)
     ============================================================ -->
-    <div class="main-wrapper">
+    <main id="main-content" tabindex="-1" class="min-h-full transition-[padding] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] pb-32 lg:pb-12 pt-[calc(env(safe-area-inset-top,0px)+6rem)] lg:pt-8 px-4 sm:px-5 md:px-6 lg:pl-[272px] lg:pr-8 overflow-y-auto">
+      <div class="mx-auto w-full max-w-[1400px] min-w-0">
 
-      <!-- TOPBAR -->
-      <header class="top-header">
-        <div class="header-left">
-          <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Abrir menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          </button>
-          <div class="header-search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <input type="text" id="topSearchInput" placeholder="Buscar por cliente, CNPJ ou protocolo…" oninput="syncSearch(this.value)">
-          </div>
-        </div>
-
-        <div class="header-right">
-          <!-- Eye toggle -->
-          <button class="act-btn" onclick="toggleHideValues()" title="Ocultar valores financeiros">
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          </button>
-
-          <!-- Notifications trigger -->
-          <button class="act-btn" style="position:relative;" onclick="toggleNotifs()" title="Notificações">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-            <span style="position:absolute; top:2px; right:2px; width:7px; height:7px; border-radius:50%; background:var(--brand-orange);"></span>
-          </button>
-
-          <!-- Saldo disponível pill (estilo HC Club) -->
-          <div class="quick-commission" onclick="openWithdrawModal()" title="Clique para recarregar ou resgatar">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>Saldo:</span>
-            <strong class="financial-val" id="topWalletBalance">R$ 3.480,00</strong>
-          </div>
-
-          <!-- Perfil do Usuário -->
-          <div class="user-profile" onclick="logoutConfirm()">
-            <div class="avatar" id="userAvatar">DS</div>
-            <div class="user-meta hidden sm:flex">
-              <span class="user-name" id="userName">DANYLO SANTOS</span>
-              <span class="user-role">Member Black</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- NOTIFICATIONS POPOVER -->
-      <div class="popover-notifs" id="notifsPopover">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
-          <strong style="color:#ffffff; font-size:13.5px;">Notificações Ativas (3)</strong>
-          <span style="font-size:11px; color:var(--brand-orange); cursor:pointer;" onclick="toggleNotifs()">Fechar</span>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-color); border-radius:10px; padding:10px;">
-            <div style="display:flex; justify-content:space-between; font-size:11px; color:#34d399; font-weight:700;">
-              <span>Proposta Aprovada</span>
-              <span style="color:var(--text-light);">Há 15 min</span>
-            </div>
-            <div style="font-size:12.5px; color:#ffffff; margin-top:2px;">Vanguard Logística: R$ 380.000 liberados pelo banco.</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-color); border-radius:10px; padding:10px;">
-            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--brand-orange); font-weight:700;">
-              <span>Diagnóstico SCR Bacen</span>
-              <span style="color:var(--text-light);">Hoje, 10:20</span>
-            </div>
-            <div style="font-size:12.5px; color:#ffffff; margin-top:2px;">Parecer SCR emitido com sucesso para Bella Vita Gourmet.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           PAGE CONTENT
-      ============================================================ -->
-      <main class="page-content">
-
-        <!-- Welcome Banner & Top Actions -->
-        <div class="page-header">
+        <!-- HEADER DA PÁGINA (ESTILO HC CLUB CRM) -->
+        <div class="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 class="page-title">
-              Olá, <span style="color:var(--brand-orange);" id="welcomeName">DANYLO SANTOS</span>
+            <h1 class="page-title text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl lg:text-4xl">
+              Esteira & <span class="text-brand-orange">Pipeline de Clientes</span>
             </h1>
-            <p class="page-subtitle">
-              Painel Geral · Acompanhe suas propostas, suba listas de clientes e gerencie o status em tempo real.
+            <p class="mt-2 text-xs font-medium text-slate-500 dark:text-gray-400 sm:text-sm">
+              Suba listas de empresas, gerencie o status em tempo real e consulte o SCR Bacen
             </p>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn btn-secondary" onclick="openBatchModal()">
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="AprovMaster.openBatchModal()" class="rounded-[14px] border border-white/10 bg-white/5 hover:bg-white/10 text-white h-11 px-5 text-sm font-semibold flex items-center gap-2 transition duration-200">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
               Subir Nomes (Lote)
             </button>
-            <button class="btn btn-orange" onclick="openAddClientModal()">
+            <button onclick="AprovMaster.openAddClientModal()" class="btn-liquid text-white rounded-[14px] h-11 px-6 text-sm font-semibold flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               + Novo Cliente
             </button>
           </div>
         </div>
 
-        <!-- 4 STAT CARDS (ESTILO HC CLUB) -->
-        <div class="grid-cols-4" style="margin-bottom: 28px;">
-          <!-- Card 1: Saldo Disponível -->
-          <div class="stat-card" style="border-left-color: var(--brand-orange);">
-            <div class="stat-header">
-              <span class="stat-label">Saldo em Carteira</span>
-              <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-            </div>
-            <div class="stat-value financial-val" id="statBalance">R$ 3.480,00</div>
-            <div class="stat-meta">
-              <span class="stat-trend-up">● PIX Ativo</span>
-              <button onclick="openWithdrawModal()" style="background:none; border:none; color:var(--brand-orange); font-size:11.5px; font-weight:700; cursor:pointer; margin-left:auto; text-decoration:underline;">Recarregar / Sacar</button>
+        <!-- 4 CARDS DE MÉTRICAS (ESTILO HC CLUB CARTEIRA) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="rounded-[20px] border border-brand-orange/40 bg-brand-orange/10 p-5 cursor-pointer" onclick="AprovMaster.openWithdrawModal()">
+            <div class="text-xs text-brand-orange font-bold uppercase tracking-wider">Saldo Disponível</div>
+            <div class="text-3xl font-black text-brand-orange mt-2 financial-val" id="statBalance">R$ 3.480,00</div>
+            <div class="text-[11px] text-gray-400 mt-1 flex items-center justify-between">
+              <span>Transferência PIX imediata</span>
+              <span class="text-brand-orange font-bold underline">Recarregar</span>
             </div>
           </div>
 
-          <!-- Card 2: Clientes na Esteira -->
-          <div class="stat-card" style="border-left-color: #60a5fa;">
-            <div class="stat-header">
-              <span class="stat-label">Clientes na Esteira</span>
-              <div class="stat-icon" style="background:rgba(59, 130, 246, 0.12); color:#60a5fa;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              </div>
-            </div>
-            <div class="stat-value" id="statTotalClients">0</div>
-            <div class="stat-meta">
-              <span class="stat-trend-up">↑ +18% este mês</span>
-              <span style="color:var(--text-light); margin-left:auto;"><span id="statNewCount">0</span> novos</span>
-            </div>
+          <div class="rounded-[20px] border border-white/10 bg-[#0d0d0d] p-5">
+            <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Total na Esteira</div>
+            <div class="text-3xl font-black text-white mt-2" id="statTotalClients">0</div>
+            <div class="text-[11px] text-emerald-400 mt-1"><span id="statNewCount">0</span> novos leads hoje</div>
           </div>
 
-          <!-- Card 3: Em Análise SCR -->
-          <div class="stat-card" style="border-left-color: #fbbf24;">
-            <div class="stat-header">
-              <span class="stat-label">Em Análise (SCR Bacen)</span>
-              <div class="stat-icon" style="background:rgba(245, 158, 11, 0.12); color:#fbbf24;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-              </div>
-            </div>
-            <div class="stat-value financial-val" id="statVolumeAnalise">R$ 0,00</div>
-            <div class="stat-meta">
-              <span style="color:#fbbf24; font-weight:700;"><span id="statInAnalysisCount">0</span> processos</span>
-              <span style="color:var(--text-light); margin-left:auto;">em validação</span>
-            </div>
+          <div class="rounded-[20px] border border-white/10 bg-[#0d0d0d] p-5">
+            <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Em Análise (SCR Bacen)</div>
+            <div class="text-2xl font-black text-white mt-2 financial-val" id="statVolumeAnalise">R$ 0,00</div>
+            <div class="text-[11px] text-amber-400 mt-1"><span id="statInAnalysisCount">0</span> processos em andamento</div>
           </div>
 
-          <!-- Card 4: Propostas Aprovadas -->
-          <div class="stat-card" style="border-left-color: #34d399;">
-            <div class="stat-header">
-              <span class="stat-label">Volume Aprovado</span>
-              <div class="stat-icon" style="background:rgba(16, 185, 129, 0.12); color:#34d399;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-            </div>
-            <div class="stat-value financial-val" id="statVolumeAprovado">R$ 0,00</div>
-            <div class="stat-meta">
-              <span class="stat-trend-up">✓ <span id="statApprovedCount">0</span> contratos</span>
-              <span style="color:var(--text-light); margin-left:auto;">liberados</span>
-            </div>
+          <div class="rounded-[20px] border border-white/10 bg-[#0d0d0d] p-5">
+            <div class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Volume Aprovado</div>
+            <div class="text-2xl font-black text-white mt-2 financial-val" id="statVolumeAprovado">R$ 0,00</div>
+            <div class="text-[11px] text-emerald-400 mt-1"><span id="statApprovedCount">0</span> contratos liberados</div>
           </div>
         </div>
 
-        <!-- ============================================================
-             ESTEIRA DE CLIENTES (TABELA + KANBAN TOGGLE)
-        ============================================================ -->
-        <div class="card">
-          <!-- Toolbar Header -->
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
-            <div>
-              <div style="display:flex; align-items:center; gap:10px;">
-                <h2 class="card-title" style="font-size:18px; margin:0;">Esteira Comercial de Clientes</h2>
-                <span class="status-pill status-select-btn novo" id="activeCounterPill">6 empresas</span>
-              </div>
-              <p style="font-size:13px; color:var(--text-mid); margin-top:3px;">
-                Altere o status de cada lead diretamente no seletor ou visualize em colunas de funil.
-              </p>
-            </div>
+        <!-- BARRA DE CONTROLE: ABAS + VIEW SWITCHER + SEARCH -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5">
+          <!-- Filtro por abas de status -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 custom-scrollbar">
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-bold transition bg-brand-orange text-white shadow-[0_0_12px_rgba(255,95,36,0.35)]" data-status="ALL" onclick="AprovMaster.setFilter('ALL', this)">
+              Todos (<span id="tabCountAll">0</span>)
+            </button>
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition" data-status="NOVO" onclick="AprovMaster.setFilter('NOVO', this)">
+              🔵 Novos (<span id="tabCountNovo">0</span>)
+            </button>
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition" data-status="EM_ANALISE" onclick="AprovMaster.setFilter('EM_ANALISE', this)">
+              🟡 Em Análise (<span id="tabCountAnalise">0</span>)
+            </button>
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition" data-status="APROVADO" onclick="AprovMaster.setFilter('APROVADO', this)">
+              🟢 Aprovados (<span id="tabCountAprovado">0</span>)
+            </button>
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition" data-status="PENDENTE" onclick="AprovMaster.setFilter('PENDENTE', this)">
+              🟠 Pendentes (<span id="tabCountPendente">0</span>)
+            </button>
+            <button class="filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition" data-status="NEGADO" onclick="AprovMaster.setFilter('NEGADO', this)">
+              🔴 Negados (<span id="tabCountNegado">0</span>)
+            </button>
+          </div>
 
-            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-              <!-- View Switcher -->
-              <div class="view-switcher">
-                <button class="view-btn active" id="btnViewTable" onclick="switchView('table')">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                  Tabela
-                </button>
-                <button class="view-btn" id="btnViewKanban" onclick="switchView('kanban')">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
-                  Funil / Kanban
-                </button>
-              </div>
-
-              <!-- Export Button -->
-              <button class="btn btn-secondary btn-sm" onclick="exportCSV()" title="Exportar para Excel / CSV">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                Exportar CSV
+          <!-- Switcher Tabela / Kanban & Exportar -->
+          <div class="flex items-center gap-3">
+            <div class="flex rounded-xl bg-white/5 p-1 border border-white/10">
+              <button id="btnModeTable" onclick="AprovMaster.switchMode('table')" class="rounded-lg px-3 py-1.5 text-xs font-bold bg-[#FF5F24] text-white transition">
+                Tabela
+              </button>
+              <button id="btnModeKanban" onclick="AprovMaster.switchMode('kanban')" class="rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-400 hover:text-white transition">
+                Kanban
               </button>
             </div>
-          </div>
-
-          <!-- Status Filter Tabs -->
-          <div class="filter-tabs-bar" style="margin-bottom: 20px;">
-            <button class="filter-tab-btn active" data-filter="ALL" onclick="setFilter('ALL', this)">
-              Todos <span class="filter-tab-badge" id="tabAll">0</span>
-            </button>
-            <button class="filter-tab-btn" data-filter="NOVO" onclick="setFilter('NOVO', this)">
-              🔵 Novos Leads <span class="filter-tab-badge" id="tabNovo">0</span>
-            </button>
-            <button class="filter-tab-btn" data-filter="EM_ANALISE" onclick="setFilter('EM_ANALISE', this)">
-              🟡 Em Análise SCR <span class="filter-tab-badge" id="tabAnalise">0</span>
-            </button>
-            <button class="filter-tab-btn" data-filter="APROVADO" onclick="setFilter('APROVADO', this)">
-              🟢 Aprovados <span class="filter-tab-badge" id="tabAprovado">0</span>
-            </button>
-            <button class="filter-tab-btn" data-filter="PENDENTE" onclick="setFilter('PENDENTE', this)">
-              🟠 Pendentes <span class="filter-tab-badge" id="tabPendente">0</span>
-            </button>
-            <button class="filter-tab-btn" data-filter="NEGADO" onclick="setFilter('NEGADO', this)">
-              🔴 Negados <span class="filter-tab-badge" id="tabNegado">0</span>
+            <button onclick="AprovMaster.exportCSV()" class="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-3.5 py-2 text-xs font-bold text-gray-300 hover:text-white flex items-center gap-1.5 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              CSV
             </button>
           </div>
+        </div>
 
-          <!-- VIEW 1: DATA TABLE (ESTILO MEUS-PEDIDOS DE HC CLUB) -->
-          <div id="viewTableContainer" class="table-responsive">
-            <table class="data-table">
-              <thead>
+        <!-- BUSCA RÁPIDA -->
+        <div class="mb-5">
+          <div class="relative w-full max-w-md">
+            <input type="text" id="pipelineSearch" placeholder="Pesquisar por empresa, CNPJ, telefone ou protocolo…" oninput="AprovMaster.handleSearch(this.value)" class="w-full rounded-xl bg-[#0d0d0d] border border-white/10 px-4 py-2.5 pl-10 text-xs text-white placeholder-gray-500 outline-none focus:border-brand-orange transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="absolute left-3 top-3 text-gray-500"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+        </div>
+
+        <!-- MODO 1: TABELA DETALHADA (ESTILO MEUS-PEDIDOS DE HC CLUB) -->
+        <div id="containerTableView" class="rounded-[24px] border border-gray-200 bg-white p-5 dark:border-white/10 dark:bg-[#0d0d0d] overflow-hidden mb-8">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="border-b border-white/10 text-xs uppercase text-gray-400">
                 <tr>
-                  <th style="width:110px;">Protocolo</th>
-                  <th style="min-width:230px;">Cliente / Razão Social</th>
-                  <th>CNPJ / CPF</th>
-                  <th>Linha / Valor</th>
-                  <th>Score SCR</th>
-                  <th style="min-width:170px;">Status Atual (Editar)</th>
-                  <th>Entrada</th>
-                  <th style="text-align:right;">Ações</th>
+                  <th class="py-3 px-4">Protocolo</th>
+                  <th class="py-3 px-4" style="min-width:240px;">Cliente / Razão Social</th>
+                  <th class="py-3 px-4">CNPJ / CPF</th>
+                  <th class="py-3 px-4">Linha / Valor</th>
+                  <th class="py-3 px-4">Score SCR</th>
+                  <th class="py-3 px-4" style="min-width:180px;">Status Atual (Editar)</th>
+                  <th class="py-3 px-4">Data</th>
+                  <th class="py-3 px-4 text-right">Ações</th>
                 </tr>
               </thead>
-              <tbody id="clientsTableBody">
+              <tbody id="clientsTableBody" class="divide-y divide-white/5">
                 <!-- Inserido dinamicamente via JS -->
               </tbody>
             </table>
 
-            <div id="emptyTableState" style="display:none; text-align:center; padding:48px 16px;">
-              <div style="font-size:32px; margin-bottom:8px;">📂</div>
-              <h4 style="font-size:16px; font-weight:800; color:#ffffff;">Nenhum cliente nesta categoria</h4>
-              <p style="font-size:13px; color:var(--text-mid); margin:6px 0 16px;">Suba uma lista de empresas ou cadastre um novo cliente.</p>
-              <button class="btn btn-orange btn-sm" onclick="openAddClientModal()">+ Cadastrar Cliente</button>
-            </div>
-          </div>
-
-          <!-- VIEW 2: KANBAN BOARD (ESTILO CRM.HTML DE HC CLUB) -->
-          <div id="viewKanbanContainer" class="kanban-board" style="display:none;">
-            <!-- Coluna 1: Novos Leads -->
-            <div class="kanban-column">
-              <div class="kanban-col-header">
-                <span class="kanban-col-title" style="color:#60a5fa;">
-                  <span>🔵</span> 1. Novos Leads (<span id="kbCountNovo">0</span>)
-                </span>
-                <span style="font-size:11px; font-weight:700; color:var(--text-mid);" id="kbVolNovo">R$ 0</span>
-              </div>
-              <div class="kanban-cards" id="kbColNovo"></div>
-            </div>
-
-            <!-- Coluna 2: Em Análise SCR -->
-            <div class="kanban-column">
-              <div class="kanban-col-header">
-                <span class="kanban-col-title" style="color:#fbbf24;">
-                  <span>🟡</span> 2. Em Análise SCR (<span id="kbCountAnalise">0</span>)
-                </span>
-                <span style="font-size:11px; font-weight:700; color:var(--text-mid);" id="kbVolAnalise">R$ 0</span>
-              </div>
-              <div class="kanban-cards" id="kbColAnalise"></div>
-            </div>
-
-            <!-- Coluna 3: Aprovados -->
-            <div class="kanban-column">
-              <div class="kanban-col-header">
-                <span class="kanban-col-title" style="color:#34d399;">
-                  <span>🟢</span> 3. Aprovados (<span id="kbCountAprovado">0</span>)
-                </span>
-                <span style="font-size:11px; font-weight:700; color:var(--text-mid);" id="kbVolAprovado">R$ 0</span>
-              </div>
-              <div class="kanban-cards" id="kbColAprovado"></div>
-            </div>
-
-            <!-- Coluna 4: Pendentes -->
-            <div class="kanban-column">
-              <div class="kanban-col-header">
-                <span class="kanban-col-title" style="color:#fb923c;">
-                  <span>🟠</span> 4. Pendentes (<span id="kbCountPendente">0</span>)
-                </span>
-                <span style="font-size:11px; font-weight:700; color:var(--text-mid);" id="kbVolPendente">R$ 0</span>
-              </div>
-              <div class="kanban-cards" id="kbColPendente"></div>
-            </div>
-
-            <!-- Coluna 5: Negados -->
-            <div class="kanban-column">
-              <div class="kanban-col-header">
-                <span class="kanban-col-title" style="color:#f87171;">
-                  <span>🔴</span> 5. Negados (<span id="kbCountNegado">0</span>)
-                </span>
-                <span style="font-size:11px; font-weight:700; color:var(--text-mid);" id="kbVolNegado">R$ 0</span>
-              </div>
-              <div class="kanban-cards" id="kbColNegado"></div>
-            </div>
-          </div>
-
-        </div>
-
-      </main>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       MODAL 1: SUBIR NOMES EM LOTE (ESTILO HC CLUB)
-  ============================================================ -->
-  <div class="modal-backdrop" id="batchModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 class="modal-title">Subir Nomes e Empresas em Lote</h3>
-        <button class="modal-close" onclick="closeBatchModal()">✕</button>
-      </div>
-      <div class="modal-body">
-        <p style="font-size:13.5px; color:var(--text-mid); margin-bottom:14px; line-height:1.5;">
-          Cole sua lista de nomes ou envie um arquivo CSV. Todos os registros serão inseridos automaticamente na esteira com protocolo gerado.
-        </p>
-
-        <div class="form-group">
-          <label class="form-label">Cole a lista (uma empresa por linha):</label>
-          <textarea id="batchText" class="form-textarea" rows="6" style="font-family:monospace; font-size:12.5px;" placeholder="Exemplo:
-Vanguard Logística Ltda | 34.891.204/0001-85 | 380000 | (11) 98452-1100
-Comercial Alimentos Silva | 18.420.781/0001-32 | 150000 | (19) 99123-4567
-Metalúrgica Sul Brasil | 42.109.845/0001-99 | 500000 | (41) 98765-4321
-Ou simplesmente cole os nomes das empresas diretamente!"></textarea>
-          <span style="font-size:11px; color:var(--text-light); margin-top:4px;">
-            Formato: <code>Nome da Empresa | CNPJ | Valor | Telefone</code> ou somente o nome por linha.
-          </span>
-        </div>
-
-        <div style="margin-top:16px;">
-          <label class="form-label">Ou selecione um arquivo CSV / TXT:</label>
-          <div class="batch-dropzone" onclick="document.getElementById('csvFile').click()">
-            <input type="file" id="csvFile" accept=".csv,.txt" style="display:none;" onchange="handleFileSelect(this)">
-            <div style="font-size:24px; margin-bottom:4px;">📥</div>
-            <div style="font-size:13.5px; font-weight:700; color:#ffffff;">Clique para carregar o arquivo CSV</div>
-            <div style="font-size:11.5px; color:var(--text-light);">Compatível com exportações do Excel e CRM</div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeBatchModal()">Cancelar</button>
-        <button class="btn btn-orange" onclick="processBatch()">Processar e Subir Nomes ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       MODAL 2: ADICIONAR / EDITAR CLIENTE INDIVIDUAL
-  ============================================================ -->
-  <div class="modal-backdrop" id="clientModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 class="modal-title" id="clientModalHeading">Adicionar Cliente à Esteira</h3>
-        <button class="modal-close" onclick="closeClientModal()">✕</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="editId">
-        <div class="form-group">
-          <label class="form-label">Razão Social / Nome da Empresa *</label>
-          <input type="text" id="mName" class="form-input" placeholder="Ex: Vanguard Logística & Transportes Ltda" required>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="form-group">
-            <label class="form-label">CNPJ ou CPF *</label>
-            <input type="text" id="mCnpj" class="form-input input-doc" placeholder="00.000.000/0001-00" maxlength="18">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Valor Pretendido (R$)</label>
-            <input type="text" id="mValue" class="form-input" placeholder="R$ 250.000,00">
-          </div>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div class="form-group">
-            <label class="form-label">Telefone / WhatsApp</label>
-            <input type="text" id="mPhone" class="form-input" placeholder="(11) 98765-4321">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Status Inicial</label>
-            <select id="mStatus" class="form-select">
-              <option value="NOVO">🔵 Novo Lead</option>
-              <option value="EM_ANALISE">🟡 Em Análise (SCR Bacen)</option>
-              <option value="APROVADO">🟢 Aprovado</option>
-              <option value="PENDENTE">🟠 Pendente (Documentação)</option>
-              <option value="NEGADO">🔴 Negado / Restrição</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Observações & Diagnóstico</label>
-          <textarea id="mNotes" class="form-textarea" rows="2" placeholder="Ex: Faturamento R$ 180k/mês. Parecer SCR limpo, buscando capital de giro."></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeClientModal()">Cancelar</button>
-        <button class="btn btn-orange" onclick="saveClient()">Salvar Registro ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       MODAL 3: RECARGA / SAQUE PIX (ESTILO HC CLUB CARTEIRA)
-  ============================================================ -->
-  <div class="modal-backdrop" id="withdrawModal">
-    <div class="modal-box" style="max-width:480px;">
-      <div class="modal-header">
-        <h3 class="modal-title">Carteira & Operações PIX</h3>
-        <button class="modal-close" onclick="closeWithdrawModal()">✕</button>
-      </div>
-      <div class="modal-body">
-        <div style="background:rgba(255,95,36,0.1); border:1px solid var(--border-orange); border-radius:14px; padding:16px; margin-bottom:18px;">
-          <div style="font-size:11px; color:var(--text-mid); text-transform:uppercase; font-weight:700;">Saldo Disponível</div>
-          <div style="font-size:28px; font-weight:900; color:var(--brand-orange);" class="financial-val" id="modalWalletBalance">R$ 3.480,00</div>
-          <div style="font-size:11.5px; color:var(--text-light); margin-top:4px;">Disponível para diagnósticos SCR e saques imediatos</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Recarregar Saldo (PIX Copia e Cola)</label>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="setRecVal(110)">R$ 110 (2 SCR)</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="setRecVal(297)">R$ 297 (Rating)</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="setRecVal(550)">R$ 550 (10 SCR)</button>
-          </div>
-          <input type="number" id="recAmount" class="form-input" value="110" min="55">
-        </div>
-
-        <div style="background:rgba(255,255,255,0.03); border:1px dashed var(--border-color); border-radius:10px; padding:14px; text-align:center;">
-          <code id="pixPayload" style="display:block; font-size:11px; word-break:break-all; color:var(--brand-orange); font-weight:700; margin-bottom:8px;">
-            00020126580014br.gov.bcb.pix0136aprovblack@pagamentos.com.br5204000053039865802BR5912APROV BLACK6009SAO PAULO62070503***6304ABCD
-          </code>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="copyPixCode()">📋 Copiar Chave PIX</button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeWithdrawModal()">Fechar</button>
-        <button class="btn btn-orange" onclick="confirmRec()">Confirmar Depósito ✓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST CONTAINER -->
-  <div class="toast-container" id="toastContainer"></div>
-
-  <!-- ============================================================
-       JAVASCRIPT: CLIENT PIPELINE & CRM ENGINE
-  ============================================================ -->
-  <script>
-    /* ============================================================
-       STATE & SEED CLIENTS
-    ============================================================ */
-    let clients = [];
-    let currentFilter = 'ALL';
-    let currentSearch = '';
-    let isValuesHidden = false;
-    let balance = parseFloat(localStorage.getItem('aprov_balance') || '3480.00');
-
-    const STATUS_MAP = {
-      NOVO:       { label: 'Novo Lead',       css: 'novo',     icon: '🔵' },
-      EM_ANALISE: { label: 'Em Análise SCR',  css: 'analise',  icon: '🟡' },
-      APROVADO:   { label: 'Aprovado',        css: 'aprovado', icon: '🟢' },
-      PENDENTE:   { label: 'Pendente',        css: 'pendente', icon: '🟠' },
-      NEGADO:     { label: 'Negado',          css: 'negado',   icon: '🔴' }
-    };
-
-    const SEED_DATA = [
-      {
-        id: 'AP-89401',
-        name: 'Vanguard Logística & Transportes Ltda',
-        cnpj: '34.891.204/0001-85',
-        value: 380000,
-        score: 840,
-        status: 'APROVADO',
-        phone: '(11) 98452-1100',
-        date: '2026-03-24',
-        notes: 'Faturamento R$ 220k/mês. Liminar deferida e parecer SCR limpo.'
-      },
-      {
-        id: 'AP-89402',
-        name: 'Bella Vita Alimentos Gourmet Eireli',
-        cnpj: '18.420.781/0001-32',
-        value: 150000,
-        score: 720,
-        status: 'EM_ANALISE',
-        phone: '(19) 99123-4567',
-        date: '2026-03-25',
-        notes: 'Protocolado no birô Serasa e SCR Bacen para aumento de rating.'
-      },
-      {
-        id: 'AP-89403',
-        name: 'SolarTech Energia Renovável S.A.',
-        cnpj: '42.109.845/0001-99',
-        value: 750000,
-        score: 910,
-        status: 'APROVADO',
-        phone: '(31) 98765-4321',
-        date: '2026-03-26',
-        notes: 'Contrato de financiamento liberado com taxa 1.29% a.m.'
-      },
-      {
-        id: 'AP-89404',
-        name: 'Drogaria & Farmácia Nova Vida Ltda',
-        cnpj: '07.319.452/0001-44',
-        value: 95000,
-        score: 580,
-        status: 'PENDENTE',
-        phone: '(21) 97412-8899',
-        date: '2026-03-26',
-        notes: 'Aguardando envio do contrato social atualizado e IRPJ.'
-      },
-      {
-        id: 'AP-89405',
-        name: 'Construtora e Incorporadora Horizonte Ltda',
-        cnpj: '51.982.341/0001-08',
-        value: 1200000,
-        score: 790,
-        status: 'NOVO',
-        phone: '(41) 98822-3344',
-        date: '2026-03-27',
-        notes: 'Lead importado da base. Solicitou avaliação de R$ 1.2M.'
-      },
-      {
-        id: 'AP-89406',
-        name: 'Metalúrgica Imperial do Sul',
-        cnpj: '29.304.112/0001-15',
-        value: 260000,
-        score: 430,
-        status: 'NEGADO',
-        phone: '(51) 99654-7711',
-        date: '2026-03-22',
-        notes: 'Apontamento prejudicial no Bacen acima de 24 meses sem acordo.'
-      }
-    ];
-
-    function loadClients() {
-      const raw = localStorage.getItem('aprov_clients');
-      if (raw) {
-        try {
-          clients = JSON.parse(raw);
-          return;
-        } catch(e) {}
-      }
-      clients = SEED_DATA;
-      localStorage.setItem('aprov_clients', JSON.stringify(clients));
-    }
-
-    function saveAll() {
-      localStorage.setItem('aprov_clients', JSON.stringify(clients));
-      renderDashboard();
-    }
-
-    function formatBRL(v) {
-      if (isValuesHidden) return '••••••';
-      return (v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    /* ============================================================
-       RENDER DASHBOARD (METRICS, TABLE & KANBAN)
-    ============================================================ */
-    function renderDashboard() {
-      // 1. KPI Counts
-      const total = clients.length;
-      let volAnalise = 0;
-      let volAprovado = 0;
-      let countNovo = 0;
-      let countAnalise = 0;
-      let countAprovado = 0;
-      let countPendente = 0;
-      let countNegado = 0;
-
-      let volNovo = 0;
-      let volPendente = 0;
-      let volNegado = 0;
-
-      clients.forEach(c => {
-        const val = Number(c.value || 0);
-        if (c.status === 'NOVO') { countNovo++; volNovo += val; }
-        else if (c.status === 'EM_ANALISE') { countAnalise++; volAnalise += val; }
-        else if (c.status === 'APROVADO') { countAprovado++; volAprovado += val; }
-        else if (c.status === 'PENDENTE') { countPendente++; volPendente += val; }
-        else if (c.status === 'NEGADO') { countNegado++; volNegado += val; }
-      });
-
-      // Update stat cards
-      document.getElementById('statTotalClients').textContent = total;
-      document.getElementById('statNewCount').textContent = countNovo;
-      document.getElementById('statVolumeAnalise').textContent = formatBRL(volAnalise);
-      document.getElementById('statInAnalysisCount').textContent = countAnalise;
-      document.getElementById('statVolumeAprovado').textContent = formatBRL(volAprovado);
-      document.getElementById('statApprovedCount').textContent = countAprovado;
-      document.getElementById('activeCounterPill').textContent = total + ' empresas na esteira';
-
-      // Update tabs badges
-      document.getElementById('tabAll').textContent = total;
-      document.getElementById('tabNovo').textContent = countNovo;
-      document.getElementById('tabAnalise').textContent = countAnalise;
-      document.getElementById('tabAprovado').textContent = countAprovado;
-      document.getElementById('tabPendente').textContent = countPendente;
-      document.getElementById('tabNegado').textContent = countNegado;
-
-      // Update Kanban headers
-      document.getElementById('kbCountNovo').textContent = countNovo;
-      document.getElementById('kbVolNovo').textContent = formatBRL(volNovo);
-      document.getElementById('kbCountAnalise').textContent = countAnalise;
-      document.getElementById('kbVolAnalise').textContent = formatBRL(volAnalise);
-      document.getElementById('kbCountAprovado').textContent = countAprovado;
-      document.getElementById('kbVolAprovado').textContent = formatBRL(volAprovado);
-      document.getElementById('kbCountPendente').textContent = countPendente;
-      document.getElementById('kbVolPendente').textContent = formatBRL(volPendente);
-      document.getElementById('kbCountNegado').textContent = countNegado;
-      document.getElementById('kbVolNegado').textContent = formatBRL(volNegado);
-
-      // 2. Filter list
-      let filtered = clients;
-      if (currentFilter !== 'ALL') {
-        filtered = filtered.filter(c => c.status === currentFilter);
-      }
-      if (currentSearch.trim()) {
-        const q = currentSearch.toLowerCase();
-        filtered = filtered.filter(c => 
-          (c.name && c.name.toLowerCase().includes(q)) ||
-          (c.id && c.id.toLowerCase().includes(q)) ||
-          (c.cnpj && c.cnpj.includes(q)) ||
-          (c.phone && c.phone.includes(q))
-        );
-      }
-
-      // 3. Render Table Rows
-      const tbody = document.getElementById('clientsTableBody');
-      const emptyState = document.getElementById('emptyTableState');
-      tbody.innerHTML = '';
-
-      if (filtered.length === 0) {
-        emptyState.style.display = 'block';
-      } else {
-        emptyState.style.display = 'none';
-        filtered.forEach(c => {
-          const tr = document.createElement('tr');
-          const initials = (c.name || 'AB').split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
-          const cfg = STATUS_MAP[c.status] || STATUS_MAP.NOVO;
-
-          // Score Badge
-          let scClass = 'badge-success';
-          let scLabel = 'Faixa A';
-          if (c.score < 500) { scClass = 'badge-danger'; scLabel = 'Faixa C'; }
-          else if (c.score < 700) { scClass = 'badge-warning'; scLabel = 'Faixa B'; }
-
-          // Dropdown options
-          const opts = Object.keys(STATUS_MAP).map(k => {
-            const item = STATUS_MAP[k];
-            return `<option value="${k}" ${k === c.status ? 'selected' : ''}>${item.icon} ${item.label}</option>`;
-          }).join('');
-
-          tr.innerHTML = `
-            <td style="font-family:monospace; font-weight:800; color:var(--brand-orange); font-size:12.5px;">${c.id}</td>
-            <td>
-              <div style="display:flex; align-items:center; gap:10px;">
-                <div class="client-avatar-hc">${initials}</div>
-                <div>
-                  <div style="font-weight:700; color:#ffffff; font-size:13.5px;">${c.name}</div>
-                  <div style="font-size:11.5px; color:var(--text-light);">${c.phone || 'Sem tel'} ${c.notes ? '• ' + c.notes.slice(0,30) + '...' : ''}</div>
-                </div>
-              </div>
-            </td>
-            <td><code style="background:rgba(255,255,255,0.06); padding:3px 6px; border-radius:5px; font-size:12px; color:#ffffff;">${c.cnpj || '—'}</code></td>
-            <td><strong style="color:#ffffff; font-size:13.5px;">${formatBRL(c.value)}</strong></td>
-            <td><span class="badge ${scClass}">${c.score || 750} · ${scLabel}</span></td>
-            <td>
-              <select class="status-select-btn ${cfg.css}" onchange="updateStatus('${c.id}', this.value)">
-                ${opts}
-              </select>
-            </td>
-            <td style="color:var(--text-light); font-size:12px;">${formatDateBR(c.date)}</td>
-            <td style="text-align:right;">
-              <button class="act-btn" onclick="openEditModal('${c.id}')" title="Editar"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
-              <button class="act-btn delete" onclick="deleteClient('${c.id}')" title="Excluir"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-
-      // 4. Render Kanban Columns
-      ['NOVO', 'EM_ANALISE', 'APROVADO', 'PENDENTE', 'NEGADO'].forEach(statusKey => {
-        const colEl = document.getElementById('kbCol' + capitalize(statusKey));
-        if (!colEl) return;
-        colEl.innerHTML = '';
-
-        const colClients = clients.filter(c => c.status === statusKey);
-        colClients.forEach(c => {
-          const card = document.createElement('div');
-          card.className = 'kanban-card';
-          card.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
-              <span style="font-family:monospace; font-size:11px; font-weight:800; color:var(--brand-orange);">${c.id}</span>
-              <span style="font-size:11px; color:var(--text-light);">${formatDateBR(c.date)}</span>
-            </div>
-            <div style="font-weight:700; color:#ffffff; font-size:13.5px; margin-bottom:4px;">${c.name}</div>
-            <div style="font-size:12px; color:var(--brand-orange); font-weight:800; margin-bottom:8px;">${formatBRL(c.value)}</div>
-            <div style="font-size:11.5px; color:var(--text-mid); margin-bottom:10px;">${c.cnpj || ''}</div>
-            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:8px;">
-              <span style="font-size:11px; color:#34d399; font-weight:700;">Score: ${c.score || 700}</span>
-              <button onclick="advanceStage('${c.id}')" style="background:var(--bg-surface); border:1px solid var(--border-color); color:#fff; border-radius:6px; padding:3px 8px; font-size:11px; font-weight:700; cursor:pointer;">
-                Avançar →
+            <div id="tableEmptyState" style="display:none;" class="text-center py-12">
+              <div class="text-3xl mb-2">📋</div>
+              <div class="text-white font-bold text-sm">Nenhum cliente encontrado</div>
+              <div class="text-xs text-gray-500 mt-1">Suba uma lista de empresas ou cadastre um novo cliente.</div>
+              <button onclick="AprovMaster.openAddClientModal()" class="btn-liquid text-white text-xs font-bold rounded-xl px-4 py-2 mt-4 inline-block">
+                + Cadastrar Cliente
               </button>
             </div>
-          `;
-          colEl.appendChild(card);
-        });
-      });
-    }
+          </div>
+        </div>
 
-    function formatDateBR(s) {
-      if (!s) return 'Hoje';
-      const p = s.split('-');
-      return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : s;
-    }
+        <!-- MODO 2: KANBAN BOARD (ESTILO CRM.HTML DE HC CLUB) -->
+        <div id="containerKanbanView" style="display:none;" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+          <!-- Coluna 1: Novos Leads -->
+          <div class="rounded-[24px] border border-white/10 bg-[#0d0d0d] p-5 flex flex-col">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-400">1. Novos (<span id="kbCountNovo">0</span>)</span>
+              <span class="text-xs text-gray-500 font-mono" id="kbVolNovo">R$ 0</span>
+            </div>
+            <div class="space-y-3 flex-1 overflow-y-auto" id="kbColNovo"></div>
+          </div>
 
-    function capitalize(s) {
-      if (s === 'NOVO') return 'Novo';
-      if (s === 'EM_ANALISE') return 'Analise';
-      if (s === 'APROVADO') return 'Aprovado';
-      if (s === 'PENDENTE') return 'Pendente';
-      if (s === 'NEGADO') return 'Negado';
-      return s;
-    }
+          <!-- Coluna 2: Em Análise SCR -->
+          <div class="rounded-[24px] border border-white/10 bg-[#0d0d0d] p-5 flex flex-col">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">2. Em Análise (<span id="kbCountAnalise">0</span>)</span>
+              <span class="text-xs text-gray-500 font-mono" id="kbVolAnalise">R$ 0</span>
+            </div>
+            <div class="space-y-3 flex-1 overflow-y-auto" id="kbColAnalise"></div>
+          </div>
 
-    /* ============================================================
-       STATUS UPDATE & KANBAN ADVANCE
-    ============================================================ */
-    function updateStatus(id, newStatus) {
-      const c = clients.find(item => item.id === id);
-      if (!c) return;
-      c.status = newStatus;
-      saveAll();
-      showToast(c.name.split(' ')[0] + ' atualizado para ' + STATUS_MAP[newStatus].label + ' ✓', 'success');
-    }
+          <!-- Coluna 3: Aprovados -->
+          <div class="rounded-[24px] border border-white/10 bg-[#0d0d0d] p-5 flex flex-col">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">3. Aprovados (<span id="kbCountAprovado">0</span>)</span>
+              <span class="text-xs text-gray-500 font-mono" id="kbVolAprovado">R$ 0</span>
+            </div>
+            <div class="space-y-3 flex-1 overflow-y-auto" id="kbColAprovado"></div>
+          </div>
 
-    function advanceStage(id) {
-      const c = clients.find(item => item.id === id);
-      if (!c) return;
-      const order = ['NOVO', 'EM_ANALISE', 'APROVADO'];
-      const idx = order.indexOf(c.status);
-      if (idx !== -1 && idx < order.length - 1) {
-        c.status = order[idx + 1];
-        saveAll();
-        showToast(c.name.split(' ')[0] + ' avançou para: ' + STATUS_MAP[c.status].label + ' ⚡', 'success');
-      } else {
-        showToast('Cliente já está no estágio avançado.', 'info');
+          <!-- Coluna 4: Pendentes -->
+          <div class="rounded-[24px] border border-white/10 bg-[#0d0d0d] p-5 flex flex-col">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <span class="text-xs font-bold uppercase tracking-wider text-orange-400">4. Pendentes (<span id="kbCountPendente">0</span>)</span>
+              <span class="text-xs text-gray-500 font-mono" id="kbVolPendente">R$ 0</span>
+            </div>
+            <div class="space-y-3 flex-1 overflow-y-auto" id="kbColPendente"></div>
+          </div>
+
+          <!-- Coluna 5: Negados -->
+          <div class="rounded-[24px] border border-white/10 bg-[#0d0d0d] p-5 flex flex-col">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <span class="text-xs font-bold uppercase tracking-wider text-red-400">5. Negados (<span id="kbCountNegado">0</span>)</span>
+              <span class="text-xs text-gray-500 font-mono" id="kbVolNegado">R$ 0</span>
+            </div>
+            <div class="space-y-3 flex-1 overflow-y-auto" id="kbColNegado"></div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL 1: SUBIR NOMES EM LOTE (BATCH IMPORT)
+============================================================ -->
+<div id="modal-batch-import" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#0d0d0d; border:1px solid rgba(255,95,36,0.3); border-radius:24px; max-width:540px; width:100%; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,0.9);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 style="font-size:1.2rem; font-weight:800; color:#fff;">Subir Nomes e Empresas em Lote</h3>
+      <button onclick="AprovMaster.closeBatchModal()" style="background:transparent; border:none; color:#888; font-size:1.3rem; cursor:pointer;">✕</button>
+    </div>
+    <p style="font-size:0.8rem; color:#888; margin-bottom:14px; line-height:1.5;">
+      Cole sua lista de nomes ou envie um arquivo CSV. Todos os registros serão inseridos automaticamente na esteira com protocolos exclusivos.
+    </p>
+
+    <div style="margin-bottom:16px;">
+      <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:6px; text-transform:uppercase;">Cole a lista (um por linha):</label>
+      <textarea id="batchInputText" rows="6" style="width:100%; border-radius:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:10px 14px; color:#fff; font-family:monospace; font-size:0.8rem; outline:none;" placeholder="Exemplo:
+Vanguard Logística Ltda | 34.891.204/0001-85 | 380000 | (11) 98452-1100
+Bella Vita Alimentos | 18.420.781/0001-32 | 150000 | (19) 99123-4567
+SolarTech Energia S.A. | 42.109.845/0001-99 | 750000 | (31) 98765-4321
+Ou apenas o nome das empresas por linha!"></textarea>
+      <span style="font-size:0.7rem; color:#666; display:block; margin-top:4px;">Formato: <code>Razão Social | CNPJ | Valor | Telefone</code> ou somente <code>Nome da Empresa</code>.</span>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:6px; text-transform:uppercase;">Ou selecione arquivo CSV / TXT:</label>
+      <div onclick="document.getElementById('fileUploadInput').click()" style="border:1.5px dashed rgba(255,255,255,0.15); border-radius:14px; padding:18px; text-align:center; cursor:pointer; background:rgba(255,255,255,0.02); transition:all 0.2s;">
+        <input type="file" id="fileUploadInput" accept=".csv,.txt" style="display:none;" onchange="AprovMaster.handleFileUpload(this)">
+        <div style="font-size:1.5rem; margin-bottom:4px;">📥</div>
+        <div style="font-size:0.85rem; font-weight:700; color:#fff;">Clique para selecionar arquivo CSV</div>
+        <div style="font-size:0.7rem; color:#666;">Compatível com planilhas Excel e bases de leads</div>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="AprovMaster.closeBatchModal()" style="border-radius:12px; background:rgba(255,255,255,0.06); color:#fff; font-size:0.85rem; font-weight:600; padding:10px 18px; border:none; cursor:pointer;">Cancelar</button>
+      <button onclick="AprovMaster.processBatchImport()" class="btn-liquid" style="border-radius:12px; height:42px; color:#fff; font-weight:700; font-size:0.85rem; border:none; padding:0 22px; cursor:pointer;">
+        Importar e Subir Nomes ✓
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL 2: ADICIONAR / EDITAR CLIENTE (INDIVIDUAL)
+============================================================ -->
+<div id="modal-client-edit" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#0d0d0d; border:1px solid rgba(255,95,36,0.3); border-radius:24px; max-width:500px; width:100%; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,0.9);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <h3 style="font-size:1.2rem; font-weight:800; color:#fff;" id="clientModalTitle">Adicionar Cliente à Esteira</h3>
+      <button onclick="AprovMaster.closeClientModal()" style="background:transparent; border:none; color:#888; font-size:1.3rem; cursor:pointer;">✕</button>
+    </div>
+    <form onsubmit="AprovMaster.handleClientSubmit(event)">
+      <input type="hidden" id="clientIdInput">
+      <div style="margin-bottom:12px;">
+        <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">Razão Social / Nome *</label>
+        <input type="text" id="clientNameInput" required style="width:100%; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.85rem; outline:none;" placeholder="Ex: Vanguard Logística Ltda">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">CNPJ ou CPF *</label>
+          <input type="text" id="clientCnpjInput" maxlength="18" style="width:100%; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.85rem; outline:none;" placeholder="00.000.000/0001-00">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">Valor Pretendido (R$)</label>
+          <input type="text" id="clientValueInput" style="width:100%; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.85rem; outline:none;" placeholder="R$ 250.000,00">
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">Telefone / WhatsApp</label>
+          <input type="text" id="clientPhoneInput" style="width:100%; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.85rem; outline:none;" placeholder="(11) 98765-4321">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">Status Inicial</label>
+          <select id="clientStatusInput" style="width:100%; border-radius:10px; background:#161616; border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.85rem; outline:none;">
+            <option value="NOVO">🔵 Novo Lead</option>
+            <option value="EM_ANALISE">🟡 Em Análise (SCR Bacen)</option>
+            <option value="APROVADO">🟢 Aprovado</option>
+            <option value="PENDENTE">🟠 Pendente</option>
+            <option value="NEGADO">🔴 Negado / Restrição</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <label style="display:block; font-size:0.75rem; font-weight:700; color:#aaa; margin-bottom:5px; text-transform:uppercase;">Observações</label>
+        <textarea id="clientNotesInput" rows="2" style="width:100%; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 12px; color:#fff; font-size:0.8rem; outline:none;" placeholder="Ex: Parecer SCR limpo, faturamento R$ 150k/mês."></textarea>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" onclick="AprovMaster.closeClientModal()" style="border-radius:12px; background:rgba(255,255,255,0.06); color:#fff; font-size:0.85rem; font-weight:600; padding:10px 18px; border:none; cursor:pointer;">Cancelar</button>
+        <button type="submit" class="btn-liquid" style="border-radius:12px; height:42px; color:#fff; font-weight:700; font-size:0.85rem; border:none; padding:0 22px; cursor:pointer;">Salvar Cliente ✓</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL 3: SAQUE / RECARGA PIX (EXATO HC CLUB)
+============================================================ -->
+<div id="modal-saque-pix" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px;">
+  <div style="background:#0d0d0d; border:1px solid rgba(255,95,36,0.3); border-radius:24px; max-width:440px; width:100%; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,0.9);">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <h3 style="font-size:1.2rem; font-weight:800; color:#fff;">Carteira & Operações PIX</h3>
+      <button onclick="AprovMaster.closeWithdrawModal()" style="background:transparent; border:none; color:#888; font-size:1.4rem; cursor:pointer;">✕</button>
+    </div>
+    <div style="background:rgba(255,95,36,0.1); border:1px solid rgba(255,95,36,0.25); border-radius:14px; padding:14px; margin-bottom:18px;">
+      <div style="font-size:0.75rem; color:#aaa; text-transform:uppercase;">Saldo Disponível</div>
+      <div style="font-size:1.6rem; font-weight:900; color:#FF5F24;" class="financial-val" id="modal-saque-balance">R$ 3.480,00</div>
+    </div>
+    
+    <!-- Recarga Rápida -->
+    <div style="margin-bottom:14px;">
+      <label style="display:block; font-size:0.8rem; font-weight:600; color:#aaa; margin-bottom:6px;">Recarregar Saldo para Consultas SCR</label>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:8px;">
+        <button type="button" onclick="AprovMaster.setRechargeAmount(110)" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:6px; font-size:0.75rem; font-weight:700; color:#fff; cursor:pointer;">R$ 110</button>
+        <button type="button" onclick="AprovMaster.setRechargeAmount(297)" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:6px; font-size:0.75rem; font-weight:700; color:#fff; cursor:pointer;">R$ 297</button>
+        <button type="button" onclick="AprovMaster.setRechargeAmount(550)" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:6px; font-size:0.75rem; font-weight:700; color:#fff; cursor:pointer;">R$ 550</button>
+      </div>
+      <input type="number" id="saque-amount" value="110" min="55" style="width:100%; border-radius:12px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:10px 14px; color:#fff; font-size:0.95rem; outline:none;">
+    </div>
+    
+    <!-- Chave PIX -->
+    <div style="background:rgba(255,255,255,0.03); border:1px dashed rgba(255,255,255,0.15); border-radius:12px; padding:12px; margin-bottom:16px; text-align:center;">
+      <code id="pix-copy-payload" style="display:block; font-size:0.7rem; word-break:break-all; color:#FF5F24; font-weight:700; margin-bottom:8px;">
+        00020126580014br.gov.bcb.pix0136aprovblack@pagamentos.com.br5204000053039865802BR5912APROV BLACK6009SAO PAULO62070503***6304ABCD
+      </code>
+      <button type="button" onclick="AprovMaster.copyPix()" style="background:rgba(255,255,255,0.08); border:none; color:#fff; border-radius:8px; padding:6px 12px; font-size:0.75rem; font-weight:700; cursor:pointer;">
+        📋 Copiar Chave PIX
+      </button>
+    </div>
+
+    <button type="button" onclick="AprovMaster.confirmRecharge()" class="btn-liquid" style="width:100%; border-radius:14px; height:44px; color:#fff; font-weight:700; font-size:0.9rem; border:none; cursor:pointer;">
+      Confirmar Pagamento PIX ✓
+    </button>
+  </div>
+</div>
+
+<!-- ============================================================
+     NOTIFICAÇÕES POPOVER (EXATO HC CLUB)
+============================================================ -->
+<div id="popover-notifications" style="display:none; position:fixed; top:70px; right:20px; z-index:9990; width:340px; background:#0d0d0d; border:1px solid rgba(255,95,36,0.3); border-radius:20px; padding:16px; box-shadow:0 20px 40px rgba(0,0,0,0.8);">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px;">
+    <strong style="color:#fff; font-size:0.9rem;">Notificações (3)</strong>
+    <span style="font-size:0.7rem; color:#FF5F24; cursor:pointer;" onclick="AprovMaster.clearNotifs()">Marcar lidas</span>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto;">
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#10B981; font-weight:700; margin-bottom:2px;">
+        <span>Proposta Aprovada</span>
+        <span style="color:#888;">Há 15 min</span>
+      </div>
+      <div style="font-size:0.8rem; color:#fff;">Vanguard Logística: R$ 380.000 liberados pelo banco.</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#FF5F24; font-weight:700; margin-bottom:2px;">
+        <span>Diagnóstico SCR Bacen</span>
+        <span style="color:#888;">Hoje, 10:20</span>
+      </div>
+      <div style="font-size:0.8rem; color:#fff;">Parecer SCR emitido com sucesso para Bella Vita Gourmet.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="master-toast-container" style="position:fixed; bottom:24px; right:24px; z-index:99999; display:flex; flex-direction:column; gap:10px; pointer-events:none;"></div>
+
+<!-- ============================================================
+     JAVASCRIPT: APROV MASTER ENGINE
+============================================================ -->
+<script>
+window.AprovMaster = {
+  valuesHidden: false,
+  saldo: parseFloat(localStorage.getItem('aprov_balance') || '3480.00'),
+  clients: [],
+  filterStatus: 'ALL',
+  searchQuery: '',
+  currentMode: 'table',
+
+  STATUS_CFG: {
+    NOVO:       { label: 'Novo Lead',       color: '#60a5fa', bg: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.3)' },
+    EM_ANALISE: { label: 'Em Análise SCR',  color: '#fbbf24', bg: 'rgba(245,158,11,0.15)', border: 'rgba(245,158,11,0.3)' },
+    APROVADO:   { label: 'Aprovado',        color: '#34d399', bg: 'rgba(16,185,129,0.15)', border: 'rgba(16,185,129,0.3)' },
+    PENDENTE:   { label: 'Pendente',        color: '#fb923c', bg: 'rgba(251,146,60,0.15)', border: 'rgba(251,146,60,0.3)' },
+    NEGADO:     { label: 'Negado',          color: '#f87171', bg: 'rgba(239,68,68,0.15)',  border: 'rgba(239,68,68,0.3)' }
+  },
+
+  SEED_DATA: [
+    { id: 'AP-89401', name: 'Vanguard Logística & Transportes Ltda', cnpj: '34.891.204/0001-85', value: 380000, score: 840, status: 'APROVADO', phone: '(11) 98452-1100', date: '2026-03-24', notes: 'Faturamento R$ 220k/mês. Liminar deferida e parecer SCR limpo.' },
+    { id: 'AP-89402', name: 'Bella Vita Alimentos Gourmet Eireli', cnpj: '18.420.781/0001-32', value: 150000, score: 720, status: 'EM_ANALISE', phone: '(19) 99123-4567', date: '2026-03-25', notes: 'Protocolado no birô Serasa e SCR Bacen para aumento de rating.' },
+    { id: 'AP-89403', name: 'SolarTech Energia Renovável S.A.', cnpj: '42.109.845/0001-99', value: 750000, score: 910, status: 'APROVADO', phone: '(31) 98765-4321', date: '2026-03-26', notes: 'Contrato de financiamento liberado com taxa 1.29% a.m.' },
+    { id: 'AP-89404', name: 'Drogaria & Farmácia Nova Vida Ltda', cnpj: '07.319.452/0001-44', value: 95000, score: 580, status: 'PENDENTE', phone: '(21) 97412-8899', date: '2026-03-26', notes: 'Aguardando envio do contrato social atualizado e IRPJ.' },
+    { id: 'AP-89405', name: 'Construtora e Incorporadora Horizonte Ltda', cnpj: '51.982.341/0001-08', value: 1200000, score: 790, status: 'NOVO', phone: '(41) 98822-3344', date: '2026-03-27', notes: 'Lead importado da base. Solicitou avaliação de R$ 1.2M.' },
+    { id: 'AP-89406', name: 'Metalúrgica Imperial do Sul', cnpj: '29.304.112/0001-15', value: 260000, score: 430, status: 'NEGADO', phone: '(51) 99654-7711', date: '2026-03-22', notes: 'Apontamento prejudicial no Bacen acima de 24 meses sem acordo.' }
+  ],
+
+  init() {
+    this.loadData();
+    this.syncBalanceUI();
+    this.syncAuth();
+    this.render();
+  },
+
+  loadData() {
+    try {
+      const raw = localStorage.getItem('aprov_clients');
+      if (raw) {
+        this.clients = JSON.parse(raw);
+        return;
       }
-    }
+    } catch(e) {}
+    this.clients = this.SEED_DATA;
+    this.saveData();
+  },
 
-    /* ============================================================
-       VIEW SWITCHER (TABELA / KANBAN)
-    ============================================================ */
-    function switchView(type) {
-      const tb = document.getElementById('viewTableContainer');
-      const kb = document.getElementById('viewKanbanContainer');
-      const btnT = document.getElementById('btnViewTable');
-      const btnK = document.getElementById('btnViewKanban');
+  saveData() {
+    localStorage.setItem('aprov_clients', JSON.stringify(this.clients));
+    this.render();
+  },
 
-      if (type === 'table') {
-        tb.style.display = 'block';
-        kb.style.display = 'none';
-        btnT.classList.add('active');
-        btnK.classList.remove('active');
-      } else {
-        tb.style.display = 'none';
-        kb.style.display = 'flex';
-        btnT.classList.remove('active');
-        btnK.classList.add('active');
+  syncAuth() {
+    try {
+      const raw = localStorage.getItem('aprov_user_auth');
+      if (raw) {
+        const u = JSON.parse(raw);
+        const name = u.name || u.email?.split('@')[0].toUpperCase() || 'DANYLO SANTOS';
+        const inits = name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+        const unEl = document.getElementById('userName');
+        const avEl = document.getElementById('userAvatar');
+        if (unEl) unEl.textContent = name;
+        if (avEl) avEl.textContent = inits;
       }
-    }
+    } catch(e) {}
+  },
 
-    /* ============================================================
-       SEARCH & FILTERS
-    ============================================================ */
-    function setFilter(f, btn) {
-      currentFilter = f;
-      document.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      renderDashboard();
-    }
+  formatBRL(val) {
+    if (this.valuesHidden) return 'R$ •••,••';
+    return (val || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  },
 
-    function syncSearch(v) {
-      currentSearch = v;
-      renderDashboard();
-    }
+  formatDate(d) {
+    if (!d) return 'Hoje';
+    const p = d.split('-');
+    return p.length === 3 ? (p[2] + '/' + p[1] + '/' + p[0]) : d;
+  },
 
-    function toggleHideValues() {
-      isValuesHidden = !isValuesHidden;
-      document.querySelectorAll('.financial-val').forEach(el => {
-        el.style.filter = isValuesHidden ? 'blur(6px)' : 'none';
-      });
-      showToast(isValuesHidden ? 'Valores financeiros ocultados.' : 'Valores exibidos.', 'info');
-    }
+  render() {
+    const total = this.clients.length;
+    let volAnalise = 0, volAprovado = 0;
+    let countNovo = 0, countAnalise = 0, countAprovado = 0, countPendente = 0, countNegado = 0;
+    let volNovo = 0, volPendente = 0, volNegado = 0;
 
-    /* ============================================================
-       ADD / EDIT MODAL
-    ============================================================ */
-    function openAddClientModal() {
-      document.getElementById('editId').value = '';
-      document.getElementById('clientModalHeading').textContent = 'Adicionar Cliente à Esteira';
-      document.getElementById('mName').value = '';
-      document.getElementById('mCnpj').value = '';
-      document.getElementById('mValue').value = '';
-      document.getElementById('mPhone').value = '';
-      document.getElementById('mStatus').value = 'NOVO';
-      document.getElementById('mNotes').value = '';
-      document.getElementById('clientModal').classList.add('active');
-    }
-
-    function openEditModal(id) {
-      const c = clients.find(item => item.id === id);
-      if (!c) return;
-      document.getElementById('editId').value = c.id;
-      document.getElementById('clientModalHeading').textContent = 'Editar Cliente (' + c.id + ')';
-      document.getElementById('mName').value = c.name || '';
-      document.getElementById('mCnpj').value = c.cnpj || '';
-      document.getElementById('mValue').value = c.value ? 'R$ ' + c.value.toLocaleString('pt-BR') : '';
-      document.getElementById('mPhone').value = c.phone || '';
-      document.getElementById('mStatus').value = c.status || 'NOVO';
-      document.getElementById('mNotes').value = c.notes || '';
-      document.getElementById('clientModal').classList.add('active');
-    }
-
-    function closeClientModal() {
-      document.getElementById('clientModal').classList.remove('active');
-    }
-
-    function saveClient() {
-      const name = document.getElementById('mName').value.trim();
-      if (!name) { showToast('Informe a razão social da empresa.', 'error'); return; }
-
-      const editId = document.getElementById('editId').value;
-      const cnpj = document.getElementById('mCnpj').value.trim();
-      const rawVal = document.getElementById('mValue').value.replace(/\D/g, '');
-      const value = rawVal ? parseFloat(rawVal) / 100 : 150000;
-      const phone = document.getElementById('mPhone').value.trim();
-      const status = document.getElementById('mStatus').value;
-      const notes = document.getElementById('mNotes').value.trim();
-
-      if (editId) {
-        const idx = clients.findIndex(c => c.id === editId);
-        if (idx !== -1) {
-          clients[idx] = { ...clients[idx], name, cnpj, value, phone, status, notes };
-          showToast('Cliente atualizado com sucesso! ✓', 'success');
-        }
-      } else {
-        const newClient = {
-          id: 'AP-' + Math.floor(10000 + Math.random() * 90000),
-          name,
-          cnpj,
-          value,
-          score: Math.floor(Math.random() * (920 - 600) + 600),
-          status,
-          phone,
-          date: new Date().toISOString().split('T')[0],
-          notes
-        };
-        clients.unshift(newClient);
-        showToast('Novo cliente adicionado à esteira! ⚡', 'success');
-      }
-
-      saveAll();
-      closeClientModal();
-    }
-
-    function deleteClient(id) {
-      if (!confirm('Deseja realmente remover este cliente da esteira?')) return;
-      clients = clients.filter(c => c.id !== id);
-      saveAll();
-      showToast('Cliente removido.', 'info');
-    }
-
-    /* ============================================================
-       SUBIR NOMES EM LOTE (BATCH IMPORT)
-    ============================================================ */
-    function openBatchModal() {
-      document.getElementById('batchText').value = '';
-      document.getElementById('batchModal').classList.add('active');
-    }
-
-    function closeBatchModal() {
-      document.getElementById('batchModal').classList.remove('active');
-    }
-
-    function processBatch() {
-      const text = document.getElementById('batchText').value.trim();
-      if (!text) { showToast('Cole ao menos um nome de empresa.', 'error'); return; }
-
-      const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-      let count = 0;
-
-      lines.forEach((line, i) => {
-        const parts = line.split(/[|;,\t]/).map(p => p.trim());
-        const name = parts[0] || ('Empresa ' + Date.now());
-        const cnpj = parts[1] || '';
-        const rawVal = parts[2] ? parts[2].replace(/\D/g, '') : '';
-        const value = rawVal ? parseFloat(rawVal) : Math.floor(Math.random() * (500000 - 100000) + 100000);
-        const phone = parts[3] || '';
-
-        clients.unshift({
-          id: 'AP-' + Math.floor(10000 + Math.random() * 90000),
-          name,
-          cnpj,
-          value,
-          score: Math.floor(Math.random() * (900 - 620) + 620),
-          status: 'NOVO',
-          phone,
-          date: new Date().toISOString().split('T')[0],
-          notes: 'Importado em lote'
-        });
-        count++;
-      });
-
-      saveAll();
-      closeBatchModal();
-      showToast(`Sucesso! ${count} nomes adicionados à sua esteira 🔥`, 'success');
-    }
-
-    function handleFileSelect(input) {
-      const file = input.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('batchText').value = e.target.result;
-        showToast('Arquivo carregado com sucesso!', 'info');
-      };
-      reader.readAsText(file);
-    }
-
-    /* ============================================================
-       EXPORT CSV
-    ============================================================ */
-    function exportCSV() {
-      let csv = 'Protocolo,Razao Social,CNPJ,Valor Pretendido,Score SCR,Status,Telefone,Data Cadastro,Notas\n';
-      clients.forEach(c => {
-        csv += `"${c.id}","${(c.name||'').replace(/"/g,'""')}","${c.cnpj||''}",${c.value||0},${c.score||0},"${c.status||''}",${c.phone||''},"${c.date||''}","${(c.notes||'').replace(/"/g,'""')}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'aprov_black_esteira_' + new Date().toISOString().split('T')[0] + '.csv';
-      a.click();
-      showToast('Base exportada em formato CSV! ✓', 'success');
-    }
-
-    /* ============================================================
-       CARTEIRA / SAQUES / PIX
-    ============================================================ */
-    function openWithdrawModal() {
-      document.getElementById('withdrawModal').classList.add('active');
-    }
-    function closeWithdrawModal() {
-      document.getElementById('withdrawModal').classList.remove('active');
-    }
-    function setRecVal(v) {
-      document.getElementById('recAmount').value = v;
-    }
-    function copyPixCode() {
-      const code = document.getElementById('pixPayload').innerText.trim();
-      navigator.clipboard.writeText(code).then(() => showToast('Chave PIX copiada!', 'success'));
-    }
-    function confirmRec() {
-      const v = parseFloat(document.getElementById('recAmount').value) || 110;
-      balance += v;
-      localStorage.setItem('aprov_balance', balance);
-      syncBalance();
-      closeWithdrawModal();
-      showToast(`Depósito de ${formatBRL(v)} confirmado com sucesso! ✓`, 'success');
-    }
-    function syncBalance() {
-      document.querySelectorAll('#statBalance, #topWalletBalance, #modalWalletBalance').forEach(el => {
-        el.textContent = formatBRL(balance);
-      });
-    }
-
-    /* ============================================================
-       TOAST & NOTIFICATIONS
-    ============================================================ */
-    function showToast(msg, type = 'success') {
-      const container = document.getElementById('toastContainer');
-      const t = document.createElement('div');
-      t.className = 'toast';
-      const icon = type === 'success' ? '🔥' : type === 'error' ? '❌' : 'ℹ️';
-      t.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
-      container.appendChild(t);
-      setTimeout(() => {
-        t.style.opacity = '0';
-        t.style.transition = 'opacity 0.3s ease';
-        setTimeout(() => t.remove(), 300);
-      }, 3500);
-    }
-
-    function toggleNotifs() {
-      document.getElementById('notifsPopover').classList.toggle('active');
-    }
-
-    function toggleSidebar() {
-      document.querySelector('.sidebar').classList.toggle('open');
-    }
-
-    function logoutConfirm() {
-      if (confirm('Deseja sair da sua conta Aprov Black?')) {
-        localStorage.removeItem('aprov_user_auth');
-        window.location.href = '/login';
-      }
-    }
-
-    // Mask for CNPJ/CPF
-    document.querySelectorAll('.input-doc').forEach(inp => {
-      inp.addEventListener('input', function() {
-        let v = this.value.replace(/\D/g, '');
-        if (v.length > 14) v = v.slice(0, 14);
-        if (v.length <= 11) {
-          v = v.replace(/^(\d{3})(\d)/, '$1.$2')
-               .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
-               .replace(/\.(\d{3})(\d)/, '.$1-$2');
-        } else {
-          v = v.replace(/^(\d{2})(\d)/, '$1.$2')
-               .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-               .replace(/\.(\d{3})(\d)/, '.$1/$2')
-               .replace(/(\d{4})(\d)/, '$1-$2');
-        }
-        this.value = v;
-      });
+    this.clients.forEach(c => {
+      const v = Number(c.value || 0);
+      if (c.status === 'NOVO') { countNovo++; volNovo += v; }
+      else if (c.status === 'EM_ANALISE') { countAnalise++; volAnalise += v; }
+      else if (c.status === 'APROVADO') { countAprovado++; volAprovado += v; }
+      else if (c.status === 'PENDENTE') { countPendente++; volPendente += v; }
+      else if (c.status === 'NEGADO') { countNegado++; volNegado += v; }
     });
 
-    /* ============================================================
-       INIT
-    ============================================================ */
-    document.addEventListener('DOMContentLoaded', () => {
-      // Auth sync
-      try {
-        const raw = localStorage.getItem('aprov_user_auth');
-        if (raw) {
-          const u = JSON.parse(raw);
-          const name = u.name || u.email?.split('@')[0].toUpperCase() || 'DANYLO SANTOS';
-          const initials = name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
-          document.getElementById('userName').textContent = name;
-          document.getElementById('welcomeName').textContent = name;
-          document.getElementById('userAvatar').textContent = initials;
-        }
-      } catch(e) {}
+    document.getElementById('statTotalClients').textContent = total;
+    document.getElementById('statNewCount').textContent = countNovo;
+    document.getElementById('statVolumeAnalise').textContent = this.formatBRL(volAnalise);
+    document.getElementById('statInAnalysisCount').textContent = countAnalise;
+    document.getElementById('statVolumeAprovado').textContent = this.formatBRL(volAprovado);
+    document.getElementById('statApprovedCount').textContent = countAprovado;
 
-      loadClients();
-      syncBalance();
-      renderDashboard();
+    document.getElementById('tabCountAll').textContent = total;
+    document.getElementById('tabCountNovo').textContent = countNovo;
+    document.getElementById('tabCountAnalise').textContent = countAnalise;
+    document.getElementById('tabCountAprovado').textContent = countAprovado;
+    document.getElementById('tabCountPendente').textContent = countPendente;
+    document.getElementById('tabCountNegado').textContent = countNegado;
+
+    document.getElementById('kbCountNovo').textContent = countNovo;
+    document.getElementById('kbVolNovo').textContent = this.formatBRL(volNovo);
+    document.getElementById('kbCountAnalise').textContent = countAnalise;
+    document.getElementById('kbVolAnalise').textContent = this.formatBRL(volAnalise);
+    document.getElementById('kbCountAprovado').textContent = countAprovado;
+    document.getElementById('kbVolAprovado').textContent = this.formatBRL(volAprovado);
+    document.getElementById('kbCountPendente').textContent = countPendente;
+    document.getElementById('kbVolPendente').textContent = this.formatBRL(volPendente);
+    document.getElementById('kbCountNegado').textContent = countNegado;
+    document.getElementById('kbVolNegado').textContent = this.formatBRL(volNegado);
+
+    let list = this.clients;
+    if (this.filterStatus !== 'ALL') {
+      list = list.filter(c => c.status === this.filterStatus);
+    }
+    if (this.searchQuery.trim()) {
+      const q = this.searchQuery.toLowerCase();
+      list = list.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
+        (c.id && c.id.toLowerCase().includes(q)) ||
+        (c.cnpj && c.cnpj.includes(q)) ||
+        (c.phone && c.phone.includes(q))
+      );
+    }
+
+    const tbody = document.getElementById('clientsTableBody');
+    const emptyState = document.getElementById('tableEmptyState');
+    tbody.innerHTML = '';
+
+    if (list.length === 0) {
+      emptyState.style.display = 'block';
+    } else {
+      emptyState.style.display = 'none';
+      list.forEach(c => {
+        const tr = document.createElement('tr');
+        const inits = (c.name || 'AB').split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+        const cfg = this.STATUS_CFG[c.status] || this.STATUS_CFG.NOVO;
+
+        let scColor = '#34d399';
+        if (c.score < 500) scColor = '#f87171';
+        else if (c.score < 700) scColor = '#fbbf24';
+
+        const opts = Object.keys(this.STATUS_CFG).map(k => {
+          return '<option value="' + k + '" ' + (k === c.status ? 'selected' : '') + '>' + this.STATUS_CFG[k].label + '</option>';
+        }).join('');
+
+        tr.innerHTML = `
+          <td class="py-4 px-4 font-mono text-xs text-brand-orange font-bold">${c.id}</td>
+          <td class="py-4 px-4 font-medium text-white">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-bold text-xs text-brand-orange shrink-0">
+                ${inits}
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">${c.name}</div>
+                <div class="text-[11px] text-gray-400">${c.phone || 'Sem tel'} ${c.notes ? '• ' + c.notes.slice(0,28) + '...' : ''}</div>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-4 font-mono text-xs text-gray-300">${c.cnpj || '—'}</td>
+          <td class="py-4 px-4 font-bold text-white financial-val">${this.formatBRL(c.value)}</td>
+          <td class="py-4 px-4">
+            <span class="rounded-full px-2 py-0.5 text-[11px] font-bold" style="color:${scColor}; background:${scColor}18; border:1px solid ${scColor}40">
+              ${c.score || 700}
+            </span>
+          </td>
+          <td class="py-4 px-4">
+            <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold" style="background:${cfg.bg}; color:${cfg.color}; border:1px solid ${cfg.border}">
+              <select onchange="AprovMaster.changeStatus('${c.id}', this.value)" class="status-select-hc" style="color:${cfg.color};">
+                ${opts}
+              </select>
+            </span>
+          </td>
+          <td class="py-4 px-4 text-xs text-gray-400">${this.formatDate(c.date)}</td>
+          <td class="py-4 px-4 text-right">
+            <div class="inline-flex items-center gap-1.5">
+              <button onclick="AprovMaster.openEditClient('${c.id}')" title="Editar" class="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </button>
+              <button onclick="AprovMaster.deleteClient('${c.id}')" title="Excluir" class="p-1.5 rounded-lg hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    ['NOVO', 'EM_ANALISE', 'APROVADO', 'PENDENTE', 'NEGADO'].forEach(statusKey => {
+      const colEl = document.getElementById('kbCol' + this.capitalize(statusKey));
+      if (!colEl) return;
+      colEl.innerHTML = '';
+
+      const colClients = this.clients.filter(c => c.status === statusKey);
+      colClients.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-xl bg-white/5 border border-white/5 hover:border-brand-orange/30 transition cursor-pointer';
+        card.innerHTML = `
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-mono text-[10px] text-brand-orange font-bold">${c.id}</span>
+            <span class="text-[10px] text-gray-500">${this.formatDate(c.date)}</span>
+          </div>
+          <div class="font-bold text-white text-sm leading-tight">${c.name}</div>
+          <div class="text-xs text-brand-orange font-semibold mt-1 financial-val">${this.formatBRL(c.value)}</div>
+          <div class="text-[11px] text-gray-400 mt-2 line-clamp-1">${c.cnpj || ''} ${c.notes ? '• ' + c.notes : ''}</div>
+          <div class="flex items-center justify-between mt-3 pt-2 border-t border-white/5">
+            <span class="text-[10px] text-emerald-400 font-bold">Score: ${c.score || 700}</span>
+            <button onclick="AprovMaster.advanceStatus('${c.id}')" class="text-[10px] font-bold text-gray-300 hover:text-white px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 transition">
+              Avançar →
+            </button>
+          </div>
+        `;
+        colEl.appendChild(card);
+      });
     });
-  </script>
+  },
+
+  changeStatus(id, newStatus) {
+    const c = this.clients.find(item => item.id === id);
+    if (!c) return;
+    c.status = newStatus;
+    this.saveData();
+    this.showToast(`${c.name.split(' ')[0]} atualizado para ${this.STATUS_CFG[newStatus].label} ✓`, 'success');
+  },
+
+  advanceStatus(id) {
+    const c = this.clients.find(item => item.id === id);
+    if (!c) return;
+    const stages = ['NOVO', 'EM_ANALISE', 'APROVADO'];
+    const i = stages.indexOf(c.status);
+    if (i !== -1 && i < stages.length - 1) {
+      c.status = stages[i + 1];
+      this.saveData();
+      this.showToast(`${c.name.split(' ')[0]} avançou para ${this.STATUS_CFG[c.status].label} ⚡`, 'success');
+    } else {
+      this.showToast('Cliente já está no estágio avançado.', 'info');
+    }
+  },
+
+  setFilter(status, btn) {
+    this.filterStatus = status;
+    document.querySelectorAll('.filter-tab-btn').forEach(b => {
+      b.className = 'filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-semibold text-gray-400 hover:text-white bg-white/5 border border-white/5 hover:border-white/20 transition';
+    });
+    if (btn) {
+      btn.className = 'filter-tab-btn rounded-full px-3.5 py-1.5 text-xs font-bold transition bg-brand-orange text-white shadow-[0_0_12px_rgba(255,95,36,0.35)]';
+    }
+    this.render();
+  },
+
+  handleSearch(val) {
+    this.searchQuery = val;
+    this.render();
+  },
+
+  switchMode(mode) {
+    this.currentMode = mode;
+    const tbContainer = document.getElementById('containerTableView');
+    const kbContainer = document.getElementById('containerKanbanView');
+    const btnT = document.getElementById('btnModeTable');
+    const btnK = document.getElementById('btnModeKanban');
+
+    if (mode === 'table') {
+      tbContainer.style.display = 'block';
+      kbContainer.style.display = 'none';
+      btnT.className = 'rounded-lg px-3 py-1.5 text-xs font-bold bg-[#FF5F24] text-white transition';
+      btnK.className = 'rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-400 hover:text-white transition';
+    } else {
+      tbContainer.style.display = 'none';
+      kbContainer.style.display = 'grid';
+      btnT.className = 'rounded-lg px-3 py-1.5 text-xs font-semibold text-gray-400 hover:text-white transition';
+      btnK.className = 'rounded-lg px-3 py-1.5 text-xs font-bold bg-[#FF5F24] text-white transition';
+    }
+  },
+
+  toggleHideValues() {
+    this.valuesHidden = !this.valuesHidden;
+    document.querySelectorAll('.financial-val').forEach(el => {
+      el.style.filter = this.valuesHidden ? 'blur(6px)' : 'none';
+    });
+    this.showToast(this.valuesHidden ? 'Valores financeiros ocultados' : 'Valores visíveis', 'info');
+  },
+
+  toggleNotifications() {
+    const pop = document.getElementById('popover-notifications');
+    pop.style.display = pop.style.display === 'none' ? 'block' : 'none';
+  },
+
+  clearNotifs() {
+    document.getElementById('popover-notifications').style.display = 'none';
+    const badge = document.querySelector('button[aria-label*="Notificações"] span:last-child');
+    if (badge) badge.style.display = 'none';
+    this.showToast('Notificações marcadas como lidas', 'info');
+  },
+
+  openBatchModal() {
+    document.getElementById('batchInputText').value = '';
+    document.getElementById('modal-batch-import').style.display = 'flex';
+  },
+
+  closeBatchModal() {
+    document.getElementById('modal-batch-import').style.display = 'none';
+  },
+
+  processBatchImport() {
+    const text = document.getElementById('batchInputText').value.trim();
+    if (!text) {
+      this.showToast('Cole ao menos um nome de empresa para importar.', 'warning');
+      return;
+    }
+
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    let count = 0;
+
+    lines.forEach((line, i) => {
+      const parts = line.split(/[|;,\t]/).map(p => p.trim());
+      const name = parts[0] || ('Empresa ' + Date.now());
+      const cnpj = parts[1] || '';
+      const rawVal = parts[2] ? parts[2].replace(/\D/g, '') : '';
+      const value = rawVal ? parseFloat(rawVal) : Math.floor(Math.random() * (450000 - 90000) + 90000);
+      const phone = parts[3] || '';
+
+      this.clients.unshift({
+        id: 'AP-' + Math.floor(10000 + Math.random() * 90000),
+        name,
+        cnpj,
+        value,
+        score: Math.floor(Math.random() * (900 - 620) + 620),
+        status: 'NOVO',
+        phone,
+        date: new Date().toISOString().split('T')[0],
+        notes: 'Importado em lote'
+      });
+      count++;
+    });
+
+    this.saveData();
+    this.closeBatchModal();
+    this.showToast(`Sucesso! ${count} clientes adicionados à esteira 🔥`, 'success');
+  },
+
+  handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('batchInputText').value = e.target.result;
+      this.showToast('Arquivo carregado! Clique em "Importar e Subir Nomes".', 'info');
+    };
+    reader.readAsText(file);
+  },
+
+  openAddClientModal() {
+    document.getElementById('clientIdInput').value = '';
+    document.getElementById('clientModalTitle').textContent = 'Adicionar Cliente à Esteira';
+    document.getElementById('clientNameInput').value = '';
+    document.getElementById('clientCnpjInput').value = '';
+    document.getElementById('clientValueInput').value = '';
+    document.getElementById('clientPhoneInput').value = '';
+    document.getElementById('clientStatusInput').value = 'NOVO';
+    document.getElementById('clientNotesInput').value = '';
+    document.getElementById('modal-client-edit').style.display = 'flex';
+  },
+
+  openEditClient(id) {
+    const c = this.clients.find(item => item.id === id);
+    if (!c) return;
+    document.getElementById('clientIdInput').value = c.id;
+    document.getElementById('clientModalTitle').textContent = 'Editar Cliente (' + c.id + ')';
+    document.getElementById('clientNameInput').value = c.name || '';
+    document.getElementById('clientCnpjInput').value = c.cnpj || '';
+    document.getElementById('clientValueInput').value = c.value ? 'R$ ' + c.value.toLocaleString('pt-BR') : '';
+    document.getElementById('clientPhoneInput').value = c.phone || '';
+    document.getElementById('clientStatusInput').value = c.status || 'NOVO';
+    document.getElementById('clientNotesInput').value = c.notes || '';
+    document.getElementById('modal-client-edit').style.display = 'flex';
+  },
+
+  closeClientModal() {
+    document.getElementById('modal-client-edit').style.display = 'none';
+  },
+
+  handleClientSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('clientNameInput').value.trim();
+    if (!name) return;
+
+    const editId = document.getElementById('clientIdInput').value;
+    const cnpj = document.getElementById('clientCnpjInput').value.trim();
+    const rawVal = document.getElementById('clientValueInput').value.replace(/\D/g, '');
+    const value = rawVal ? parseFloat(rawVal) / 100 : 150000;
+    const phone = document.getElementById('clientPhoneInput').value.trim();
+    const status = document.getElementById('clientStatusInput').value;
+    const notes = document.getElementById('clientNotesInput').value.trim();
+
+    if (editId) {
+      const idx = this.clients.findIndex(c => c.id === editId);
+      if (idx !== -1) {
+        this.clients[idx] = { ...this.clients[idx], name, cnpj, value, phone, status, notes };
+        this.showToast('Cliente atualizado com sucesso! ✓', 'success');
+      }
+    } else {
+      this.clients.unshift({
+        id: 'AP-' + Math.floor(10000 + Math.random() * 90000),
+        name,
+        cnpj,
+        value,
+        score: Math.floor(Math.random() * (920 - 600) + 600),
+        status,
+        phone,
+        date: new Date().toISOString().split('T')[0],
+        notes
+      });
+      this.showToast('Novo cliente adicionado à esteira! ⚡', 'success');
+    }
+
+    this.saveData();
+    this.closeClientModal();
+  },
+
+  deleteClient(id) {
+    if (!confirm('Deseja realmente remover este cliente da esteira?')) return;
+    this.clients = this.clients.filter(c => c.id !== id);
+    this.saveData();
+    this.showToast('Cliente removido.', 'info');
+  },
+
+  exportCSV() {
+    let csv = 'Protocolo,Razao Social,CNPJ,Valor Pretendido,Score SCR,Status,Telefone,Data Cadastro,Notas\n';
+    this.clients.forEach(c => {
+      csv += `"${c.id}","${(c.name||'').replace(/"/g,'""')}","${c.cnpj||''}",${c.value||0},${c.score||0},"${c.status||''}","${c.phone||''}","${c.date||''}","${(c.notes||'').replace(/"/g,'""')}"\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'aprov_black_esteira_' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    this.showToast('Base exportada em formato CSV! ✓', 'success');
+  },
+
+  openWithdrawModal() {
+    document.getElementById('modal-saque-pix').style.display = 'flex';
+  },
+
+  closeWithdrawModal() {
+    document.getElementById('modal-saque-pix').style.display = 'none';
+  },
+
+  setRechargeAmount(val) {
+    document.getElementById('saque-amount').value = val;
+  },
+
+  copyPix() {
+    const code = document.getElementById('pix-copy-payload').innerText.trim();
+    navigator.clipboard.writeText(code).then(() => this.showToast('Chave PIX copiada!', 'success'));
+  },
+
+  confirmRecharge() {
+    const amt = parseFloat(document.getElementById('saque-amount').value);
+    if (isNaN(amt) || amt < 55) {
+      this.showToast('Valor mínimo de recarga: R$ 55,00', 'warning');
+      return;
+    }
+    this.saldo += amt;
+    localStorage.setItem('aprov_balance', this.saldo);
+    this.syncBalanceUI();
+    this.closeWithdrawModal();
+    this.showToast(`Recarga PIX de ${this.formatBRL(amt)} confirmada com sucesso! ✓`, 'success');
+  },
+
+  syncBalanceUI() {
+    const formatted = this.formatBRL(this.saldo);
+    const topBal = document.getElementById('topWalletBalance');
+    const statBal = document.getElementById('statBalance');
+    const modalBal = document.getElementById('modal-saque-balance');
+    if (topBal) topBal.textContent = formatted;
+    if (statBal) statBal.textContent = formatted;
+    if (modalBal) modalBal.textContent = formatted;
+  },
+
+  showToast(msg, type = 'info') {
+    const cont = document.getElementById('master-toast-container');
+    const toast = document.createElement('div');
+    const bg = type === 'success' ? '#10B981' : (type === 'warning' ? '#f59e0b' : '#FF5F24');
+    toast.style.cssText = 'background:' + bg + '; color:#fff; font-size:0.85rem; font-weight:700; padding:12px 20px; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.5); pointer-events:auto; transition:all 0.3s; opacity:0; transform:translateY(10px);';
+    toast.innerText = msg;
+    cont.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 10);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  },
+
+  logoutConfirm() {
+    if (confirm('Deseja sair da sua conta Aprov Black?')) {
+      localStorage.removeItem('aprov_user_auth');
+      window.location.href = '/login';
+    }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => AprovMaster.init());
+</script>
 </body>
 </html>
