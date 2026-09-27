@@ -5,196 +5,170 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Login · Aprov — Consultoria de Crédito PJ</title>
-  <meta name="description" content="Acesse seu painel exclusivo para visualizar diagnósticos de crédito PJ e pareceres do SCR Bacen.">
+  <meta name="description" content="Acesse o painel do seu CNPJ e visualize diagnósticos reais do SCR e Rating Bancário.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
 
-  <!-- Tokens & Main Styles -->
-  <link rel="stylesheet" href="../assets/config/tokens.css">
-  <link rel="stylesheet" href="../assets/css/main.css">
+  <!-- Fonts & Main Site Design System -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/config/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
 
   <style>
+    /* Identidade Tipográfica da Landing Page */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      box-sizing: border-box;
+    }
+
     body {
       background-color: var(--bg-soft, #f8fafb);
-      color: var(--text-heading, #211c17);
-      font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+      color: var(--text-body, #383540);
+      font-family: 'Inter', 'Helvetica Now', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* Top Navbar */
-    .login-nav {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border-on-light, rgba(6, 10, 35, 0.08));
-      background: #ffffff;
+    h1, h2, h3, h4, h5, h6, .sec-title, .card-title {
+      font-family: 'Helvetica Now', 'Inter', system-ui, -apple-system, sans-serif !important;
+      font-feature-settings: 'cv11' on, 'cv10' on, 'cv09' on, 'ss02' on;
+      color: var(--text-heading, #211c17);
     }
 
-    .login-nav-inner {
+    .sec-head {
+      text-align: center;
+      margin-bottom: 40px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      gap: 12px;
     }
 
-    .brand-logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .brand-logo-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #e5a163 100%));
-      color: #211c17;
-      font-weight: 800;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px var(--brand-glow, rgba(229, 161, 99, 0.3));
-    }
-
-    .brand-logo-text {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #211c17;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-logo-text span {
-      color: var(--brand-primary, #e5a163);
-      font-size: 0.8rem;
+    .badge {
+      color: #8898b4;
+      letter-spacing: 1px;
+      border: 1px solid #cfdbef;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 10px;
       font-weight: 600;
+      line-height: 20px;
       text-transform: uppercase;
-      margin-left: 4px;
     }
 
-    .back-home-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-body-alt, #4b5563);
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color 0.2s;
+    .sec-title {
+      color: #1e140b;
+      letter-spacing: -.02em;
+      text-wrap: balance;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 0;
     }
 
-    .back-home-link:hover {
-      color: var(--brand-primary, #e5a163);
-    }
-
-    /* Main Section */
-    .login-sec {
-      padding: 60px 0;
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    .login-grid-card {
-      background: #ffffff;
-      border-radius: 24px;
-      border: 1px solid var(--border-on-light, rgba(6, 10, 35, 0.08));
-      box-shadow: 0 8px 30px rgba(6, 10, 35, 0.04);
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      overflow: hidden;
-      max-width: 1040px;
+    .large-paragraph {
+      font-size: 16px;
+      line-height: 26px;
+      color: #656b7b;
+      max-width: 580px;
       margin: 0 auto;
-      width: 100%;
+      text-wrap: balance;
+    }
+
+    /* Container de Login */
+    .login-container-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
     }
 
     @media (max-width: 900px) {
-      .login-grid-card {
+      .login-container-grid {
         grid-template-columns: 1fr;
       }
-      .login-illustration-side {
+      .login-preview-col {
         display: none;
       }
     }
 
-    .login-form-side {
-      padding: 48px;
+    .sec-card.login-card {
+      background-color: #ffffff;
+      border-radius: 24px;
+      border: 1px solid rgba(6, 10, 35, 0.08);
+      box-shadow: 0 4px 20px rgba(6, 10, 35, 0.03);
+      padding: 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-bottom: 0;
     }
 
-    .login-form-head {
-      margin-bottom: 28px;
-    }
-
-    .login-form-head .badge {
-      margin-bottom: 12px;
-      display: inline-block;
-    }
-
-    .login-form-head h1 {
-      font-family: 'Helvetica Now', 'Plus Jakarta Sans', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #211c17;
+    .card-title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 32px;
       margin-bottom: 8px;
     }
 
-    .login-form-head p {
+    .card-sub {
+      font-size: 14px;
+      line-height: 22px;
       color: #656b7b;
-      font-size: 15px;
-      line-height: 1.5;
+      margin-bottom: 28px;
     }
 
-    /* Clean Input Fields */
-    .input-field-group {
+    /* Form Elements Diagramation */
+    .form-group {
       margin-bottom: 20px;
     }
 
-    .input-field-group label {
+    .form-group label {
       display: block;
       font-size: 13px;
       font-weight: 600;
-      color: #211c17;
+      color: #1e140b;
       margin-bottom: 6px;
     }
 
-    .clean-input-wrap {
+    .input-wrapper {
       position: relative;
       background: #ffffff;
-      border: 1.5px solid rgba(6, 10, 35, 0.12);
+      border: 1px solid rgba(6, 10, 35, 0.14);
       border-radius: 14px;
       transition: all 0.2s ease;
     }
 
-    .clean-input-wrap:focus-within {
+    .input-wrapper:focus-within {
       border-color: var(--brand-primary, #e5a163);
-      box-shadow: 0 0 0 4px var(--brand-tint, rgba(229, 161, 99, 0.16));
+      box-shadow: 0 0 0 3px rgba(229, 161, 99, 0.18);
     }
 
-    .clean-input {
+    .form-input {
       width: 100%;
       border: none;
       outline: none;
       padding: 14px 16px;
       font-size: 14px;
-      color: #211c17;
       font-family: inherit;
-      border-radius: 14px;
+      color: #1e140b;
       background: transparent;
+      border-radius: 14px;
     }
 
-    .clean-input::placeholder {
-      color: #9ca3af;
+    .form-input::placeholder {
+      color: #a0aec0;
     }
 
-    .input-toggle-btn {
+    .toggle-pass-btn {
       position: absolute;
       right: 14px;
       top: 50%;
@@ -206,11 +180,7 @@
       padding: 4px;
     }
 
-    .input-toggle-btn:hover {
-      color: #211c17;
-    }
-
-    .form-meta-row {
+    .form-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -218,7 +188,7 @@
       font-size: 13px;
     }
 
-    .remember-check {
+    .remember-label {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -226,23 +196,23 @@
       cursor: pointer;
     }
 
-    .remember-check input {
+    .remember-label input {
       accent-color: var(--brand-primary, #e5a163);
       width: 16px;
       height: 16px;
     }
 
-    .forgot-link {
+    .link-forgot {
       color: var(--brand-primary, #e5a163);
       font-weight: 600;
       text-decoration: none;
     }
 
-    .forgot-link:hover {
+    .link-forgot:hover {
       text-decoration: underline;
     }
 
-    .btn-submit-amber {
+    .btn-login-amber {
       width: 100%;
       padding: 16px;
       border-radius: 14px;
@@ -251,39 +221,40 @@
       color: #211c17;
       font-size: 15px;
       font-weight: 700;
+      font-family: 'Helvetica Now', 'Inter', sans-serif;
       cursor: pointer;
-      box-shadow: 0 4px 16px var(--brand-glow, rgba(229, 161, 99, 0.35));
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 18px var(--brand-glow, rgba(229, 161, 99, 0.35));
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
     }
 
-    .btn-submit-amber:hover {
+    .btn-login-amber:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
-      background: var(--brand-hover-gradient, linear-gradient(180deg, #ff9f43 0%, #d48f50 100%));
+      box-shadow: 0 6px 24px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
     }
 
-    .divider-row {
+    .divider-line {
       display: flex;
       align-items: center;
       margin: 24px 0;
-      color: #9ca3af;
-      font-size: 12px;
+      color: #8898b4;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
-    .divider-row::before, .divider-row::after {
+    .divider-line::before, .divider-line::after {
       content: '';
       flex: 1;
       height: 1px;
       background: rgba(6, 10, 35, 0.08);
     }
 
-    .divider-row span {
+    .divider-line span {
       padding: 0 12px;
     }
 
@@ -293,9 +264,10 @@
       border-radius: 14px;
       border: 1px solid rgba(6, 10, 35, 0.12);
       background: #ffffff;
-      color: #211c17;
+      color: #1e140b;
       font-size: 14px;
       font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -309,93 +281,70 @@
       border-color: rgba(6, 10, 35, 0.2);
     }
 
-    /* Right Side (Illustration matching user snippet) */
-    .login-illustration-side {
-      background: #0b091c;
-      padding: 48px;
+    /* Right Preview Widget (Inspired by main site .rew-wrap) */
+    .preview-card-wrap {
+      background-color: #0b091c;
+      color: #ffffff;
+      border-radius: 24px;
+      padding: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       position: relative;
-      color: #ffffff;
       overflow: hidden;
     }
 
-    .illo-badge-header {
-      margin-bottom: 20px;
+    .preview-card-head {
+      margin-bottom: 24px;
     }
 
-    .illo-title {
-      font-family: 'Helvetica Now', sans-serif;
+    .preview-card-head .badge {
+      color: var(--brand-primary, #e5a163);
+      border-color: rgba(229, 161, 99, 0.3);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .preview-title {
       font-size: 26px;
       font-weight: 400;
-      line-height: 1.3;
-      margin-bottom: 12px;
+      line-height: 34px;
+      margin-bottom: 8px;
       color: #ffffff;
     }
 
-    .illo-sub {
-      color: rgba(255, 255, 255, 0.7);
+    .preview-sub {
       font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 28px;
+      line-height: 22px;
+      color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Diagnostic Card Widget */
-    .diagnostic-preview-box {
+    .preview-widget-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .preview-widget-item {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      padding: 20px;
-      backdrop-filter: blur(12px);
-    }
-
-    .preview-header {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 16px;
     }
 
-    .preview-tag {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--brand-primary, #e5a163);
+    .preview-item-info {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
     }
 
-    .preview-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
-
-    .preview-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .preview-item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .preview-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+    .preview-item-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
       background: rgba(229, 161, 99, 0.15);
       color: var(--brand-primary, #e5a163);
       display: flex;
@@ -403,121 +352,95 @@
       justify-content: center;
     }
 
-    .preview-val {
-      font-weight: 700;
+    .preview-item-text {
+      font-size: 13px;
+      font-weight: 600;
       color: #ffffff;
     }
 
-    .preview-val.green {
-      color: #00e676;
+    .preview-item-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
     }
 
-    /* Modal */
-    .reset-modal-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(6, 10, 35, 0.6);
-      backdrop-filter: blur(8px);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      padding: 20px;
-    }
-
-    .reset-modal-bg.is-open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .reset-modal-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 32px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(6, 10, 35, 0.2);
+    .preview-item-badge {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand-primary, #e5a163);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Top Navigation -->
-  <header class="login-nav">
-    <div class="w-layout-blockcontainer con w-container login-nav-inner">
-      <a href="../index.html" class="brand-logo-wrap">
-        <div class="brand-logo-icon">A</div>
-        <div class="brand-logo-text">APROV <span>Crédito PJ</span></div>
+  <!-- Navigation Bar -->
+  <header class="sec sec-navb" style="background:#ffffff; border-bottom: 1px solid rgba(6,10,35,0.08); padding: 16px 0;">
+    <div class="w-layout-blockcontainer con w-container" style="display:flex; align-items:center; justify-content:space-between;">
+      <a href="../index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+        <div style="width:36px; height:36px; border-radius:10px; background:var(--brand-gradient); color:#211c17; font-weight:800; font-size:1.1rem; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px var(--brand-glow);">A</div>
+        <div style="font-size:1.2rem; font-weight:800; color:#211c17;">APROV <span style="color:var(--brand-primary); font-size:0.75rem; font-weight:600; text-transform:uppercase;">Crédito PJ</span></div>
       </a>
-      <a href="../index.html" class="back-home-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
+      <a href="../index.html" style="color:#656b7b; font-size:14px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         <span>Voltar ao site</span>
       </a>
     </div>
   </header>
 
-  <!-- Main Login Section -->
-  <section class="login-sec">
+  <!-- Login Section -->
+  <main class="sec" style="flex:1; padding: 60px 0;">
     <div class="w-layout-blockcontainer con w-container">
       
-      <div class="login-grid-card">
-        
-        <!-- Left Side: Login Form -->
-        <div class="login-form-side">
-          <div class="login-form-head">
-            <div class="badge">ÁREA DO CLIENTE</div>
-            <h1>Acesse seu painel</h1>
-            <p>Entre com seu e-mail corporativo para acompanhar a análise do SCR e Rating da sua empresa.</p>
-          </div>
+      <!-- Section Header -->
+      <div class="sec-head">
+        <div class="badge">ÁREA DO CLIENTE</div>
+        <h1 class="sec-title">Acesse sua conta Aprov</h1>
+        <p class="large-paragraph">Entre para visualizar seus diagnósticos do Banco Central (SCR), pareceres de Rating e esteira de crédito PJ.</p>
+      </div>
 
-          <form id="appLoginForm" onsubmit="handleLoginSubmit(event)">
+      <!-- Section Card Layout Grid -->
+      <div class="login-container-grid" style="max-width: 1040px; margin: 0 auto;">
+        
+        <!-- Left: Login Form Card -->
+        <div class="sec-card login-card">
+          <h2 class="card-title">Entrar no Painel</h2>
+          <p class="card-sub">Informe seu e-mail corporativo e senha cadastrados.</p>
+
+          <form id="loginForm" onsubmit="handleLoginSubmit(event)">
             
-            <div class="input-field-group">
+            <div class="form-group">
               <label for="userEmail">E-mail Corporativo</label>
-              <div class="clean-input-wrap">
-                <input type="email" id="userEmail" class="clean-input" placeholder="suaempresa@dominio.com.br" required autocomplete="email">
+              <div class="input-wrapper">
+                <input type="email" id="userEmail" class="form-input" placeholder="seuemail@empresa.com.br" required autocomplete="email">
               </div>
             </div>
 
-            <div class="input-field-group">
+            <div class="form-group">
               <label for="userPassword">Sua Senha</label>
-              <div class="clean-input-wrap">
-                <input type="password" id="userPassword" class="clean-input" placeholder="••••••••" required autocomplete="current-password">
-                <button type="button" class="input-toggle-btn" onclick="togglePass()" aria-label="Ocultar ou mostrar senha">
-                  <svg id="passEyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
+              <div class="input-wrapper">
+                <input type="password" id="userPassword" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                <button type="button" class="toggle-pass-btn" onclick="togglePass()" aria-label="Mostrar ou ocultar senha">
+                  <svg id="eyeSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                 </button>
               </div>
             </div>
 
-            <div class="form-meta-row">
-              <label class="remember-check">
+            <div class="form-meta">
+              <label class="remember-label">
                 <input type="checkbox" checked>
                 <span>Manter conectado</span>
               </label>
-              <a href="javascript:void(0)" onclick="openReset()" class="forgot-link">Esqueceu a senha?</a>
+              <a href="javascript:void(0)" onclick="openReset()" class="link-forgot">Esqueceu a senha?</a>
             </div>
 
-            <button type="submit" id="loginSubmitBtn" class="btn-submit-amber">
-              <span id="loginBtnText">Entrar na Área do Cliente</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
+            <button type="submit" id="btnLoginSubmit" class="btn-login-amber">
+              <span id="btnLoginText">Entrar na Área do Cliente</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </form>
 
-          <div class="divider-row">
-            <span>Ou acesse com</span>
+          <div class="divider-line">
+            <span>Ou continue com</span>
           </div>
 
           <button type="button" class="btn-google-sso" onclick="handleGoogleLogin()">
@@ -531,69 +454,52 @@
           </button>
         </div>
 
-        <!-- Right Side: Diagnostic Widget Illustration -->
-        <div class="login-illustration-side">
-          <div class="illo-badge-header">
-            <span class="badge" style="color: var(--brand-primary); border-color: rgba(229, 161, 99, 0.3);">PAINEL APROV</span>
+        <!-- Right: Diagnostic Preview Widget Card -->
+        <div class="login-preview-col preview-card-wrap">
+          <div class="preview-card-head">
+            <div class="badge">DIAGNÓSTICO REAL</div>
+            <h2 class="preview-title">O que o banco enxergam no seu CNPJ</h2>
+            <p class="preview-sub">Mapeamento em tempo real do SCR Banco Central, Rating Bancário e elegibilidade para linhas PRONAMPE e FGI.</p>
           </div>
-          <h2 class="illo-title">Acompanhe seu diagnóstico em tempo real</h2>
-          <p class="illo-subtitle">Relatório detalhado do SCR Banco Central, Rating de crédito e elegibilidade para PRONAMPE e FGI.</p>
 
-          <div class="diagnostic-preview-box">
-            <div class="preview-header">
-              <div class="preview-tag">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                Análise em andamento
+          <div class="preview-widget-list">
+            <div class="preview-widget-item">
+              <div class="preview-item-info">
+                <div class="preview-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>
+                </div>
+                <div>
+                  <div class="preview-item-text">Análise Banco Central (SCR)</div>
+                  <div class="preview-item-sub">Histórico de operações e limites</div>
+                </div>
               </div>
-              <span style="font-size: 11px; color: rgba(255,255,255,0.5);">CNPJ ***.458/0001-**</span>
+              <span class="preview-item-badge" style="color:#00e676;">Lido ✓</span>
             </div>
 
-            <div class="preview-item">
-              <div class="preview-item-left">
-                <div class="preview-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" x2="21" y1="22" y2="22"></line>
-                    <line x1="6" x2="6" y1="18" y2="11"></line>
-                    <line x1="10" x2="10" y1="18" y2="11"></line>
-                    <line x1="14" x2="14" y1="18" y2="11"></line>
-                    <line x1="18" x2="18" y1="18" y2="11"></line>
-                    <polygon points="12 2 20 7 4 7"></polygon>
-                  </svg>
+            <div class="preview-widget-item">
+              <div class="preview-item-info">
+                <div class="preview-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
                 </div>
-                <span>Leitura Banco Central (SCR)</span>
+                <div>
+                  <div class="preview-item-text">Rating 360 Bancos</div>
+                  <div class="preview-item-sub">Score interno nas instituições</div>
+                </div>
               </div>
-              <span class="preview-val green">Concluído</span>
+              <span class="preview-item-badge">Rating A+</span>
             </div>
 
-            <div class="preview-item">
-              <div class="preview-item-left">
-                <div class="preview-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 3v18h18"></path>
-                    <path d="M18 17V9"></path>
-                    <path d="M13 17V5"></path>
-                    <path d="M8 17v-3"></path>
-                  </svg>
+            <div class="preview-widget-item">
+              <div class="preview-item-info">
+                <div class="preview-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                 </div>
-                <span>Rating Bancário Calculado</span>
-              </div>
-              <span class="preview-val" style="color: var(--brand-primary);">Nível A+</span>
-            </div>
-
-            <div class="preview-item">
-              <div class="preview-item-left">
-                <div class="preview-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                  </svg>
+                <div>
+                  <div class="preview-item-text">Linhas de Crédito PJ</div>
+                  <div class="preview-item-sub">PRONAMPE · FGI · BNDES</div>
                 </div>
-                <span>Linhas de Crédito Mapeadas</span>
               </div>
-              <span class="preview-val green">4 elegíveis</span>
+              <span class="preview-item-badge" style="color:#00e676;">4 elegíveis</span>
             </div>
           </div>
         </div>
@@ -601,24 +507,24 @@
       </div>
 
     </div>
-  </section>
+  </main>
 
-  <!-- Reset Password Modal -->
-  <div id="resetModalBg" class="reset-modal-bg">
-    <div class="reset-modal-card">
-      <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Recuperar Acesso</h3>
-      <p style="font-size: 14px; color: #656b7b; margin-bottom: 20px;">Digite o e-mail cadastrado da sua empresa para enviarmos um link seguro de recuperação.</p>
+  <!-- Modal Reset Password -->
+  <div id="resetModal" style="position:fixed; inset:0; background:rgba(6,10,35,0.6); backdrop-filter:blur(8px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#ffffff; border-radius:24px; padding:32px; max-width:400px; width:100%; box-shadow:0 20px 40px rgba(6,10,35,0.2);">
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#1e140b;">Recuperar Acesso</h3>
+      <p style="font-size:14px; color:#656b7b; margin-bottom:20px; line-height:1.5;">Digite o e-mail cadastrado da sua empresa para enviarmos um link de recuperação.</p>
       
-      <div class="input-field-group">
-        <label for="resetUserEmail">E-mail da Empresa</label>
-        <div class="clean-input-wrap">
-          <input type="email" id="resetUserEmail" class="clean-input" placeholder="seuemail@empresa.com.br">
+      <div class="form-group">
+        <label for="resetEmailInput">E-mail da Empresa</label>
+        <div class="input-wrapper">
+          <input type="email" id="resetEmailInput" class="form-input" placeholder="seuemail@empresa.com.br">
         </div>
       </div>
 
-      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top: 24px;">
-        <button type="button" class="btn-google-sso" style="width:auto; padding: 10px 18px;" onclick="closeReset()">Cancelar</button>
-        <button type="button" class="btn-submit-amber" style="width:auto; padding: 10px 18px;" onclick="sendReset()">Enviar Link</button>
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:24px;">
+        <button type="button" class="btn-google-sso" style="width:auto; padding:10px 18px;" onclick="closeReset()">Cancelar</button>
+        <button type="button" class="btn-login-amber" style="width:auto; padding:10px 18px;" onclick="sendReset()">Enviar Link</button>
       </div>
     </div>
   </div>
@@ -626,7 +532,7 @@
   <script>
     function togglePass() {
       const input = document.getElementById('userPassword');
-      const icon = document.getElementById('passEyeIcon');
+      const icon = document.getElementById('eyeSvg');
       if (input.type === 'password') {
         input.type = 'text';
         icon.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
@@ -639,8 +545,8 @@
     function handleLoginSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('userEmail').value.trim();
-      const btnText = document.getElementById('loginBtnText');
-      const submitBtn = document.getElementById('loginSubmitBtn');
+      const btnText = document.getElementById('btnLoginText');
+      const submitBtn = document.getElementById('btnLoginSubmit');
 
       if (!email) return;
 
@@ -668,20 +574,20 @@
     }
 
     function openReset() {
-      document.getElementById('resetModalBg').classList.add('is-open');
+      document.getElementById('resetModal').style.display = 'flex';
     }
 
     function closeReset() {
-      document.getElementById('resetModalBg').classList.remove('is-open');
+      document.getElementById('resetModal').style.display = 'none';
     }
 
     function sendReset() {
-      const email = document.getElementById('resetUserEmail').value.trim();
+      const email = document.getElementById('resetEmailInput').value.trim();
       if (!email) {
         alert('Por favor, informe seu e-mail.');
         return;
       }
-      alert('Instruções enviadas com sucesso para ' + email);
+      alert('Instruções enviadas para ' + email);
       closeReset();
     }
   </script>
