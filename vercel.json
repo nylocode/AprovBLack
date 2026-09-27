@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/login", "destination": "/login/index.html" },
+    { "source": "/backoffice", "destination": "/dashboard/index.html" },
+    { "source": "/backoffice/(.*)", "destination": "/dashboard/$1" },
     { "source": "/Dashboard", "destination": "/dashboard" },
     { "source": "/Dashboard/(.*)", "destination": "/dashboard/$1" }
   ]

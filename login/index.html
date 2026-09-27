@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Login · Aprov — Consultoria de Crédito PJ</title>
+  <meta name="description" content="Acesse o painel do seu CNPJ e visualize diagnósticos reais do SCR e Rating Bancário.">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Login · Aprov Crédito PJ">
+  <meta property="og:description" content="Acesse o painel de diagnósticos de crédito da sua empresa.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
+
+  <!-- Tokens & Fonts -->
+  <link rel="stylesheet" href="../assets/config/tokens.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --bg-dark: #030305;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --glass-input-bg: rgba(255, 255, 255, 0.04);
+      --amber-primary: #e5a163;
+      --amber-warm: #ff8f43;
+      --amber-hover: #d48f50;
+      --amber-glow: rgba(229, 161, 99, 0.35);
+      --text-main: #f0f2f8;
+      --text-sub: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .login-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+    }
+
+    /* Ambient Background Glow */
+    .glow-overlay {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(229, 161, 99, 0.12) 0%, rgba(3, 3, 5, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Left Form Column */
+    .form-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--amber-warm), var(--amber-primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #120e0a;
+      font-weight: 800;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 16px var(--amber-glow);
+    }
+
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-name span {
+      color: var(--amber-primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-left: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-header h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header h1 span {
+      background: linear-gradient(135deg, #ffffff 30%, var(--amber-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .form-header p {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Form inputs */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-sub);
+    }
+
+    .glass-input-wrapper {
+      position: relative;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: var(--glass-input-bg);
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+
+    .glass-input-wrapper:focus-within {
+      border-color: rgba(229, 161, 99, 0.7);
+      background: rgba(229, 161, 99, 0.08);
+      box-shadow: 0 0 16px rgba(229, 161, 99, 0.15);
+    }
+
+    .glass-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 1rem 1.25rem;
+      font-size: 0.925rem;
+      color: #ffffff;
+      font-family: inherit;
+    }
+
+    .glass-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .toggle-password-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .toggle-password-btn:hover {
+      color: #ffffff;
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.875rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .custom-checkbox {
+      accent-color: var(--amber-primary);
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: var(--amber-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+      color: var(--amber-warm);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 16px;
+      border: none;
+      background: linear-gradient(135deg, var(--amber-warm), var(--amber-primary));
+      color: #120e0a;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px var(--amber-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ff9f43, var(--amber-hover));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(229, 161, 99, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5rem 0;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    .divider-text {
+      position: relative;
+      background: var(--bg-dark);
+      padding: 0 1rem;
+      font-size: 0.825rem;
+      color: var(--text-sub);
+    }
+
+    .btn-google {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.925rem;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn-google:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .form-footer-note {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-sub);
+    }
+
+    .form-footer-note a {
+      color: var(--amber-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-footer-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* Right Column (Hero + Testimonials) */
+    .hero-section {
+      flex: 1.1;
+      position: relative;
+      padding: 1.5rem;
+      display: none;
+    }
+
+    @media (min-width: 900px) {
+      .hero-section {
+        display: block;
+      }
+    }
+
+    .hero-card-container {
+      width: 100%;
+      height: 100%;
+      border-radius: 28px;
+      background-image: linear-gradient(180deg, rgba(3, 3, 5, 0.4) 0%, rgba(3, 3, 5, 0.85) 100%), url('../assets/images/6672023685b2ca9f53dbe8de_hero bg.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem;
+    }
+
+    .hero-content-box {
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(229, 161, 99, 0.15);
+      border: 1px solid rgba(229, 161, 99, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: var(--amber-primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      color: rgba(240, 242, 248, 0.75);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Testimonials Horizontal Floating Cards */
+    .testimonials-row {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
+
+    .testimonials-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial-card {
+      min-width: 260px;
+      max-width: 280px;
+      background: rgba(18, 14, 10, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      animation: floatIn 0.8s ease forwards;
+    }
+
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--amber-primary), #211c17);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .testimonial-info h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .testimonial-info p {
+      font-size: 0.75rem;
+      color: var(--amber-primary);
+    }
+
+    .testimonial-text {
+      font-size: 0.825rem;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.45;
+    }
+
+    /* Modal Reset Password */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 3, 5, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #120e0a;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.25rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-backdrop.is-active .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-header p {
+      font-size: 0.875rem;
+      color: var(--text-sub);
+    }
+
+    /* Animations */
+    .animate-element {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-delay-100 { animation-delay: 0.1s; }
+    .animate-delay-200 { animation-delay: 0.2s; }
+    .animate-delay-300 { animation-delay: 0.3s; }
+    .animate-delay-400 { animation-delay: 0.4s; }
+    .animate-delay-500 { animation-delay: 0.5s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+    <div class="glow-overlay"></div>
+
+    <!-- LEFT COLUMN: Sign In Form -->
+    <section class="form-section">
+      <div class="form-wrapper">
+
+        <!-- Brand Logo -->
+        <a href="../index.html" class="brand-logo animate-element animate-delay-100">
+          <div class="brand-icon">A</div>
+          <div class="brand-name">APROV <span>Crédito PJ</span></div>
+        </a>
+
+        <!-- Header -->
+        <div class="form-header animate-element animate-delay-100">
+          <h1><span>Bem-vindo de volta</span></h1>
+          <p>Acesse seu painel exclusivo para visualizar diagnósticos de crédito PJ e pareceres do SCR Bacen.</p>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" class="space-y-4" onsubmit="handleLoginSubmit(event)">
+          
+          <div class="form-group animate-element animate-delay-200">
+            <label for="emailInput">Endereço de E-mail Corporativo</label>
+            <div class="glass-input-wrapper">
+              <input type="email" id="emailInput" class="glass-input" placeholder="seu.nome@empresa.com.br" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="form-group animate-element animate-delay-300">
+            <label for="passwordInput">Sua Senha</label>
+            <div class="glass-input-wrapper">
+              <input type="password" id="passwordInput" class="glass-input" placeholder="••••••••" required autocomplete="current-password">
+              <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility()" aria-label="Mostrar ou ocultar senha">
+                <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options animate-element animate-delay-400">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMe" class="custom-checkbox" checked>
+              <span>Lembrar meu acesso</span>
+            </label>
+            <a href="javascript:void(0)" onclick="openResetModal()" class="forgot-link">Esqueceu a senha?</a>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-primary animate-element animate-delay-500">
+            <span id="btnText">Entrar no Painel</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <div class="divider animate-element animate-delay-500">
+          <span class="divider-text">Ou continue com</span>
+        </div>
+
+        <button type="button" class="btn-google animate-element animate-delay-500" onclick="handleGoogleLogin()">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s12-5.373 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-2.641-.21-5.236-.611-7.743z"/>
+            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.022 35.026 44 30.038 44 24c0-2.641-.21-5.236-.611-7.743z"/>
+          </svg>
+          Entrar com conta Google
+        </button>
+
+        <div class="form-footer-note animate-element animate-delay-500">
+          Precisa de uma análise do seu CNPJ? <a href="../index.html#pricing">Solicitar Consultoria R$97</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Hero Showcase + Floating Testimonials -->
+    <section class="hero-section">
+      <div class="hero-card-container">
+
+        <div class="hero-content-box">
+          <div class="hero-tag">
+            <span>⚡ Inteligência de Crédito PJ</span>
+          </div>
+          <h2 class="hero-title">O que o banco enxerga no seu CNPJ em segundos.</h2>
+          <p class="hero-subtitle">Consulte pareceres do Banco Central (SCR), Rating bancário e destrave limites de crédito de até R$ 2.000.000,00 para sua empresa.</p>
+        </div>
+
+        <!-- Floating Cards -->
+        <div class="testimonials-row">
+
+          <div class="testimonial-card">
+            <div class="testimonial-user">
+              <div class="testimonial-avatar">CE</div>
+              <div class="testimonial-info">
+                <h4>Carlos Eduardo</h4>
+                <p>Diretor Financeiro · SP</p>
+              </div>
+            </div>
+            <p class="testimonial-text">"O diagnóstico do SCR identificou exatamente a restrição que travava nosso limite de R$ 500 mil no Itaú."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-user">
+              <div class="testimonial-avatar">MS</div>
+              <div class="testimonial-info">
+                <h4>Mariana Souza</h4>
+                <p>CEO Tech Logistics · RJ</p>
+              </div>
+            </div>
+            <p class="testimonial-text">"Liberamos R$ 1,2 milhão de capital de giro em menos de 15 dias após o ajuste de rating."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-user">
+              <div class="testimonial-avatar">RM</div>
+              <div class="testimonial-info">
+                <h4>Roberto Mendes</h4>
+                <p>Sócio Distribuidora · MG</p>
+              </div>
+            </div>
+            <p class="testimonial-text">"Atendimento impecável. A análise do BACEN abriu nossos olhos para taxas 40% menores."</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- RESET PASSWORD MODAL -->
+  <div id="resetModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Recuperar Acesso</h3>
+        <p>Informe o e-mail cadastrado do seu CNPJ para enviarmos um link de redefinição de senha seguro.</p>
+      </div>
+      <div class="form-group">
+        <label for="resetEmail">E-mail Cadastrado</label>
+        <div class="glass-input-wrapper">
+          <input type="email" id="resetEmail" class="glass-input" placeholder="seu.nome@empresa.com.br">
+        </div>
+      </div>
+      <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <button type="button" class="btn-google" style="width:auto; padding:0.75rem 1.25rem;" onclick="closeResetModal()">Cancelar</button>
+        <button type="button" class="btn-primary" style="width:auto; padding:0.75rem 1.25rem;" onclick="sendResetLink()">Enviar Instruções</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const passwordInput = document.getElementById('passwordInput');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" y1="2" x2="22" y2="22"></line>';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle>';
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value.trim();
+      const btnText = document.getElementById('btnText');
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Autenticando...';
+      
+      // Save session locally
+      localStorage.setItem('aprov_auth_user', JSON.stringify({
+        email: email,
+        name: email.split('@')[0].toUpperCase(),
+        loggedAt: new Date().toISOString()
+      }));
+
+      setTimeout(() => {
+        window.location.href = '../backoffice';
+      }, 700);
+    }
+
+    function handleGoogleLogin() {
+      localStorage.setItem('aprov_auth_user', JSON.stringify({
+        email: 'gestor@aprovblack.com.br',
+        name: 'GESTOR APROV',
+        loggedAt: new Date().toISOString()
+      }));
+      window.location.href = '../backoffice';
+    }
+
+    function openResetModal() {
+      document.getElementById('resetModal').classList.add('is-active');
+    }
+
+    function closeResetModal() {
+      document.getElementById('resetModal').classList.remove('is-active');
+    }
+
+    function sendResetLink() {
+      const email = document.getElementById('resetEmail').value.trim();
+      if (!email) {
+        alert('Por favor, informe seu e-mail.');
+        return;
+      }
+      alert('Instruções de redefinição de senha enviadas para ' + email + '!');
+      closeResetModal();
+    }
+  </script>
+
+</body>
+
+</html>
