@@ -1,4 +1,4 @@
-import { SignInPage, Testimonial } from "./sign-in";
+import { SignInPage, Testimonial } from "@/components/ui/sign-in";
 
 const sampleTestimonials: Testimonial[] = [
   {
@@ -37,11 +37,11 @@ const SignInPageDemo = () => {
   
   const handleResetPassword = () => {
     alert("Reset Password clicked");
-  };
+  }
 
   const handleCreateAccount = () => {
     alert("Create Account clicked");
-  };
+  }
 
   return (
     <div className="bg-background text-foreground">

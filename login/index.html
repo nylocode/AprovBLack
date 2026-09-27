@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Login · Aprov — Consultoria de Crédito PJ</title>
-  <meta name="description" content="Acesse o painel do seu CNPJ e visualize diagnósticos reais do SCR e Rating Bancário.">
+  <meta name="description" content="Acesse sua conta e continue sua jornada conosco.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
@@ -18,595 +18,557 @@
   <link rel="stylesheet" href="../assets/css/main.css">
 
   <style>
-    /* DEFINIÇÃO RIGOROSA DE FONTES DA APROV BLACK (LIGHT MODE) */
-    /* Fonte Destaque: 'Helvetica Now', sans-serif */
-    /* Fonte Secundária: 'Inter V', sans-serif */
+    /* DEFINIÇÕES TIPOGRÁFICAS RIGOROSAS */
+    /* Destaque: 'Helvetica Now', sans-serif */
+    /* Secundária: 'Inter V', sans-serif */
 
     * {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-page: #ffffff;
+      --bg-soft: #f8fafb;
+      --text-heading: #18181b;
+      --text-muted: #71717a;
+      --brand-amber: #e5a163;
+      --brand-amber-hover: #d48f50;
+      --border-color: rgba(6, 10, 35, 0.1);
     }
 
     body {
-      background-color: var(--bg-soft, #f8fafb);
-      color: var(--text-heading, #211c17);
+      background-color: var(--bg-page);
+      color: var(--text-heading);
       font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif !important;
-      margin: 0;
-      padding: 0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      width: 100vw;
+      overflow-x: hidden;
     }
 
-    h1, h2, h3, h4, h5, h6, .sec-title, .card-title, .badge, .btn-primary-amber, .btn-google-sso, .brand-logo-text {
+    h1, h2, h3, h4, h5, h6, .font-destaque, .btn-primary-sign, .btn-google-sign {
       font-family: 'Helvetica Now', system-ui, -apple-system, sans-serif !important;
       font-feature-settings: 'cv11' on, 'cv10' on, 'cv09' on, 'ss02' on;
     }
 
-    p, span, label, input, button, a, td, th {
+    p, span, label, input, button, a {
       font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    /* Top Navbar Light */
-    .login-nav-light {
+    /* Layout Split-Screen 1-to-1 sign-in.tsx */
+    .sign-in-viewport {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+    }
+
+    @media (max-width: 900px) {
+      .sign-in-viewport {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+      .sign-in-right-hero {
+        display: none !important;
+      }
+    }
+
+    /* Left Form Column */
+    .sign-in-left-form {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
       background: #ffffff;
-      border-bottom: 1px solid rgba(6, 10, 35, 0.08);
-      padding: 20px 0;
+      position: relative;
     }
 
-    .login-nav-inner {
+    .form-content-wrap {
+      width: 100%;
+      max-width: 440px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .brand-logo-link {
-      display: flex;
+    .brand-header-link {
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
+      margin-bottom: 0.5rem;
     }
 
     .brand-logo-icon {
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #e5a163 100%));
-      color: #211c17;
+      background: linear-gradient(135deg, #ffab57 0%, #e5a163 100%);
+      color: #120e0a;
       font-weight: 800;
       font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px var(--brand-glow, rgba(229, 161, 99, 0.35));
+      box-shadow: 0 4px 14px rgba(229, 161, 99, 0.35);
     }
 
-    .brand-logo-text {
+    .brand-logo-title {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #211c17;
+      color: #18181b;
       letter-spacing: -0.02em;
     }
 
-    .brand-logo-text span {
-      color: var(--brand-primary, #e5a163);
+    .brand-logo-title span {
+      color: var(--brand-amber);
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       margin-left: 4px;
-      letter-spacing: 0.05em;
     }
 
-    .btn-nav-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #656b7b;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(6, 10, 35, 0.12);
-      background: #ffffff;
-      transition: all 0.2s ease;
-    }
-
-    .btn-nav-back:hover {
-      color: #211c17;
-      background: #f8fafb;
-      border-color: rgba(6, 10, 35, 0.2);
-    }
-
-    /* Main Login Section */
-    .login-section-light {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 60px 0;
-    }
-
-    .login-card-light {
-      background: #ffffff;
-      border: 1px solid rgba(6, 10, 35, 0.08);
-      border-radius: 28px;
-      box-shadow: 0 12px 40px rgba(6, 10, 35, 0.04);
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      overflow: hidden;
-      max-width: 1040px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    @media (max-width: 900px) {
-      .login-card-light {
-        grid-template-columns: 1fr;
-      }
-      .login-card-right {
-        display: none;
-      }
-    }
-
-    /* Left Form Side */
-    .login-card-left {
-      padding: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .badge-pill-light {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(229, 161, 99, 0.3);
-      background: rgba(229, 161, 99, 0.12);
-      color: #b86e28;
-      font-size: 11px;
+    .main-heading {
+      font-size: clamp(32px, 3.5vw, 42px);
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-      width: fit-content;
-      font-family: 'Helvetica Now', sans-serif !important;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #18181b;
     }
 
-    .login-title {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #211c17;
-      margin-bottom: 8px;
-      line-height: 1.2;
-      font-family: 'Helvetica Now', sans-serif !important;
-    }
-
-    .login-subtitle {
-      color: #656b7b;
+    .sub-heading {
+      color: var(--text-muted);
       font-size: 15px;
       line-height: 1.5;
-      margin-bottom: 32px;
-      font-family: 'Inter V', sans-serif !important;
     }
 
-    /* Form Fields */
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #211c17;
-      margin-bottom: 8px;
-      font-family: 'Inter V', sans-serif !important;
-    }
-
-    .clean-input-box {
-      position: relative;
-      background: #ffffff;
-      border: 1.5px solid rgba(6, 10, 35, 0.12);
+    /* Glass Input Wrapper */
+    .glass-input-wrapper {
       border-radius: 16px;
+      border: 1px solid var(--border-color);
+      background: #f8fafb;
+      backdrop-filter: blur(8px);
       transition: all 0.2s ease;
+      position: relative;
     }
 
-    .clean-input-box:focus-within {
-      border-color: var(--brand-primary, #e5a163);
-      box-shadow: 0 0 0 4px rgba(229, 161, 99, 0.16);
+    .glass-input-wrapper:focus-within {
+      border-color: rgba(229, 161, 99, 0.7);
+      background: rgba(229, 161, 99, 0.06);
+      box-shadow: 0 0 0 4px rgba(229, 161, 99, 0.15);
     }
 
-    .clean-input-box input {
+    .glass-input-wrapper input {
       width: 100%;
+      background: transparent;
       border: none;
       outline: none;
-      background: transparent;
-      padding: 16px 18px;
       font-size: 14px;
-      color: #211c17;
+      padding: 16px;
+      color: #18181b;
       border-radius: 16px;
-      font-family: 'Inter V', sans-serif !important;
     }
 
-    .clean-input-box input::placeholder {
-      color: #9ca3af;
+    .glass-input-wrapper input::placeholder {
+      color: #a1a1aa;
     }
 
-    .toggle-eye-btn {
+    .btn-eye-toggle {
       position: absolute;
-      right: 16px;
+      right: 14px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: #656b7b;
+      color: var(--text-muted);
       cursor: pointer;
       padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
     }
 
-    .form-options-row {
+    .btn-eye-toggle:hover {
+      color: #18181b;
+    }
+
+    .form-options {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 28px;
-      font-size: 13px;
-      font-family: 'Inter V', sans-serif !important;
+      font-size: 13.5px;
     }
 
-    .checkbox-remember {
+    .checkbox-custom {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #4b5563;
+      gap: 10px;
       cursor: pointer;
+      color: #27272a;
     }
 
-    .checkbox-remember input {
-      accent-color: var(--brand-primary, #e5a163);
+    .checkbox-custom input {
+      accent-color: var(--brand-amber);
       width: 16px;
       height: 16px;
     }
 
-    .link-reset-password {
-      color: var(--brand-primary, #e5a163);
-      font-weight: 600;
+    .reset-link {
+      color: var(--brand-amber);
       text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
     }
 
-    .link-reset-password:hover {
+    .reset-link:hover {
       text-decoration: underline;
+      color: var(--brand-amber-hover);
     }
 
-    .btn-primary-amber {
+    .btn-primary-sign {
       width: 100%;
-      padding: 16px;
       border-radius: 16px;
-      border: 1px solid var(--brand-border, #f2be8f);
-      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #e5a163 100%));
-      color: #211c17;
+      background: linear-gradient(180deg, #ffab57 0%, #e5a163 100%);
+      padding: 16px;
       font-size: 15px;
       font-weight: 700;
+      color: #120e0a;
+      border: 1px solid #f2be8f;
       cursor: pointer;
-      box-shadow: 0 4px 16px var(--brand-glow, rgba(229, 161, 99, 0.35));
+      box-shadow: 0 4px 18px rgba(229, 161, 99, 0.35);
       transition: all 0.25s ease;
+    }
+
+    .btn-primary-sign:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(229, 161, 99, 0.48);
+    }
+
+    .divider-wrap {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-family: 'Helvetica Now', sans-serif !important;
+      margin: 4px 0;
     }
 
-    .btn-primary-amber:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 22px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
-    }
-
-    .divider-or {
-      display: flex;
-      align-items: center;
-      margin: 24px 0;
-      color: #8898b4;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-family: 'Inter V', sans-serif !important;
-    }
-
-    .divider-or::before, .divider-or::after {
+    .divider-wrap::before {
       content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(6, 10, 35, 0.08);
-    }
-
-    .divider-or span {
-      padding: 0 12px;
-    }
-
-    .btn-google-sso {
+      position: absolute;
       width: 100%;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(6, 10, 35, 0.12);
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .divider-text {
+      position: relative;
       background: #ffffff;
-      color: #211c17;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .btn-google-sign {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px;
+      background: #ffffff;
+      color: #18181b;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.2s ease;
-      font-family: 'Helvetica Now', sans-serif !important;
     }
 
-    .btn-google-sso:hover {
+    .btn-google-sign:hover {
       background: #f8fafb;
       border-color: rgba(6, 10, 35, 0.2);
     }
 
-    /* Right Showcase Side (Light Mode) */
-    .login-card-right {
-      background: #f1f5f9;
-      border-left: 1px solid rgba(6, 10, 35, 0.08);
-      padding: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .right-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #b86e28;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-      font-family: 'Helvetica Now', sans-serif !important;
-    }
-
-    .right-title {
-      font-size: 26px;
-      font-weight: 400;
-      line-height: 1.3;
-      color: #211c17;
-      margin-bottom: 12px;
-      font-family: 'Helvetica Now', sans-serif !important;
-    }
-
-    .right-sub {
-      color: #656b7b;
+    .footer-note {
+      text-align: center;
       font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 32px;
-      font-family: 'Inter V', sans-serif !important;
+      color: var(--text-muted);
     }
 
-    /* Diagnostic Card List */
-    .diagnostic-cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .footer-note a {
+      color: var(--brand-amber);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .diag-card-item {
-      background: #ffffff;
-      border: 1px solid rgba(6, 10, 35, 0.08);
-      border-radius: 18px;
+    .footer-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* Right Column: Hero Image + Floating Testimonials */
+    .sign-in-right-hero {
+      flex: 1;
+      position: relative;
       padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(6, 10, 35, 0.02);
+      display: block;
     }
 
-    .diag-item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .hero-bg-card {
+      position: absolute;
+      inset: 16px;
+      border-radius: 28px;
+      background-image: linear-gradient(180deg, rgba(11, 15, 23, 0.25) 0%, rgba(11, 15, 23, 0.75) 100%), url('https://cdn.21st.dev/assets/mirror/ec/ecff1664e7fc3185d0e947571f984ea5fa3de9580fb0e73a03cd9c9b3461cb09.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(6, 10, 35, 0.08);
+      overflow: hidden;
     }
 
-    .diag-item-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(229, 161, 99, 0.15);
-      color: #b86e28;
+    .testimonials-floating-bar {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
-      align-items: center;
+      gap: 16px;
+      padding: 0 32px;
+      width: 100%;
       justify-content: center;
     }
 
-    .diag-item-title {
-      font-size: 14px;
+    .testimonial-card-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 18px;
+      width: 260px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      animation: testimonialIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .testimonial-body {
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .testimonial-name {
       font-weight: 700;
-      color: #211c17;
+      color: #18181b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       font-family: 'Helvetica Now', sans-serif !important;
     }
 
-    .diag-item-sub {
+    .testimonial-handle {
+      color: #71717a;
       font-size: 12px;
-      color: #8898b4;
-      font-family: 'Inter V', sans-serif !important;
     }
 
-    .diag-item-badge {
-      font-size: 12px;
-      font-weight: 700;
-      color: #059669;
-      font-family: 'Helvetica Now', sans-serif !important;
+    .testimonial-text {
+      margin-top: 4px;
+      color: #3f3f46;
+    }
+
+    /* Keyframe Animations */
+    .animate-element {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-delay-100 { animation-delay: 0.1s; }
+    .animate-delay-200 { animation-delay: 0.2s; }
+    .animate-delay-300 { animation-delay: 0.3s; }
+    .animate-delay-400 { animation-delay: 0.4s; }
+    .animate-delay-500 { animation-delay: 0.5s; }
+    .animate-delay-600 { animation-delay: 0.6s; }
+    .animate-delay-700 { animation-delay: 0.7s; }
+    .animate-delay-800 { animation-delay: 0.8s; }
+    .animate-delay-900 { animation-delay: 0.9s; }
+    .animate-delay-1000 { animation-delay: 1.0s; }
+    .animate-delay-1200 { animation-delay: 1.2s; }
+    .animate-delay-1400 { animation-delay: 1.4s; }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes slideRightIn {
+      to {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateX(0px);
+      }
+    }
+
+    @keyframes testimonialIn {
+      to {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0px) scale(1);
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Header Navigation -->
-  <header class="login-nav-light">
-    <div class="w-layout-blockcontainer con w-container login-nav-inner">
-      <a href="../index.html" class="brand-logo-link">
-        <div class="brand-logo-icon">A</div>
-        <div class="brand-logo-text">APROV <span>Crédito PJ</span></div>
-      </a>
-      <a href="../index.html" class="btn-nav-back">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        <span>Voltar ao site</span>
-      </a>
-    </div>
-  </header>
-
-  <!-- Main Section -->
-  <main class="login-section-light">
-    <div class="w-layout-blockcontainer con w-container">
-      
-      <div class="login-card-light">
+  <div class="sign-in-viewport">
+    
+    <!-- LEFT COLUMN: SIGN IN FORM -->
+    <section class="sign-in-left-form">
+      <div class="form-content-wrap">
         
-        <!-- Left: Form -->
-        <div class="login-card-left">
-          <div class="badge-pill-light">ÁREA DO CLIENTE</div>
-          <h1 class="login-title">Acesse seu painel</h1>
-          <p class="login-subtitle">Informe seu e-mail corporativo e senha para visualizar seus diagnósticos de crédito PJ e pareceres do Banco Central (SCR).</p>
+        <!-- Brand Logo Header -->
+        <a href="../index.html" class="brand-header-link animate-element animate-delay-100">
+          <div class="brand-logo-icon">A</div>
+          <div class="brand-logo-title">APROV <span>Crédito PJ</span></div>
+        </a>
 
-          <form id="loginForm" onsubmit="handleLoginSubmit(event)">
-            
-            <div class="input-group">
-              <label for="userEmail">E-mail Corporativo</label>
-              <div class="clean-input-box">
-                <input type="email" id="userEmail" placeholder="seuemail@empresa.com.br" required autocomplete="email">
-              </div>
-            </div>
-
-            <div class="input-group">
-              <label for="userPassword">Sua Senha</label>
-              <div class="clean-input-box">
-                <input type="password" id="userPassword" placeholder="••••••••" required autocomplete="current-password">
-                <button type="button" class="toggle-eye-btn" onclick="togglePass()" aria-label="Mostrar ou ocultar senha">
-                  <svg id="eyeIconSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-options-row">
-              <label class="checkbox-remember">
-                <input type="checkbox" checked>
-                <span>Manter conectado</span>
-              </label>
-              <a href="javascript:void(0)" onclick="openResetModal()" class="link-reset-password">Esqueceu a senha?</a>
-            </div>
-
-            <button type="submit" id="btnLoginSubmit" class="btn-primary-amber">
-              <span id="btnLoginText">Entrar na Área do Cliente</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-          </form>
-
-          <div class="divider-or">
-            <span>Ou acesse com</span>
-          </div>
-
-          <button type="button" class="btn-google-sso" onclick="handleGoogleLogin()">
-            <svg width="18" height="18" viewBox="0 0 48 48">
-              <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s12-5.373 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-2.641-.21-5.236-.611-7.743z"/>
-              <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
-              <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
-              <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.022 35.026 44 30.038 44 24c0-2.641-.21-5.236-.611-7.743z"/>
-            </svg>
-            Entrar com a conta Google
-          </button>
+        <!-- Main Title & Subtitle -->
+        <div class="flex flex-col gap-2">
+          <h1 class="main-heading animate-element animate-delay-100">Bem-vindo à Aprov</h1>
+          <p class="sub-heading animate-element animate-delay-200">Acesse sua conta para visualizar seus diagnósticos do SCR Bacen e pareceres de crédito PJ.</p>
         </div>
 
-        <!-- Right: Diagnostic Showcase (Light Mode) -->
-        <div class="login-card-right">
-          <div>
-            <div class="right-badge">⚡ INTELIGÊNCIA APROV</div>
-            <h2 class="right-title">O que o banco enxergam no seu CNPJ</h2>
-            <p class="right-sub">Mapeamento em tempo real do SCR Banco Central, Rating Bancário e elegibilidade para linhas PRONAMPE e FGI.</p>
-
-            <div class="diagnostic-cards-list">
-              <div class="diag-card-item">
-                <div class="diag-item-left">
-                  <div class="diag-item-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="22" y2="22"></line><line x1="6" x2="6" y1="18" y2="11"></line><line x1="10" x2="10" y1="18" y2="11"></line><line x1="14" x2="14" y1="18" y2="11"></line><line x1="18" x2="18" y1="18" y2="11"></line><polygon points="12 2 20 7 4 7"></polygon></svg>
-                  </div>
-                  <div>
-                    <div class="diag-item-title">Leitura Banco Central (SCR)</div>
-                    <div class="diag-item-sub">Histórico financeiro Bacen</div>
-                  </div>
-                </div>
-                <span class="diag-item-badge">Lido ✓</span>
-              </div>
-
-              <div class="diag-card-item">
-                <div class="diag-item-left">
-                  <div class="diag-item-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
-                  </div>
-                  <div>
-                    <div class="diag-item-title">Rating 360 Bancos</div>
-                    <div class="diag-item-sub">Mapeamento de Score PJ</div>
-                  </div>
-                </div>
-                <span class="diag-item-badge" style="color:#b86e28;">Nível A+</span>
-              </div>
-
-              <div class="diag-card-item">
-                <div class="diag-item-left">
-                  <div class="diag-item-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                  </div>
-                  <div>
-                    <div class="diag-item-title">Linhas de Crédito PJ</div>
-                    <div class="diag-item-sub">PRONAMPE · FGI · BNDES</div>
-                  </div>
-                </div>
-                <span class="diag-item-badge">4 elegíveis</span>
-              </div>
+        <!-- Form -->
+        <form class="space-y-5" id="signInForm" onsubmit="handleSignInSubmit(event)">
+          
+          <div class="animate-element animate-delay-300">
+            <label class="text-sm font-medium text-muted-foreground" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">E-mail Corporativo</label>
+            <div class="glass-input-wrapper">
+              <input name="email" id="emailField" type="email" placeholder="seuemail@empresa.com.br" required autocomplete="email" />
             </div>
           </div>
 
-          <div style="font-size: 12px; color: #8898b4; margin-top: 32px; border-top: 1px solid rgba(6, 10, 35, 0.08); padding-top: 16px;">
-            🔒 Conexão Criptografada 256-bit SSL · LGPD Compliant
+          <div class="animate-element animate-delay-400">
+            <label class="text-sm font-medium text-muted-foreground" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">Sua Senha</label>
+            <div class="glass-input-wrapper">
+              <input name="password" id="passwordField" type="password" placeholder="••••••••" required autocomplete="current-password" />
+              <button type="button" class="btn-eye-toggle" onclick="togglePasswordVisibility()" aria-label="Mostrar ou ocultar senha">
+                <svg id="eyeIconSvg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="animate-element animate-delay-500 form-options">
+            <label class="checkbox-custom">
+              <input type="checkbox" name="rememberMe" checked />
+              <span>Lembrar de mim</span>
+            </label>
+            <a href="javascript:void(0)" onclick="openResetModal()" class="reset-link">Esqueceu a senha?</a>
+          </div>
+
+          <button type="submit" id="btnSubmitSign" class="animate-element animate-delay-600 btn-primary-sign">
+            <span id="btnSubmitText">Entrar na Conta</span>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="animate-element animate-delay-700 divider-wrap">
+          <span class="divider-text">Ou continue com</span>
+        </div>
+
+        <!-- Google SSO -->
+        <button type="button" onclick="handleGoogleSignIn()" class="animate-element animate-delay-800 btn-google-sign">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s12-5.373 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-2.641-.21-5.236-.611-7.743z"/>
+            <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+            <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+            <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.022 35.026 44 30.038 44 24c0-2.641-.21-5.236-.611-7.743z"/>
+          </svg>
+          Continuar com Google
+        </button>
+
+        <!-- Footer -->
+        <p class="animate-element animate-delay-900 footer-note">
+          Novo por aqui? <a href="../index.html#pricing">Solicitar Consultoria por R$97</a>
+        </p>
+
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: HERO IMAGE + TESTIMONIALS (1-to-1 sign-in.tsx) -->
+    <section class="sign-in-right-hero">
+      <div class="hero-bg-card animate-element animate-delay-300"></div>
+
+      <!-- Testimonials Float -->
+      <div class="testimonials-floating-bar">
+        
+        <div class="testimonial-card-item animate-delay-1000">
+          <img src="https://cdn.21st.dev/assets/mirror/9f/9f797e4acee1a4de4f9b4c3aa1cc4e89d7c9efd5dbff1c463d88374ed601d719.jpg" class="testimonial-avatar" alt="Sarah Chen" />
+          <div class="testimonial-body">
+            <p class="testimonial-name">Sarah Chen</p>
+            <p class="testimonial-handle">@sarahdigital</p>
+            <p class="testimonial-text">Plataforma incrível! A experiência é fluida e os pareceres do BACEN liberaram R$ 800 mil de crédito.</p>
+          </div>
+        </div>
+
+        <div class="testimonial-card-item animate-delay-1200">
+          <img src="https://cdn.21st.dev/assets/mirror/8d/8d9a61a581c43fe2088f221b7692c95db4b3ad5c0da0c856400c0e5acdcdcea8.jpg" class="testimonial-avatar" alt="Marcus Johnson" />
+          <div class="testimonial-body">
+            <p class="testimonial-name">Marcus Johnson</p>
+            <p class="testimonial-handle">@marcustech</p>
+            <p class="testimonial-text">Transformou nosso acesso a crédito PJ. Design limpo, suporte incrível e taxas reduzidas.</p>
           </div>
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </main>
+  </div>
 
-  <!-- Modal Reset Password (Light Mode) -->
-  <div id="resetModal" style="position:fixed; inset:0; background:rgba(6,10,35,0.6); backdrop-filter:blur(8px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
-    <div style="background:#ffffff; border-radius:24px; padding:32px; max-width:420px; width:100%; box-shadow:0 20px 40px rgba(6,10,35,0.2);">
-      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#211c17; font-family:'Helvetica Now', sans-serif !important;">Recuperar Acesso</h3>
-      <p style="font-size:14px; color:#656b7b; margin-bottom:20px; line-height:1.5; font-family:'Inter V', sans-serif !important;">Digite o e-mail corporativo cadastrado da sua empresa para enviarmos as instruções de redefinição.</p>
+  <!-- Modal Reset Password -->
+  <div id="resetModalBg" style="position:fixed; inset:0; background:rgba(6,10,35,0.6); backdrop-filter:blur(8px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#ffffff; border-radius:24px; padding:32px; max-width:400px; width:100%; box-shadow:0 20px 40px rgba(6,10,35,0.2);">
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#18181b; font-family:'Helvetica Now', sans-serif !important;">Recuperar Acesso</h3>
+      <p style="font-size:14px; color:#71717a; margin-bottom:20px; line-height:1.5;">Digite o e-mail corporativo cadastrado da sua empresa para enviarmos as instruções de redefinição.</p>
       
-      <div class="input-group">
-        <label for="resetEmailInput">E-mail da Empresa</label>
-        <div class="clean-input-box">
-          <input type="email" id="resetEmailInput" placeholder="seuemail@empresa.com.br">
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#3f3f46;">E-mail da Empresa</label>
+        <div class="glass-input-wrapper">
+          <input type="email" id="resetEmailField" placeholder="seuemail@empresa.com.br">
         </div>
       </div>
 
       <div style="display:flex; gap:12px; justify-content:flex-end; margin-top:24px;">
-        <button type="button" class="btn-google-sso" style="width:auto; padding:10px 18px;" onclick="closeResetModal()">Cancelar</button>
-        <button type="button" class="btn-primary-amber" style="width:auto; padding:10px 18px;" onclick="sendResetInstructions()">Enviar Link</button>
+        <button type="button" class="btn-google-sign" style="width:auto; padding:10px 18px;" onclick="closeResetModal()">Cancelar</button>
+        <button type="button" class="btn-primary-sign" style="width:auto; padding:10px 18px;" onclick="sendResetLink()">Enviar Link</button>
       </div>
     </div>
   </div>
 
   <script>
-    function togglePass() {
-      const input = document.getElementById('userPassword');
+    function togglePasswordVisibility() {
+      const input = document.getElementById('passwordField');
       const icon = document.getElementById('eyeIconSvg');
       if (input.type === 'password') {
         input.type = 'text';
@@ -617,11 +579,11 @@
       }
     }
 
-    function handleLoginSubmit(e) {
+    function handleSignInSubmit(e) {
       e.preventDefault();
-      const email = document.getElementById('userEmail').value.trim();
-      const btnText = document.getElementById('btnLoginText');
-      const submitBtn = document.getElementById('btnLoginSubmit');
+      const email = document.getElementById('emailField').value.trim();
+      const btnText = document.getElementById('btnSubmitText');
+      const submitBtn = document.getElementById('btnSubmitSign');
 
       if (!email) return;
 
@@ -639,7 +601,7 @@
       }, 500);
     }
 
-    function handleGoogleLogin() {
+    function handleGoogleSignIn() {
       localStorage.setItem('aprov_user_auth', JSON.stringify({
         email: 'gestor@aprovblack.com.br',
         name: 'GESTOR APROV',
@@ -649,20 +611,20 @@
     }
 
     function openResetModal() {
-      document.getElementById('resetModal').style.display = 'flex';
+      document.getElementById('resetModalBg').style.display = 'flex';
     }
 
     function closeResetModal() {
-      document.getElementById('resetModal').style.display = 'none';
+      document.getElementById('resetModalBg').style.display = 'none';
     }
 
-    function sendResetInstructions() {
-      const email = document.getElementById('resetEmailInput').value.trim();
+    function sendResetLink() {
+      const email = document.getElementById('resetEmailField').value.trim();
       if (!email) {
         alert('Por favor, informe seu e-mail corporativo.');
         return;
       }
-      alert('Instruções de redefinição enviadas para ' + email);
+      alert('Instruções de redefinição de senha enviadas para ' + email);
       closeResetModal();
     }
   </script>
