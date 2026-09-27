@@ -332,6 +332,13 @@
       overflow: hidden;
     }
 
+    .hero-animate {
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateX(24px);
+      animation: slideRightIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
     .testimonials-floating-bar {
       position: absolute;
       bottom: 32px;
@@ -446,8 +453,7 @@
         
         <!-- Brand Logo Header -->
         <a href="../index.html" class="brand-header-link animate-element animate-delay-100">
-          <div class="brand-logo-icon">A</div>
-          <div class="brand-logo-title">APROV <span>Crédito PJ</span></div>
+          <img src="../assets/images/logoaprov.svg" alt="Aprov Black" style="height:36px; width:auto; filter: brightness(0) saturate(100%) invert(63%) sepia(51%) saturate(600%) hue-rotate(10deg) brightness(97%) contrast(97%);">
         </a>
 
         <!-- Main Title & Subtitle -->
@@ -516,32 +522,9 @@
       </div>
     </section>
 
-    <!-- RIGHT COLUMN: HERO IMAGE + TESTIMONIALS (1-to-1 sign-in.tsx) -->
+    <!-- RIGHT COLUMN: HERO IMAGE -->
     <section class="sign-in-right-hero">
-      <div class="hero-bg-card animate-element animate-delay-300"></div>
-
-      <!-- Testimonials Float -->
-      <div class="testimonials-floating-bar">
-        
-        <div class="testimonial-card-item animate-delay-1000">
-          <img src="https://cdn.21st.dev/assets/mirror/9f/9f797e4acee1a4de4f9b4c3aa1cc4e89d7c9efd5dbff1c463d88374ed601d719.jpg" class="testimonial-avatar" alt="Sarah Chen" />
-          <div class="testimonial-body">
-            <p class="testimonial-name">Sarah Chen</p>
-            <p class="testimonial-handle">@sarahdigital</p>
-            <p class="testimonial-text">Plataforma incrível! A experiência é fluida e os pareceres do BACEN liberaram R$ 800 mil de crédito.</p>
-          </div>
-        </div>
-
-        <div class="testimonial-card-item animate-delay-1200">
-          <img src="https://cdn.21st.dev/assets/mirror/8d/8d9a61a581c43fe2088f221b7692c95db4b3ad5c0da0c856400c0e5acdcdcea8.jpg" class="testimonial-avatar" alt="Marcus Johnson" />
-          <div class="testimonial-body">
-            <p class="testimonial-name">Marcus Johnson</p>
-            <p class="testimonial-handle">@marcustech</p>
-            <p class="testimonial-text">Transformou nosso acesso a crédito PJ. Design limpo, suporte incrível e taxas reduzidas.</p>
-          </div>
-        </div>
-
-      </div>
+      <div class="hero-bg-card hero-animate"></div>
     </section>
 
   </div>
