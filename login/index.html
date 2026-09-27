@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Login · Aprov — Consultoria de Crédito PJ</title>
-  <meta name="description" content="Acesse seu painel exclusivo para visualizar diagnósticos de crédito PJ e pareceres do SCR Bacen.">
+  <meta name="description" content="Acesse o painel do seu CNPJ e visualize diagnósticos reais do SCR e Rating Bancário.">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23e5a163'/><text y='70' font-size='56' x='30' fill='%23120e0a' font-weight='900'>A</text></svg>">
@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../assets/css/main.css">
 
   <style>
-    /* DEFINIÇÃO RIGOROSA DE FONTES DA APROV BLACK */
+    /* DEFINIÇÃO RIGOROSA DE FONTES DA APROV BLACK (LIGHT MODE) */
     /* Fonte Destaque: 'Helvetica Now', sans-serif */
     /* Fonte Secundária: 'Inter V', sans-serif */
 
@@ -29,73 +29,34 @@
       box-sizing: border-box;
     }
 
-    :root {
-      --font-heading: 'Helvetica Now', system-ui, -apple-system, sans-serif;
-      --font-body: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif;
-      --bg-obsidian: #030305;
-      --brand-amber: #e5a163;
-      --brand-warm: #ff8f43;
-      --brand-glow: rgba(229, 161, 99, 0.35);
-    }
-
     body {
-      background-color: var(--bg-obsidian);
-      color: #ffffff;
-      font-family: var(--font-body) !important;
+      background-color: var(--bg-soft, #f8fafb);
+      color: var(--text-heading, #211c17);
+      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif !important;
       margin: 0;
       padding: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow-x: hidden;
     }
 
     h1, h2, h3, h4, h5, h6, .sec-title, .card-title, .badge, .btn-primary-amber, .btn-google-sso, .brand-logo-text {
-      font-family: var(--font-heading) !important;
+      font-family: 'Helvetica Now', system-ui, -apple-system, sans-serif !important;
       font-feature-settings: 'cv11' on, 'cv10' on, 'cv09' on, 'ss02' on;
     }
 
     p, span, label, input, button, a, td, th {
-      font-family: var(--font-body);
+      font-family: 'Inter V', 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    /* Ambient Background Glows */
-    .ambient-glow-top {
-      position: absolute;
-      top: -150px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(229, 161, 99, 0.16) 0%, rgba(255, 143, 67, 0.05) 50%, transparent 80%);
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 0;
+    /* Top Navbar Light */
+    .login-nav-light {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(6, 10, 35, 0.08);
+      padding: 20px 0;
     }
 
-    .ambient-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(circle at 50% 40%, black 40%, transparent 85%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Topbar Navigation */
-    .login-header {
-      position: relative;
-      z-index: 10;
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
-    }
-
-    .login-header-inner {
+    .login-nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -109,28 +70,28 @@
     }
 
     .brand-logo-icon {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #ffab57 0%, #ff8f43 50%, #e5a163 100%);
-      color: #120e0a;
+      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #e5a163 100%));
+      color: #211c17;
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 16px rgba(229, 161, 99, 0.4);
+      box-shadow: 0 4px 14px var(--brand-glow, rgba(229, 161, 99, 0.35));
     }
 
     .brand-logo-text {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: #ffffff;
+      color: #211c17;
       letter-spacing: -0.02em;
     }
 
     .brand-logo-text span {
-      color: var(--brand-amber);
+      color: var(--brand-primary, #e5a163);
       font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -142,96 +103,95 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: rgba(255, 255, 255, 0.7);
+      color: #656b7b;
       font-size: 14px;
       font-weight: 600;
       text-decoration: none;
       padding: 8px 16px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
-      transition: all 0.25s ease;
+      border: 1px solid rgba(6, 10, 35, 0.12);
+      background: #ffffff;
+      transition: all 0.2s ease;
     }
 
     .btn-nav-back:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.25);
+      color: #211c17;
+      background: #f8fafb;
+      border-color: rgba(6, 10, 35, 0.2);
     }
 
-    /* Main Section */
-    .login-section {
-      position: relative;
-      z-index: 10;
+    /* Main Login Section */
+    .login-section-light {
       flex: 1;
       display: flex;
       align-items: center;
       padding: 60px 0;
     }
 
-    .login-hero-card {
-      background: rgba(11, 15, 23, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .login-card-light {
+      background: #ffffff;
+      border: 1px solid rgba(6, 10, 35, 0.08);
       border-radius: 28px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(229, 161, 99, 0.08);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 12px 40px rgba(6, 10, 35, 0.04);
       display: grid;
       grid-template-columns: 1.15fr 1fr;
       overflow: hidden;
-      max-width: 1060px;
+      max-width: 1040px;
       margin: 0 auto;
       width: 100%;
     }
 
-    @media (max-width: 960px) {
-      .login-hero-card {
+    @media (max-width: 900px) {
+      .login-card-light {
         grid-template-columns: 1fr;
       }
-      .login-hero-right {
+      .login-card-right {
         display: none;
       }
     }
 
     /* Left Form Side */
-    .login-hero-left {
+    .login-card-left {
       padding: 48px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    .badge-pill {
+    .badge-pill-light {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 4px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(229, 161, 99, 0.35);
+      border: 1px solid rgba(229, 161, 99, 0.3);
       background: rgba(229, 161, 99, 0.12);
-      color: var(--brand-amber);
+      color: #b86e28;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 16px;
       width: fit-content;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .login-title {
       font-size: 32px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: #ffffff;
+      color: #211c17;
       margin-bottom: 8px;
       line-height: 1.2;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .login-subtitle {
-      color: rgba(255, 255, 255, 0.7);
+      color: #656b7b;
       font-size: 15px;
       line-height: 1.5;
       margin-bottom: 32px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     /* Form Fields */
@@ -243,37 +203,38 @@
       display: block;
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
+      color: #211c17;
       margin-bottom: 8px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
-    .glass-input-box {
+    .clean-input-box {
       position: relative;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #ffffff;
+      border: 1.5px solid rgba(6, 10, 35, 0.12);
       border-radius: 16px;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
-    .glass-input-box:focus-within {
-      border-color: var(--brand-amber);
-      background: rgba(229, 161, 99, 0.08);
-      box-shadow: 0 0 20px rgba(229, 161, 99, 0.2);
+    .clean-input-box:focus-within {
+      border-color: var(--brand-primary, #e5a163);
+      box-shadow: 0 0 0 4px rgba(229, 161, 99, 0.16);
     }
 
-    .glass-input-box input {
+    .clean-input-box input {
       width: 100%;
       border: none;
       outline: none;
       background: transparent;
       padding: 16px 18px;
       font-size: 14px;
-      color: #ffffff;
+      color: #211c17;
       border-radius: 16px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
-    .glass-input-box input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
+    .clean-input-box input::placeholder {
+      color: #9ca3af;
     }
 
     .toggle-eye-btn {
@@ -283,14 +244,9 @@
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.5);
+      color: #656b7b;
       cursor: pointer;
       padding: 4px;
-      transition: color 0.2s;
-    }
-
-    .toggle-eye-btn:hover {
-      color: #ffffff;
     }
 
     .form-options-row {
@@ -299,32 +255,31 @@
       justify-content: space-between;
       margin-bottom: 28px;
       font-size: 13px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .checkbox-remember {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: rgba(255, 255, 255, 0.8);
+      color: #4b5563;
       cursor: pointer;
     }
 
     .checkbox-remember input {
-      accent-color: var(--brand-amber);
+      accent-color: var(--brand-primary, #e5a163);
       width: 16px;
       height: 16px;
     }
 
     .link-reset-password {
-      color: var(--brand-amber);
+      color: var(--brand-primary, #e5a163);
       font-weight: 600;
       text-decoration: none;
-      transition: color 0.2s;
     }
 
     .link-reset-password:hover {
       text-decoration: underline;
-      color: var(--brand-warm);
     }
 
     .btn-primary-amber {
@@ -332,40 +287,42 @@
       padding: 16px;
       border-radius: 16px;
       border: 1px solid var(--brand-border, #f2be8f);
-      background: linear-gradient(135deg, #ffab57 0%, #ff8f43 50%, #e5a163 100%);
-      color: #120e0a;
+      background: var(--brand-gradient, linear-gradient(180deg, #ffab57 0%, #e5a163 100%));
+      color: #211c17;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 24px rgba(229, 161, 99, 0.4);
+      box-shadow: 0 4px 16px var(--brand-glow, rgba(229, 161, 99, 0.35));
       transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .btn-primary-amber:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(229, 161, 99, 0.55);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px var(--brand-glow-strong, rgba(229, 161, 99, 0.48));
     }
 
     .divider-or {
       display: flex;
       align-items: center;
       margin: 24px 0;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 12px;
+      color: #8898b4;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .divider-or::before, .divider-or::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(6, 10, 35, 0.08);
     }
 
     .divider-or span {
@@ -376,9 +333,9 @@
       width: 100%;
       padding: 14px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.05);
-      color: #ffffff;
+      border: 1px solid rgba(6, 10, 35, 0.12);
+      background: #ffffff;
+      color: #211c17;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
@@ -386,50 +343,53 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .btn-google-sso:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
+      background: #f8fafb;
+      border-color: rgba(6, 10, 35, 0.2);
     }
 
-    /* Right Showcase Side */
-    .login-hero-right {
-      background: linear-gradient(180deg, rgba(15, 20, 32, 0.6) 0%, rgba(7, 9, 14, 0.9) 100%);
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    /* Right Showcase Side (Light Mode) */
+    .login-card-right {
+      background: #f1f5f9;
+      border-left: 1px solid rgba(6, 10, 35, 0.08);
       padding: 48px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
     }
 
     .right-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--brand-amber);
+      color: #b86e28;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 12px;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .right-title {
       font-size: 26px;
       font-weight: 400;
       line-height: 1.3;
-      color: #ffffff;
+      color: #211c17;
       margin-bottom: 12px;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .right-sub {
-      color: rgba(255, 255, 255, 0.7);
+      color: #656b7b;
       font-size: 14px;
       line-height: 1.5;
       margin-bottom: 32px;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     /* Diagnostic Card List */
@@ -440,20 +400,14 @@
     }
 
     .diag-card-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 1px solid rgba(6, 10, 35, 0.08);
       border-radius: 18px;
       padding: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
-    }
-
-    .diag-card-item:hover {
-      border-color: rgba(229, 161, 99, 0.3);
-      background: rgba(229, 161, 99, 0.06);
+      box-shadow: 0 4px 12px rgba(6, 10, 35, 0.02);
     }
 
     .diag-item-left {
@@ -467,7 +421,7 @@
       height: 36px;
       border-radius: 10px;
       background: rgba(229, 161, 99, 0.15);
-      color: var(--brand-amber);
+      color: #b86e28;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -476,30 +430,30 @@
     .diag-item-title {
       font-size: 14px;
       font-weight: 700;
-      color: #ffffff;
+      color: #211c17;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
 
     .diag-item-sub {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
+      color: #8898b4;
+      font-family: 'Inter V', sans-serif !important;
     }
 
     .diag-item-badge {
       font-size: 12px;
       font-weight: 700;
-      color: #00e676;
+      color: #059669;
+      font-family: 'Helvetica Now', sans-serif !important;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="ambient-glow-top"></div>
-  <div class="ambient-grid"></div>
-
   <!-- Header Navigation -->
-  <header class="login-header">
-    <div class="w-layout-blockcontainer con w-container login-header-inner">
+  <header class="login-nav-light">
+    <div class="w-layout-blockcontainer con w-container login-nav-inner">
       <a href="../index.html" class="brand-logo-link">
         <div class="brand-logo-icon">A</div>
         <div class="brand-logo-text">APROV <span>Crédito PJ</span></div>
@@ -512,29 +466,29 @@
   </header>
 
   <!-- Main Section -->
-  <main class="login-section">
+  <main class="login-section-light">
     <div class="w-layout-blockcontainer con w-container">
       
-      <div class="login-hero-card">
+      <div class="login-card-light">
         
         <!-- Left: Form -->
-        <div class="login-hero-left">
-          <div class="badge-pill">ÁREA EXCLUSIVA DO CLIENTE</div>
+        <div class="login-card-left">
+          <div class="badge-pill-light">ÁREA DO CLIENTE</div>
           <h1 class="login-title">Acesse seu painel</h1>
-          <p class="login-subtitle">Informe seu e-mail corporativo e senha para gerenciar seus diagnósticos de crédito PJ e pareceres do Banco Central (SCR).</p>
+          <p class="login-subtitle">Informe seu e-mail corporativo e senha para visualizar seus diagnósticos de crédito PJ e pareceres do Banco Central (SCR).</p>
 
           <form id="loginForm" onsubmit="handleLoginSubmit(event)">
             
             <div class="input-group">
               <label for="userEmail">E-mail Corporativo</label>
-              <div class="glass-input-box">
+              <div class="clean-input-box">
                 <input type="email" id="userEmail" placeholder="seuemail@empresa.com.br" required autocomplete="email">
               </div>
             </div>
 
             <div class="input-group">
               <label for="userPassword">Sua Senha</label>
-              <div class="glass-input-box">
+              <div class="clean-input-box">
                 <input type="password" id="userPassword" placeholder="••••••••" required autocomplete="current-password">
                 <button type="button" class="toggle-eye-btn" onclick="togglePass()" aria-label="Mostrar ou ocultar senha">
                   <svg id="eyeIconSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
@@ -551,13 +505,13 @@
             </div>
 
             <button type="submit" id="btnLoginSubmit" class="btn-primary-amber">
-              <span id="btnLoginText">Entrar no Painel</span>
+              <span id="btnLoginText">Entrar na Área do Cliente</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
           </form>
 
           <div class="divider-or">
-            <span>Ou continue com</span>
+            <span>Ou acesse com</span>
           </div>
 
           <button type="button" class="btn-google-sso" onclick="handleGoogleLogin()">
@@ -571,12 +525,12 @@
           </button>
         </div>
 
-        <!-- Right: Diagnostic Preview Showcase -->
-        <div class="login-hero-right">
+        <!-- Right: Diagnostic Showcase (Light Mode) -->
+        <div class="login-card-right">
           <div>
             <div class="right-badge">⚡ INTELIGÊNCIA APROV</div>
-            <h2 class="right-title">O que os bancos enxergam no seu CNPJ em segundos</h2>
-            <p class="right-sub">Relatório completo do SCR Banco Central, Rating de crédito e elegibilidade para PRONAMPE e FGI.</p>
+            <h2 class="right-title">O que o banco enxergam no seu CNPJ</h2>
+            <p class="right-sub">Mapeamento em tempo real do SCR Banco Central, Rating Bancário e elegibilidade para linhas PRONAMPE e FGI.</p>
 
             <div class="diagnostic-cards-list">
               <div class="diag-card-item">
@@ -602,7 +556,7 @@
                     <div class="diag-item-sub">Mapeamento de Score PJ</div>
                   </div>
                 </div>
-                <span class="diag-item-badge" style="color:var(--brand-amber);">Nível A+</span>
+                <span class="diag-item-badge" style="color:#b86e28;">Nível A+</span>
               </div>
 
               <div class="diag-card-item">
@@ -620,7 +574,7 @@
             </div>
           </div>
 
-          <div style="font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px;">
+          <div style="font-size: 12px; color: #8898b4; margin-top: 32px; border-top: 1px solid rgba(6, 10, 35, 0.08); padding-top: 16px;">
             🔒 Conexão Criptografada 256-bit SSL · LGPD Compliant
           </div>
         </div>
@@ -630,15 +584,15 @@
     </div>
   </main>
 
-  <!-- Modal Reset Password -->
-  <div id="resetModal" style="position:fixed; inset:0; background:rgba(3,3,5,0.8); backdrop-filter:blur(12px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
-    <div style="background:#0d111a; border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding:32px; max-width:420px; width:100%; box-shadow:0 25px 60px rgba(0,0,0,0.8);">
-      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#ffffff; font-family:'Helvetica Now', sans-serif !important;">Recuperar Acesso</h3>
-      <p style="font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:20px; line-height:1.5;">Digite o e-mail corporativo cadastrado da sua empresa para enviarmos as instruções de redefinição.</p>
+  <!-- Modal Reset Password (Light Mode) -->
+  <div id="resetModal" style="position:fixed; inset:0; background:rgba(6,10,35,0.6); backdrop-filter:blur(8px); z-index:999; display:none; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#ffffff; border-radius:24px; padding:32px; max-width:420px; width:100%; box-shadow:0 20px 40px rgba(6,10,35,0.2);">
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; color:#211c17; font-family:'Helvetica Now', sans-serif !important;">Recuperar Acesso</h3>
+      <p style="font-size:14px; color:#656b7b; margin-bottom:20px; line-height:1.5; font-family:'Inter V', sans-serif !important;">Digite o e-mail corporativo cadastrado da sua empresa para enviarmos as instruções de redefinição.</p>
       
       <div class="input-group">
         <label for="resetEmailInput">E-mail da Empresa</label>
-        <div class="glass-input-box">
+        <div class="clean-input-box">
           <input type="email" id="resetEmailInput" placeholder="seuemail@empresa.com.br">
         </div>
       </div>
