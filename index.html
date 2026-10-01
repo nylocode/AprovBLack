@@ -1057,25 +1057,146 @@
                   .hero-video-play-ring svg path {
                     fill: var(--brand-on-primary) !important;
                   }
+
+                  /* Smart Retention Video Player Styles */
+                  .hero-showcase-player.is-playing {
+                    transform: none !important;
+                    cursor: default !important;
+                  }
+
+                  .hero-showcase-player.is-playing .hero-video-poster,
+                  .hero-showcase-player.is-playing .hero-video-gradient-overlay,
+                  .hero-showcase-player.is-playing .hero-video-centerpiece {
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    visibility: hidden !important;
+                  }
+
+                  .hero-yt-player-frame {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 2;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 300ms ease;
+                  }
+
+                  .hero-yt-player-frame.is-active {
+                    opacity: 1;
+                    pointer-events: auto;
+                  }
+
+                  .hero-yt-player-frame iframe {
+                    width: 100% !important;
+                    height: 100% !important;
+                    border: none !important;
+                    display: block;
+                  }
+
+                  /* Retention Badge (Speed indicator) */
+                  .hero-retention-badge {
+                    position: absolute;
+                    top: 18px;
+                    right: 18px;
+                    z-index: 8;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 7px 16px;
+                    border-radius: 999px;
+                    background: rgba(9, 6, 29, 0.88);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(229, 161, 99, 0.5);
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(229, 161, 99, 0.25);
+                    color: #ffffff;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: -0.2px;
+                    pointer-events: none;
+                    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+                  }
+
+                  .hero-retention-badge.is-fadeout {
+                    opacity: 0;
+                    transform: translateY(-8px) scale(0.95);
+                  }
+
+                  .hero-retention-dot {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: #e5a163;
+                    box-shadow: 0 0 10px #e5a163;
+                    animation: pulseRetention 1.6s infinite ease-in-out;
+                  }
+
+                  @keyframes pulseRetention {
+                    0% { transform: scale(0.9); opacity: 0.8; }
+                    50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 14px #e5a163; }
+                    100% { transform: scale(0.9); opacity: 0.8; }
+                  }
+
+                  /* Smart Retention Progress Bar */
+                  .hero-smart-progress-track {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: 5px;
+                    background: rgba(255, 255, 255, 0.15);
+                    z-index: 8;
+                    pointer-events: none;
+                    overflow: hidden;
+                    border-bottom-left-radius: 28px;
+                    border-bottom-right-radius: 28px;
+                    transition: height 200ms ease;
+                  }
+
+                  .hero-showcase-player:hover .hero-smart-progress-track {
+                    height: 7px;
+                  }
+
+                  .hero-smart-progress-fill {
+                    height: 100%;
+                    width: 0%;
+                    background: linear-gradient(90deg, #e5a163 0%, #ffc078 60%, #ff8533 100%);
+                    box-shadow: 0 0 12px rgba(229, 161, 99, 0.95);
+                    transition: width 150ms linear;
+                    position: relative;
+                  }
+
+                  .hero-smart-progress-fill::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 10px;
+                    height: 100%;
+                    background: #ffffff;
+                    box-shadow: 0 0 10px #ffffff;
+                    border-radius: 50%;
+                  }
                 </style>
               </div>
 
               <!-- Ambient background glow -->
               <div class="hero-video-ambient-glow"></div>
 
-              <!-- Main Player Element with Webflow Lightbox -->
-              <a href="#oferta" data-w-id="e281308c-2ee1-da0b-1630-520382abde44" style="opacity: 1;"
-                class="hero-showcase-player w-inline-block w-lightbox"
-                aria-label="Assistir ao vídeo: Entenda como funciona" aria-haspopup="dialog">
+              <!-- Main Player Element with Smart Retention Player -->
+              <div id="hero-showcase-player" class="hero-showcase-player w-inline-block" role="button" tabindex="0"
+                aria-label="Assistir ao vídeo: Entenda como funciona">
                 <!-- Video Poster Image -->
-                <img src="./assets/images/video_poster_N2lwNJf2nwY.jpg" loading="lazy"
+                <img id="hero-video-poster-img" src="./assets/images/video_poster_N2lwNJf2nwY.jpg" loading="lazy"
                   alt="Demonstração: Entenda como funciona - Consultoria de crédito Aprov" class="hero-video-poster">
 
                 <!-- Gradient Overlay -->
-                <div class="hero-video-gradient-overlay"></div>
+                <div id="hero-video-gradient" class="hero-video-gradient-overlay"></div>
 
                 <!-- Centerpiece Play Button -->
-                <div class="hero-video-centerpiece">
+                <div id="hero-video-play-btn" class="hero-video-centerpiece">
                   <div class="hero-video-play-ring">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86a1 1 0 0 0-1.5.86z"
@@ -1087,22 +1208,20 @@
                   </div>
                 </div>
 
-                <!-- Webflow Lightbox JSON Payload -->
-                <script type="application/json" class="w-json">{
-      "items": [
-        {
-          "url": "https://youtube.com/watch?v=N2lwNJf2nwY",
-          "originalUrl": "https://youtube.com/watch?v=N2lwNJf2nwY",
-          "width": 940,
-          "height": 528,
-          "thumbnailUrl": "https://i.ytimg.com/vi/N2lwNJf2nwY/hqdefault.jpg",
-          "html": "<iframe class=\"embedly-embed\" src=\"//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FN2lwNJf2nwY%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DN2lwNJf2nwY&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FN2lwNJf2nwY%2Fhqdefault.jpg&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=youtube\" width=\"940\" height=\"528\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen; encrypted-media; picture-in-picture;\" allowfullscreen=\"true\"></iframe>",
-          "type": "video"
-        }
-      ],
-      "group": ""
-    }</script>
-              </a>
+                <!-- YouTube IFrame Target Container -->
+                <div id="hero-yt-player-target" class="hero-yt-player-frame"></div>
+
+                <!-- Floating Retention Speed Badge -->
+                <div id="hero-retention-badge" class="hero-retention-badge" style="display: none;">
+                  <span class="hero-retention-dot"></span>
+                  <span id="hero-retention-text">1.25x ⚡ Ritmo Dinâmico</span>
+                </div>
+
+                <!-- Smart Retention Progress Bar -->
+                <div id="hero-smart-progress-bar" class="hero-smart-progress-track" style="display: none;">
+                  <div id="hero-smart-progress-fill" class="hero-smart-progress-fill"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -6628,6 +6747,181 @@
         window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     }
+  </script>
+
+  <!-- Smart Retention Video Player (Início Rápido com Desaceleração + Barra Inteligente) -->
+  <script>
+    (function initSmartRetentionPlayer() {
+      var container = document.getElementById('hero-showcase-player');
+      var frameTarget = document.getElementById('hero-yt-player-target');
+      var retentionBadge = document.getElementById('hero-retention-badge');
+      var retentionText = document.getElementById('hero-retention-text');
+      var progressBar = document.getElementById('hero-smart-progress-bar');
+      var progressFill = document.getElementById('hero-smart-progress-fill');
+
+      if (!container || !frameTarget) return;
+
+      var VIDEO_ID = 'N2lwNJf2nwY';
+      var HOOK_DURATION_SEC = 16; // Primeiros 16s com gancho acelerado (1.25x)
+      var ytPlayer = null;
+      var isPlayerActive = false;
+      var progressInterval = null;
+      var rateDecelerated = false;
+
+      // Curva matemática de retenção: avança com ímpeto inicial (momentum) e desacelera suavemente
+      function calculateSmartProgress(currentTime, duration) {
+        if (!duration || duration <= 0) return 0;
+        var realRatio = Math.max(0, Math.min(1, currentTime / duration));
+        // Curva de retenção: 1 - (1 - r)^1.35
+        var smartRatio = 1 - Math.pow(1 - realRatio, 1.35);
+        return Math.min(100, Math.max(0, smartRatio * 100));
+      }
+
+      function loadYouTubeApi() {
+        if (window.YT && window.YT.Player) return Promise.resolve();
+        return new Promise(function (resolve, reject) {
+          var timeout = setTimeout(function () {
+            if (window.YT && window.YT.Player) resolve();
+            else reject(new Error('YouTube API Timeout'));
+          }, 3500);
+
+          var existingScript = document.querySelector('script[src*="youtube.com/iframe_api"]');
+          if (!existingScript) {
+            var tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            tag.onerror = function () {
+              clearTimeout(timeout);
+              reject(new Error('YouTube API Load Error'));
+            };
+            document.head.appendChild(tag);
+          }
+
+          var checkInterval = setInterval(function () {
+            if (window.YT && window.YT.Player) {
+              clearInterval(checkInterval);
+              clearTimeout(timeout);
+              resolve();
+            }
+          }, 50);
+        });
+      }
+
+      function startSmartTracking() {
+        if (progressInterval) clearInterval(progressInterval);
+        progressInterval = setInterval(function () {
+          if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
+
+          var currentTime = ytPlayer.getCurrentTime() || 0;
+          var duration = ytPlayer.getDuration() || 0;
+
+          // 1. Atualizar Barra de Progresso Inteligente
+          var percent = calculateSmartProgress(currentTime, duration);
+          if (progressFill) {
+            progressFill.style.width = percent.toFixed(2) + '%';
+          }
+
+          // 2. Transição da Velocidade Dinâmica (1.25x -> 1.0x) após o gancho
+          if (!rateDecelerated && currentTime >= HOOK_DURATION_SEC) {
+            rateDecelerated = true;
+            try {
+              if (typeof ytPlayer.setPlaybackRate === 'function') {
+                ytPlayer.setPlaybackRate(1.0);
+              }
+            } catch (err) {}
+
+            if (retentionBadge && retentionText) {
+              retentionText.textContent = '1.0x • Ritmo Normal';
+              retentionBadge.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+              retentionBadge.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.5)';
+              setTimeout(function () {
+                retentionBadge.classList.add('is-fadeout');
+                setTimeout(function () {
+                  retentionBadge.style.display = 'none';
+                }, 450);
+              }, 3000);
+            }
+          }
+        }, 120);
+      }
+
+      function stopSmartTracking() {
+        if (progressInterval) {
+          clearInterval(progressInterval);
+          progressInterval = null;
+        }
+      }
+
+      function launchPlayer() {
+        if (isPlayerActive) return;
+        isPlayerActive = true;
+
+        container.classList.add('is-playing');
+        frameTarget.classList.add('is-active');
+
+        if (progressBar) progressBar.style.display = 'block';
+        if (retentionBadge) {
+          retentionBadge.style.display = 'inline-flex';
+          retentionBadge.classList.remove('is-fadeout');
+        }
+
+        loadYouTubeApi().then(function () {
+          ytPlayer = new YT.Player('hero-yt-player-target', {
+            videoId: VIDEO_ID,
+            playerVars: {
+              autoplay: 1,
+              rel: 0,
+              modestbranding: 1,
+              playsinline: 1,
+              controls: 1,
+              fs: 1,
+              enablejsapi: 1,
+              origin: window.location.origin
+            },
+            events: {
+              onReady: function (event) {
+                try {
+                  event.target.setPlaybackRate(1.25);
+                  event.target.playVideo();
+                } catch (e) {}
+              },
+              onStateChange: function (event) {
+                // YT.PlayerState: PLAYING=1, PAUSED=2, ENDED=0
+                if (event.data === 1) {
+                  if (!rateDecelerated) {
+                    try {
+                      event.target.setPlaybackRate(1.25);
+                    } catch (e) {}
+                  }
+                  startSmartTracking();
+                } else if (event.data === 2) {
+                  stopSmartTracking();
+                } else if (event.data === 0) {
+                  stopSmartTracking();
+                  if (progressFill) progressFill.style.width = '100%';
+                }
+              }
+            }
+          });
+        }).catch(function () {
+          // Fallback caso a API do YouTube falhe ou seja bloqueada
+          frameTarget.innerHTML = '<iframe src="https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0&playsinline=1&controls=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>';
+        });
+      }
+
+      container.addEventListener('click', function (e) {
+        if (!isPlayerActive) {
+          e.preventDefault();
+          launchPlayer();
+        }
+      });
+
+      container.addEventListener('keydown', function (e) {
+        if (!isPlayerActive && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          launchPlayer();
+        }
+      });
+    })();
   </script>
 
 </body>
