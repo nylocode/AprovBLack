@@ -26,7 +26,7 @@ window.SITE_CONFIG = {
 
   // Dados da Oferta Comercial
   offer: {
-    productName: "Consultoria de Crédito PJ",             // Nome do serviço/produto
+    productName: "Diagnóstico de crédito",               // Nome do serviço/produto alinhado com a Cakto
     price: "R$97",                                       // Preço promocional atual de venda
     oldPrice: "R$497",                                   // Preço original (riscado)
     discountLabel: "80% OFF"                             // Selo de desconto exibido na oferta
@@ -34,8 +34,8 @@ window.SITE_CONFIG = {
 
   // Rótulos dos Botões Principais (Chamadas para Ação)
   cta: {
-    primaryLabel: "Agendar consultoria",                 // Botão da barra de navegação e do topo (Hero)
-    offerLabel: "Adquirir minha consultoria de crédito",                  // Botão do bloco de oferta/preço
+    primaryLabel: "Agendar diagnóstico",                 // Botão da barra de navegação e do topo (Hero)
+    offerLabel: "Adquirir meu diagnóstico de crédito",   // Botão do bloco de oferta/preço
     formSubmitLabel: "IR PARA O PAGAMENTO →"             // Botão de envio dentro do formulário de checkout
   },
 
