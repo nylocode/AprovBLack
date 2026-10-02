@@ -1126,7 +1126,7 @@
           "width": 1403,
           "height": 789,
           "thumbnailUrl": "https://i.ytimg.com/vi/N2lwNJf2nwY/hqdefault.jpg",
-          "html": "<iframe class=\"embedly-embed\" width=\"1403\" height=\"789\" src=\"https://www.youtube.com/embed/N2lwNJf2nwY?autoplay=1&amp;rel=0&amp;modestbranding=1\" title=\"Entenda como funciona\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"true\"></iframe>",
+          "html": "<iframe class=\"embedly-embed\" width=\"1403\" height=\"789\" src=\"https://www.youtube-nocookie.com/embed/N2lwNJf2nwY?autoplay=1&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;iv_load_policy=3&amp;disablekb=1\" title=\"Apresentação Exclusiva\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"true\"></iframe>",
           "type": "video"
         }
       ],
@@ -6780,15 +6780,19 @@
       overflow: hidden;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 55px rgba(229, 161, 99, 0.22);
       border: 1px solid rgba(229, 161, 99, 0.25);
+      user-select: none;
+      -webkit-user-select: none;
     }
 
+    /* Overscan Crop: elimina 100% da barra do topo (canal, avatar, título, compartilhar) e marca d'água inferior */
     .vsl-yt-iframe-container {
       position: absolute;
-      top: -2px;
-      left: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
+      transform: scale(1.24);
+      transform-origin: center center;
     }
 
     .vsl-yt-iframe-container iframe {
@@ -6796,15 +6800,30 @@
       height: 100% !important;
       border: none !important;
       display: block;
+      pointer-events: none;
     }
 
-    /* Transparent Click Shield: prevents interacting with YouTube UI, toggles play/pause */
+    /* Top Vignette Shield: Máscara escura que garante eliminação total de qualquer detalhe do canal */
+    .vsl-top-shield {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: linear-gradient(to bottom, rgba(4, 4, 8, 0.98) 0%, rgba(4, 4, 8, 0.6) 50%, transparent 100%);
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    /* Transparent Click Shield: trava links externos do YouTube, bloqueia menu de contexto e permite Play/Pause com 1 clique */
     .vsl-click-shield {
       position: absolute;
       inset: 0;
-      z-index: 10;
+      z-index: 25;
       cursor: pointer;
       background: transparent;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     /* Center Pulse Feedback */
@@ -6949,6 +6968,12 @@
       .vsl-theater-stage {
         border-radius: 14px;
       }
+      .vsl-yt-iframe-container {
+        transform: scale(1.36);
+      }
+      .vsl-top-shield {
+        height: 44px;
+      }
       .vsl-controls-bar {
         padding: 24px 10px 10px 10px;
         gap: 6px;
@@ -6981,14 +7006,17 @@
       </div>
 
       <!-- Theater Stage (16:9 Aspect Ratio) -->
-      <div id="vsl-theater-stage" class="vsl-theater-stage">
-        <!-- YouTube Player Target Container -->
+      <div id="vsl-theater-stage" class="vsl-theater-stage" oncontextmenu="return false;">
+        <!-- Top Vignette Shield (Elimina visualmente qualquer resquício de canal/título) -->
+        <div class="vsl-top-shield"></div>
+
+        <!-- YouTube Player Target Container (Com crop/zoom para ocultar barras e logos externas) -->
         <div id="vsl-yt-iframe-container" class="vsl-yt-iframe-container">
           <div id="vsl-yt-player-target"></div>
         </div>
 
-        <!-- Transparent Click Shield: trava links externos do YouTube e permite Play/Pause com 1 clique -->
-        <div id="vsl-click-shield" class="vsl-click-shield" title="Clique para pausar ou reproduzir"></div>
+        <!-- Transparent Click Shield: trava links externos do YouTube, impede clique em canais e permite Play/Pause com 1 clique -->
+        <div id="vsl-click-shield" class="vsl-click-shield" title="Clique para pausar ou reproduzir" oncontextmenu="return false;"></div>
 
         <!-- Feedback Central Play / Pause -->
         <div id="vsl-center-indicator" class="vsl-center-indicator">
@@ -7279,11 +7307,12 @@
               controls: 0,           // Oculta timeline e barra nativa do YouTube
               rel: 0,                // Oculta sugestões de outros canais
               modestbranding: 1,     // Oculta logo do YouTube
-              iv_load_policy: 3,     // Oculta anotações
+              iv_load_policy: 3,     // Oculta anotações e cards de canal
               disablekb: 1,          // Desativa atalhos de teclado do player padrão
               playsinline: 1,
               fs: 0,                 // Tela cheia controlada pelo botão personalizado
               enablejsapi: 1,
+              cc_load_policy: 0,
               origin: window.location.origin
             },
             events: {
@@ -7316,7 +7345,7 @@
           // Fallback seguro caso a API seja bloqueada
           var target = document.getElementById('vsl-yt-player-target');
           if (target) {
-            target.innerHTML = '<iframe src="https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&controls=0&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>';
+            target.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>';
           }
         });
       }
