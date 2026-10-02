@@ -1094,9 +1094,10 @@
               <div class="hero-video-ambient-glow"></div>
 
               <!-- Main Player Element: Abre Modo Cinema com VSL Player Personalizado -->
-              <a href="#oferta" id="hero-vsl-trigger" data-vsl-trigger="true" data-w-id="e281308c-2ee1-da0b-1630-520382abde44" style="opacity: 1;"
-                class="hero-showcase-player w-inline-block w-lightbox"
-                aria-label="Assistir ao vídeo: Entenda como funciona" aria-haspopup="dialog">
+              <a href="javascript:void(0)" id="hero-vsl-trigger" data-vsl-trigger="true" style="opacity: 1;"
+                class="hero-showcase-player w-inline-block"
+                role="button" tabindex="0"
+                aria-label="Assistir ao vídeo: Entenda como funciona">
                 <!-- Video Poster Image -->
                 <img src="./assets/images/video_poster_N2lwNJf2nwY.jpg" loading="lazy"
                   alt="Demonstração: Entenda como funciona - Consultoria de crédito Aprov" class="hero-video-poster">
@@ -1116,22 +1117,6 @@
                     Clique para assistir ao vídeo
                   </div>
                 </div>
-
-                <!-- Webflow Lightbox JSON Payload -->
-                <script type="application/json" class="w-json">{
-      "items": [
-        {
-          "url": "https://youtube.com/watch?v=N2lwNJf2nwY",
-          "originalUrl": "https://youtube.com/watch?v=N2lwNJf2nwY",
-          "width": 1403,
-          "height": 789,
-          "thumbnailUrl": "https://i.ytimg.com/vi/N2lwNJf2nwY/hqdefault.jpg",
-          "html": "<iframe class=\"embedly-embed\" width=\"1403\" height=\"789\" src=\"https://www.youtube-nocookie.com/embed/N2lwNJf2nwY?autoplay=1&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;iv_load_policy=3&amp;disablekb=1\" title=\"Apresentação Exclusiva\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"true\"></iframe>",
-          "type": "video"
-        }
-      ],
-      "group": ""
-    }</script>
               </a>
             </div>
           </div>
@@ -7291,19 +7276,32 @@
         }
       }
 
-      function mountPlayer() {
-        if (isPlayerMounted) {
-          if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
-            ytPlayer.playVideo();
+      function mountPlayer(autoPlayNow) {
+        if (isPlayerMounted && ytPlayer) {
+          if (autoPlayNow && typeof ytPlayer.playVideo === 'function') {
+            try {
+              ytPlayer.playVideo();
+              updatePlayState(true);
+              startTracking();
+            } catch (e) {
+              try {
+                ytPlayer.mute();
+                ytPlayer.playVideo();
+                updatePlayState(true);
+                updateVolumeState(true);
+                startTracking();
+              } catch (err) {}
+            }
           }
           return;
         }
 
         loadYouTubeApi().then(function () {
+          if (isPlayerMounted) return;
           ytPlayer = new YT.Player('vsl-yt-player-target', {
             videoId: VIDEO_ID,
             playerVars: {
-              autoplay: 1,
+              autoplay: autoPlayNow ? 1 : 0,
               controls: 0,           // Oculta timeline e barra nativa do YouTube
               rel: 0,                // Oculta sugestões de outros canais
               modestbranding: 1,     // Oculta logo do YouTube
@@ -7318,9 +7316,21 @@
             events: {
               onReady: function (event) {
                 isPlayerMounted = true;
-                event.target.playVideo();
-                updatePlayState(true);
-                startTracking();
+                if (autoPlayNow) {
+                  try {
+                    event.target.playVideo();
+                    updatePlayState(true);
+                    startTracking();
+                  } catch (e) {
+                    try {
+                      event.target.mute();
+                      event.target.playVideo();
+                      updatePlayState(true);
+                      updateVolumeState(true);
+                      startTracking();
+                    } catch (err) {}
+                  }
+                }
                 if (typeof event.target.isMuted === 'function') {
                   updateVolumeState(event.target.isMuted());
                 }
@@ -7352,14 +7362,32 @@
 
       function openModal() {
         modal.style.display = 'flex';
-        // Forçar reflow para animação fluida
+        // Forçar reflow para transição imediata e fluida
         void modal.offsetHeight;
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
 
-        mountPlayer();
         resetControlsTimer();
+
+        // Autoplay imediato:
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+          try {
+            ytPlayer.playVideo();
+            updatePlayState(true);
+            startTracking();
+          } catch (e) {
+            try {
+              ytPlayer.mute();
+              ytPlayer.playVideo();
+              updatePlayState(true);
+              updateVolumeState(true);
+              startTracking();
+            } catch (err) {}
+          }
+        } else {
+          mountPlayer(true);
+        }
       }
 
       function closeModal() {
@@ -7382,13 +7410,21 @@
         }, 300);
       }
 
-      // Event Listeners
+      // Event Listeners no disparador (Captura com execução prioritária)
       trigger.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+        // Disparo síncrono de reprodução no exato momento do clique do usuário
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+          try {
+            ytPlayer.playVideo();
+          } catch (err) {}
+        }
+
         openModal();
-      });
+      }, true);
 
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
       if (backdrop) backdrop.addEventListener('click', closeModal);
@@ -7445,6 +7481,11 @@
           }
         }
       });
+
+      // Pré-inicialização em segundo plano: carrega a API e pré-aquece o player para autoplay INSTANTÂNEO
+      setTimeout(function () {
+        mountPlayer(false);
+      }, 500);
     })();
   </script>
 
