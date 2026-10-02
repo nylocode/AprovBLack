@@ -1093,8 +1093,8 @@
               <!-- Ambient background glow -->
               <div class="hero-video-ambient-glow"></div>
 
-              <!-- Main Player Element with Webflow Lightbox -->
-              <a href="#oferta" data-w-id="e281308c-2ee1-da0b-1630-520382abde44" style="opacity: 1;"
+              <!-- Main Player Element: Abre Modo Cinema com VSL Player Personalizado -->
+              <a href="#oferta" id="hero-vsl-trigger" data-vsl-trigger="true" data-w-id="e281308c-2ee1-da0b-1630-520382abde44" style="opacity: 1;"
                 class="hero-showcase-player w-inline-block w-lightbox"
                 aria-label="Assistir ao vídeo: Entenda como funciona" aria-haspopup="dialog">
                 <!-- Video Poster Image -->
@@ -6658,6 +6658,765 @@
         window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       });
     }
+  </script>
+
+  <!-- ========================================================================= -->
+  <!-- VSL CINEMA MODE MODAL (Player Retenção com Barra Fictícia e Trava YouTube) -->
+  <!-- ========================================================================= -->
+  <style>
+    /* VSL Cinema Modal Styles */
+    .vsl-cinema-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .vsl-cinema-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .vsl-cinema-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 4, 8, 0.95);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      cursor: pointer;
+    }
+
+    .vsl-cinema-dialog {
+      position: relative;
+      z-index: 2;
+      width: 94%;
+      max-width: 1060px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transform: scale(0.96) translateY(12px);
+      transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .vsl-cinema-modal.is-open .vsl-cinema-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .vsl-cinema-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .vsl-cinema-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .vsl-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e5a163;
+      box-shadow: 0 0 10px #e5a163;
+      animation: pulseVslDot 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseVslDot {
+      0% { transform: scale(0.9); opacity: 0.75; }
+      50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #e5a163; }
+      100% { transform: scale(0.9); opacity: 0.75; }
+    }
+
+    .vsl-cinema-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 250ms ease;
+    }
+
+    .vsl-cinema-close-btn:hover {
+      background: var(--brand-primary, #e5a163);
+      color: #0b0817;
+      border-color: var(--brand-primary, #e5a163);
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(229, 161, 99, 0.4);
+    }
+
+    /* Theater Stage */
+    .vsl-theater-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 55px rgba(229, 161, 99, 0.22);
+      border: 1px solid rgba(229, 161, 99, 0.25);
+    }
+
+    .vsl-yt-iframe-container {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      pointer-events: none;
+    }
+
+    .vsl-yt-iframe-container iframe {
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      display: block;
+    }
+
+    /* Transparent Click Shield: prevents interacting with YouTube UI, toggles play/pause */
+    .vsl-click-shield {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    /* Center Pulse Feedback */
+    .vsl-center-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(8, 6, 22, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 161, 99, 0.4);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 161, 99, 0.35);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      transition: all 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .vsl-center-indicator.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .vsl-center-indicator svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+
+    /* Bottom Control Bar - Exactly matching user spec */
+    .vsl-controls-bar {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+      padding: 40px 16px 14px 16px;
+      transition: opacity 300ms ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .vsl-controls-bar.vsl-controls-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Fake Progress Bar (User provided styling: gold gradient with glow) */
+    .vsl-progress-wrap {
+      position: relative;
+      height: 8px;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: default;
+    }
+
+    .vsl-progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.85) 0%, #d4af37 40%, #e5a163 70%, #ffc078 100%);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
+      transition: width 200ms linear;
+      width: 0%;
+      position: relative;
+    }
+
+    .vsl-progress-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      border-radius: 999px;
+      background: #ffffff;
+      box-shadow: 0 0 8px #ffffff;
+    }
+
+    /* Buttons Row */
+    .vsl-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .vsl-btn {
+      color: #ffffff;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 200ms ease, transform 150ms ease;
+      outline: none;
+    }
+
+    .vsl-btn:hover {
+      color: var(--brand-primary, #e5a163);
+      transform: scale(1.12);
+    }
+
+    .vsl-btn svg {
+      display: block;
+    }
+
+    .vsl-title-bar {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: -0.2px;
+      margin-left: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      user-select: none;
+    }
+
+    .vsl-spacer {
+      flex: 1;
+    }
+
+    @media screen and (max-width: 767px) {
+      .vsl-cinema-dialog {
+        width: 96%;
+        gap: 8px;
+      }
+      .vsl-theater-stage {
+        border-radius: 14px;
+      }
+      .vsl-controls-bar {
+        padding: 24px 10px 10px 10px;
+        gap: 6px;
+      }
+      .vsl-title-bar {
+        display: none;
+      }
+    }
+  </style>
+
+  <!-- Cinema Mode VSL Modal Markup -->
+  <div id="vsl-cinema-modal" class="vsl-cinema-modal" role="dialog" aria-modal="true" aria-hidden="true" style="display: none;">
+    <!-- Backdrop Blur -->
+    <div id="vsl-cinema-backdrop" class="vsl-cinema-backdrop"></div>
+
+    <div class="vsl-cinema-dialog">
+      <!-- Top Bar: Close Button and Title -->
+      <div class="vsl-cinema-topbar">
+        <div class="vsl-cinema-badge">
+          <span class="vsl-live-dot"></span>
+          <span>Apresentação Exclusiva</span>
+        </div>
+        <button id="vsl-cinema-close-btn" class="vsl-cinema-close-btn" aria-label="Fechar vídeo">
+          <span class="vsl-close-label">Fechar (Esc)</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Theater Stage (16:9 Aspect Ratio) -->
+      <div id="vsl-theater-stage" class="vsl-theater-stage">
+        <!-- YouTube Player Target Container -->
+        <div id="vsl-yt-iframe-container" class="vsl-yt-iframe-container">
+          <div id="vsl-yt-player-target"></div>
+        </div>
+
+        <!-- Transparent Click Shield: trava links externos do YouTube e permite Play/Pause com 1 clique -->
+        <div id="vsl-click-shield" class="vsl-click-shield" title="Clique para pausar ou reproduzir"></div>
+
+        <!-- Feedback Central Play / Pause -->
+        <div id="vsl-center-indicator" class="vsl-center-indicator">
+          <svg id="vsl-center-icon-play" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="6 3 20 12 6 21 6 3"></polygon>
+          </svg>
+          <svg id="vsl-center-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+            <rect x="14" y="3" width="5" height="18" rx="1"></rect>
+            <rect x="5" y="3" width="5" height="18" rx="1"></rect>
+          </svg>
+        </div>
+
+        <!-- Barra de Controles Personalizada (Exato modelo fornecido) -->
+        <div id="vsl-controls-bar" class="vsl-controls-bar vsl-controls-visible">
+          <!-- Barra de Progresso Fictícia -->
+          <div class="vsl-progress-wrap" title="Progresso do vídeo">
+            <div id="vsl-fake-progress-fill" class="vsl-progress-fill" style="width: 0%;"></div>
+          </div>
+
+          <!-- Linha de Botões -->
+          <div class="vsl-controls-row">
+            <!-- Play / Pause -->
+            <button id="vsl-btn-play" class="vsl-btn" aria-label="Pausar">
+              <svg id="vsl-icon-pause" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="14" y="3" width="5" height="18" rx="1"></rect>
+                <rect x="5" y="3" width="5" height="18" rx="1"></rect>
+              </svg>
+              <svg id="vsl-icon-play" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <polygon points="6 3 20 12 6 21 6 3"></polygon>
+              </svg>
+            </button>
+
+            <!-- Mute / Unmute -->
+            <button id="vsl-btn-volume" class="vsl-btn" aria-label="Silenciar">
+              <svg id="vsl-icon-vol-on" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+                <path d="M16 9a5 5 0 0 1 0 6"></path>
+                <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+              </svg>
+              <svg id="vsl-icon-vol-mute" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+                <line x1="22" y1="9" x2="16" y2="15"></line>
+                <line x1="16" y1="9" x2="22" y2="15"></line>
+              </svg>
+            </button>
+
+            <!-- Título do Vídeo -->
+            <div class="vsl-title-bar">
+              <span>Entenda como funciona</span>
+            </div>
+
+            <div class="vsl-spacer"></div>
+
+            <!-- Fullscreen -->
+            <button id="vsl-btn-fullscreen" class="vsl-btn" aria-label="Tela cheia">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6"></path>
+                <path d="m21 3-7 7"></path>
+                <path d="m3 21 7-7"></path>
+                <path d="M9 21H3v-6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VSL Cinema Mode Controller Script -->
+  <script>
+    (function initVslCinemaPlayer() {
+      var VIDEO_ID = 'N2lwNJf2nwY';
+      var modal = document.getElementById('vsl-cinema-modal');
+      var backdrop = document.getElementById('vsl-cinema-backdrop');
+      var closeBtn = document.getElementById('vsl-cinema-close-btn');
+      var trigger = document.getElementById('hero-vsl-trigger') || document.querySelector('[data-vsl-trigger="true"]');
+      var stage = document.getElementById('vsl-theater-stage');
+      var clickShield = document.getElementById('vsl-click-shield');
+      var centerIndicator = document.getElementById('vsl-center-indicator');
+      var centerIconPlay = document.getElementById('vsl-center-icon-play');
+      var centerIconPause = document.getElementById('vsl-center-icon-pause');
+      var controlsBar = document.getElementById('vsl-controls-bar');
+      var progressFill = document.getElementById('vsl-fake-progress-fill');
+      var btnPlay = document.getElementById('vsl-btn-play');
+      var iconPause = document.getElementById('vsl-icon-pause');
+      var iconPlay = document.getElementById('vsl-icon-play');
+      var btnVolume = document.getElementById('vsl-btn-volume');
+      var iconVolOn = document.getElementById('vsl-icon-vol-on');
+      var iconVolMute = document.getElementById('vsl-icon-vol-mute');
+      var btnFullscreen = document.getElementById('vsl-btn-fullscreen');
+
+      if (!modal || !trigger) return;
+
+      var ytPlayer = null;
+      var isPlayerMounted = false;
+      var isPlaying = false;
+      var isMuted = false;
+      var trackingInterval = null;
+      var hideControlsTimer = null;
+      var centerPulseTimer = null;
+
+      // Curva matemática da Barra Fictícia:
+      // - Primeiros 2 min (120s): avança rápido com curva ease-out, atingindo ~78%
+      // - Após 2 min: desacelera e progride suavemente de 78% até 99%
+      // - Fim do vídeo: 100%
+      function calculateFakeProgress(currentTime, duration) {
+        if (!duration || duration <= 0 || currentTime <= 0) return 0;
+        if (currentTime >= duration) return 100;
+
+        var FIRST_PHASE_SEC = 120; // 2 minutos
+        var FIRST_PHASE_PCT = 78;  // 78% nos primeiros 2 min
+
+        if (currentTime <= FIRST_PHASE_SEC) {
+          var ratio = currentTime / FIRST_PHASE_SEC;
+          var curved = 1 - Math.pow(1 - ratio, 1.6);
+          return Math.min(FIRST_PHASE_PCT, curved * FIRST_PHASE_PCT);
+        } else {
+          var remainingTime = Math.max(1, duration - FIRST_PHASE_SEC);
+          var remainingCurrent = currentTime - FIRST_PHASE_SEC;
+          var ratio2 = Math.min(1, Math.max(0, remainingCurrent / remainingTime));
+          var curved2 = Math.pow(ratio2, 0.8);
+          var remainingRange = 99 - FIRST_PHASE_PCT;
+          return FIRST_PHASE_PCT + (curved2 * remainingRange);
+        }
+      }
+
+      function loadYouTubeApi() {
+        if (window.YT && window.YT.Player) return Promise.resolve();
+        return new Promise(function (resolve, reject) {
+          var timeout = setTimeout(function () {
+            if (window.YT && window.YT.Player) resolve();
+            else reject(new Error('YouTube API Timeout'));
+          }, 4000);
+
+          var existing = document.querySelector('script[src*="youtube.com/iframe_api"]');
+          if (!existing) {
+            var tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            tag.onerror = function () {
+              clearTimeout(timeout);
+              reject(new Error('YouTube API Load Error'));
+            };
+            document.head.appendChild(tag);
+          }
+
+          var checkInterval = setInterval(function () {
+            if (window.YT && window.YT.Player) {
+              clearInterval(checkInterval);
+              clearTimeout(timeout);
+              resolve();
+            }
+          }, 50);
+        });
+      }
+
+      function showCenterPulse(action) {
+        if (!centerIndicator) return;
+        if (centerPulseTimer) clearTimeout(centerPulseTimer);
+
+        if (action === 'play') {
+          if (centerIconPlay) centerIconPlay.style.display = 'block';
+          if (centerIconPause) centerIconPause.style.display = 'none';
+        } else {
+          if (centerIconPlay) centerIconPlay.style.display = 'none';
+          if (centerIconPause) centerIconPause.style.display = 'block';
+        }
+
+        centerIndicator.classList.add('is-visible');
+        centerPulseTimer = setTimeout(function () {
+          centerIndicator.classList.remove('is-visible');
+        }, 550);
+      }
+
+      function resetControlsTimer() {
+        if (!controlsBar) return;
+        controlsBar.classList.add('vsl-controls-visible');
+        if (hideControlsTimer) clearTimeout(hideControlsTimer);
+
+        if (isPlaying) {
+          hideControlsTimer = setTimeout(function () {
+            controlsBar.classList.remove('vsl-controls-visible');
+          }, 2400);
+        }
+      }
+
+      function updatePlayState(playing) {
+        isPlaying = playing;
+        if (iconPause && iconPlay) {
+          if (playing) {
+            iconPause.style.display = 'block';
+            iconPlay.style.display = 'none';
+            if (btnPlay) btnPlay.setAttribute('aria-label', 'Pausar');
+          } else {
+            iconPause.style.display = 'none';
+            iconPlay.style.display = 'block';
+            if (btnPlay) btnPlay.setAttribute('aria-label', 'Reproduzir');
+          }
+        }
+        resetControlsTimer();
+      }
+
+      function updateVolumeState(muted) {
+        isMuted = muted;
+        if (iconVolOn && iconVolMute) {
+          if (muted) {
+            iconVolOn.style.display = 'none';
+            iconVolMute.style.display = 'block';
+            if (btnVolume) btnVolume.setAttribute('aria-label', 'Ativar som');
+          } else {
+            iconVolOn.style.display = 'block';
+            iconVolMute.style.display = 'none';
+            if (btnVolume) btnVolume.setAttribute('aria-label', 'Silenciar');
+          }
+        }
+      }
+
+      function startTracking() {
+        if (trackingInterval) clearInterval(trackingInterval);
+        trackingInterval = setInterval(function () {
+          if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
+          var cur = ytPlayer.getCurrentTime() || 0;
+          var dur = ytPlayer.getDuration() || 0;
+          var pct = calculateFakeProgress(cur, dur);
+          if (progressFill) {
+            progressFill.style.width = pct.toFixed(2) + '%';
+          }
+        }, 120);
+      }
+
+      function stopTracking() {
+        if (trackingInterval) {
+          clearInterval(trackingInterval);
+          trackingInterval = null;
+        }
+      }
+
+      function togglePlayPause() {
+        if (!ytPlayer) return;
+        try {
+          if (isPlaying) {
+            ytPlayer.pauseVideo();
+            showCenterPulse('pause');
+          } else {
+            ytPlayer.playVideo();
+            showCenterPulse('play');
+          }
+        } catch (e) {}
+      }
+
+      function toggleMute() {
+        if (!ytPlayer) return;
+        try {
+          if (typeof ytPlayer.isMuted === 'function' && ytPlayer.isMuted()) {
+            ytPlayer.unMute();
+            updateVolumeState(false);
+          } else {
+            ytPlayer.mute();
+            updateVolumeState(true);
+          }
+        } catch (e) {}
+      }
+
+      function toggleFullscreen() {
+        if (!stage) return;
+        if (!document.fullscreenElement) {
+          if (stage.requestFullscreen) stage.requestFullscreen();
+          else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+          else if (stage.msRequestFullscreen) stage.msRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+      }
+
+      function mountPlayer() {
+        if (isPlayerMounted) {
+          if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            ytPlayer.playVideo();
+          }
+          return;
+        }
+
+        loadYouTubeApi().then(function () {
+          ytPlayer = new YT.Player('vsl-yt-player-target', {
+            videoId: VIDEO_ID,
+            playerVars: {
+              autoplay: 1,
+              controls: 0,           // Oculta timeline e barra nativa do YouTube
+              rel: 0,                // Oculta sugestões de outros canais
+              modestbranding: 1,     // Oculta logo do YouTube
+              iv_load_policy: 3,     // Oculta anotações
+              disablekb: 1,          // Desativa atalhos de teclado do player padrão
+              playsinline: 1,
+              fs: 0,                 // Tela cheia controlada pelo botão personalizado
+              enablejsapi: 1,
+              origin: window.location.origin
+            },
+            events: {
+              onReady: function (event) {
+                isPlayerMounted = true;
+                event.target.playVideo();
+                updatePlayState(true);
+                startTracking();
+                if (typeof event.target.isMuted === 'function') {
+                  updateVolumeState(event.target.isMuted());
+                }
+              },
+              onStateChange: function (event) {
+                // YT.PlayerState: PLAYING=1, PAUSED=2, ENDED=0
+                if (event.data === 1) {
+                  updatePlayState(true);
+                  startTracking();
+                } else if (event.data === 2) {
+                  updatePlayState(false);
+                  stopTracking();
+                } else if (event.data === 0) {
+                  updatePlayState(false);
+                  stopTracking();
+                  if (progressFill) progressFill.style.width = '100%';
+                }
+              }
+            }
+          });
+        }).catch(function () {
+          // Fallback seguro caso a API seja bloqueada
+          var target = document.getElementById('vsl-yt-player-target');
+          if (target) {
+            target.innerHTML = '<iframe src="https://www.youtube.com/embed/' + VIDEO_ID + '?autoplay=1&controls=0&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>';
+          }
+        });
+      }
+
+      function openModal() {
+        modal.style.display = 'flex';
+        // Forçar reflow para animação fluida
+        void modal.offsetHeight;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        mountPlayer();
+        resetControlsTimer();
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+
+        stopTracking();
+        if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+          try {
+            ytPlayer.pauseVideo();
+          } catch (e) {}
+        }
+        updatePlayState(false);
+
+        setTimeout(function () {
+          if (!modal.classList.contains('is-open')) {
+            modal.style.display = 'none';
+          }
+        }, 300);
+      }
+
+      // Event Listeners
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        openModal();
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+
+      if (clickShield) {
+        clickShield.addEventListener('click', function (e) {
+          e.preventDefault();
+          togglePlayPause();
+        });
+      }
+
+      if (btnPlay) {
+        btnPlay.addEventListener('click', function (e) {
+          e.stopPropagation();
+          togglePlayPause();
+        });
+      }
+
+      if (btnVolume) {
+        btnVolume.addEventListener('click', function (e) {
+          e.stopPropagation();
+          toggleMute();
+        });
+      }
+
+      if (btnFullscreen) {
+        btnFullscreen.addEventListener('click', function (e) {
+          e.stopPropagation();
+          toggleFullscreen();
+        });
+      }
+
+      // Atividade do mouse para mostrar/ocultar barra de controles
+      if (stage) {
+        stage.addEventListener('mousemove', resetControlsTimer);
+        stage.addEventListener('mouseenter', resetControlsTimer);
+        stage.addEventListener('mouseleave', function () {
+          if (isPlaying && controlsBar) {
+            controlsBar.classList.remove('vsl-controls-visible');
+          }
+        });
+      }
+
+      // Teclado: Esc fecha modal, Espaço alterna play/pause
+      document.addEventListener('keydown', function (e) {
+        if (!modal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') {
+          closeModal();
+        } else if (e.key === ' ' || e.code === 'Space') {
+          var tag = (e.target.tagName || '').toLowerCase();
+          if (tag !== 'input' && tag !== 'textarea') {
+            e.preventDefault();
+            togglePlayPause();
+          }
+        }
+      });
+    })();
   </script>
 
 </body>
